@@ -6,7 +6,7 @@ if (!isset($_GET['aendern'])) {
     $lieferanten = $db->getLieferanten();
 
     echo "<div>";
-    echo "<table class='table-condensed'>";
+    echo '<table class="table table-striped">';
     echo "<tr><th>ID</th><th>Name</th><th>Telefonnummer</th><th>Strasse</th><th>PLZ</th><th>Ort</th><th>Land</th><th>aktiv</th></tr>";
 
     foreach ($lieferanten as $lieferant) {

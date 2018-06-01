@@ -33,13 +33,13 @@ class DB {
     //gibt einen Lieferanten nach Id zurück
     function getLieferant($lieferantId) {
         $this->doConnect();
-        $query = "SELECT lieferantId, name, Lieferant.telefonnummer, strasse, plz, Ort.bezeichnung, Land.bezeichnung, aktiv, skonto, rabatt, zahlungsziel, lieferkosten, incoterms, transportart, vorname, nachname, LieferantenKontaktperson.telefonnummer"
+        $query = "SELECT lieferantId, name, Lieferant.telefonnummer, strasse, plz, Ort.bezeichnung, Land.bezeichnung, aktiv, skonto, rabatt, zahlungszieltage, kosten, typ, transportart, vorname, nachname, LieferantenKontaktperson.telefonnummer"
                 . "FROM lieferant "
                 . "JOIN ort USING(ortid) "
                 . "JOIN land USING(landid) "
                 . "JOIN lieferbedingungen USING(lieferbedingungid) "
                 . "JOIN zahlungsbedingungen USING(zahlungsbedingungid) "
-                . "JOIN lieferantkontaktperson USING(lieferantid) "
+                . "LEFT JOIN lieferantenkontaktperson USING(lieferantid) "
                 . "JOIN incoterms USING(incotermsid) "
                 . "JOIN transportart USING(transportartid) "
                 . "WHERE lieferantid=?;";
