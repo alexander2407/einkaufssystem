@@ -8,7 +8,7 @@ if (isset($_GET['menu'])) {
     $_SESSION['menu'] = $active;
 }
 if (!isset($_SESSION['menu'])){
-    $_SESSION['menu'] = "offene_bestellung";
+    $_SESSION['menu'] = "offene_bestellungen";
 }
 if (isset($_SESSION['menu'])) {
     $active = $_SESSION['menu'];
@@ -31,7 +31,7 @@ and open the template in the editor.
     <body>
         <div class="container">
             <div class="jumbotron">
-                <h1>Einkaufssystem</h1>
+                <h1>HiFi Einkaufssystem</h1>
             </div>
             <div class="col-md-3">        
                 <ul class="nav nav-pills nav-stacked">

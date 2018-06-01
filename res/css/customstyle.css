@@ -1,0 +1,9 @@
+.mitarbeiter{
+    text-align: center;
+    width: 70%;
+}
+
+.mitarbeiter img{
+    width: 170px;
+    box-shadow: 3px 3px 5px grey;
+}
