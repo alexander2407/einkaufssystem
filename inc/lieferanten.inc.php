@@ -1,8 +1,21 @@
 <?php
+include '../utility/DB.class.php';
+$db = new DB();
+$lieferanten = $db->getLieferanten();
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+echo "<div>";
+echo "<table>";
+echo "<tr><th>ID</th><th>Name</th><th>Telefonnummer</th><th>Strasse</th><th>PLZ</th><th>Ort</th><th>Land</th><th>aktiv</th></tr>";
+
+foreach ($lieferanten as $lieferant) {
+    
+    
+}
+
+
+echo "</table>";
+echo "</div>";
+
+?>
+
 
