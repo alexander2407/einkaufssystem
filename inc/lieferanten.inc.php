@@ -18,6 +18,8 @@ foreach ($lieferanten as $lieferant) {
     echo "<td>" . $lieferant->getOrt() . "</td>";
     echo "<td>" . $lieferant->getLand() . "</td>";
     echo "<td>" . $lieferant->getAktiv() . "</td>";
+    echo "<td><a href='index.php?aendern=".$lieferant->getLieferantenId()."'>Ändern</a></td>";
+    echo "<td><a href='index.php?loeschen=".$lieferant->getLieferantenId()."'>Deaktivieren</a></td>";
     echo "</tr>";
 }
 
