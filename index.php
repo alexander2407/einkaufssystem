@@ -55,7 +55,13 @@ and open the template in the editor.
                          Benutzer gerade ist und abhängig davon eine andere php datei inkludiert 
                          Im Falle eines Detailaufrufs soll das gesamte Main durch die Rückgabe von ajax überschrieben werden
                          (wie beim Web Test)-->
-                    Hier kann auch Ihr Content stehen
+                    <?php
+                        if(isset($_SESSION['menu'])) {
+                            if ($_SESSION['menu'] == "lieferanten") {
+                                include './inc/lieferanten.inc.php';
+                            }
+                        }
+                    ?>
                 </main>
             </div>			
         </div>
