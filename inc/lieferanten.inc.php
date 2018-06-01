@@ -1,5 +1,4 @@
 <?php
-
 include '../utility/DB.class.php';
 
 if (!isset($_GET['aendern'])) {
@@ -30,7 +29,54 @@ if (!isset($_GET['aendern'])) {
 } else {
     $db = new DB();
     $lieferant = $db->getLieferant($_GET['aendern']);
-    
+    ?>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Telefonnummer</label>
+            <div class="col-sm-10">
+                <input type="number" name="telefonnummer" class="form-control" id="inputEmail3" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Strasse</label>
+            <div class="col-sm-10">
+                <input type="text" name="strasse" class="form-control" id="inputEmail3" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">PLZ</label>
+            <div class="col-sm-10">
+                <input type="number" name="plz" class="form-control" id="inputEmail3" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Ort (ID eingeben)</label>
+            <div class="col-sm-10">
+                <input type="text" name="ort" class="form-control" id="inputEmail3" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Land (ID eingeben)</label>
+            <div class="col-sm-10">
+                <input type="text" name="land" class="form-control" id="inputEmail3" placeholder="Email">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Änderungen übernehmen</button>
+            </div>
+        </div>
+    </form>
+    <?php
 }
 ?>
 
