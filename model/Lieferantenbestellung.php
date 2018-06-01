@@ -12,13 +12,13 @@
  * @author AlexB
  */
 class Lieferantenbestellung {
-    private $lieferantenbestellungId;   //id   
+    private $lieferantenbestellungsId;   //id   
     private $lieferantId;               //lieferantenId
     private $lieferantName;             //Lieferantenname
     private $zahlungsmethode;           //Zahlungsmethode String
     
     function getLieferantenbestellungId() {
-        return $this->lieferantenbestellungId;
+        return $this->lieferantenbestellungsId;
     }
 
     function getLieferantId() {
@@ -33,8 +33,8 @@ class Lieferantenbestellung {
         return $this->zahlungsmethode;
     }
 
-    function setLieferantenbestellungId($lieferantenbestellungId) {
-        $this->lieferantenbestellungId = $lieferantenbestellungId;
+    function setLieferantenbestellungId($lieferantenbestellungsId) {
+        $this->lieferantenbestellungsId = $lieferantenbestellungsId;
     }
 
     function setLieferantId($lieferantId) {
@@ -49,8 +49,8 @@ class Lieferantenbestellung {
         $this->zahlungsmethode = $zahlungsmethode;
     }
 
-    function __construct($lieferantenbestellungId, $lieferantId, $lieferantName, $zahlungsmethode) {
-        $this->lieferantenbestellungId = $lieferantenbestellungId;
+    function __construct($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode) {
+        $this->lieferantenbestellungsId = $lieferantenbestellungsId;
         $this->lieferantId = $lieferantId;
         $this->lieferantName = $lieferantName;
         $this->zahlungsmethode = $zahlungsmethode;

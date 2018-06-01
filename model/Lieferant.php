@@ -12,18 +12,17 @@
  * @author AlexB
  */
 class Lieferant {
-    private $lieferantenId;
+    private $lieferantId;
     private $name;
     private $telefonnummer;
     private $strasse;
     private $plz;
     private $ort;
     private $land;
-    private $land_kennzeichen;
     private $aktiv;
     
     function getLieferantenId() {
-        return $this->lieferantenId;
+        return $this->lieferantId;
     }
 
     function getName() {
@@ -50,16 +49,12 @@ class Lieferant {
         return $this->land;
     }
 
-    function getLand_kennzeichen() {
-        return $this->land_kennzeichen;
-    }
-
     function getAktiv() {
         return $this->aktiv;
     }
 
-    function setLieferantenId($lieferantenId) {
-        $this->lieferantenId = $lieferantenId;
+    function setLieferantenId($lieferantId) {
+        $this->lieferantId = $lieferantId;
     }
 
     function setName($name) {
@@ -86,23 +81,19 @@ class Lieferant {
         $this->land = $land;
     }
 
-    function setLand_kennzeichen($land_kennzeichen) {
-        $this->land_kennzeichen = $land_kennzeichen;
-    }
 
     function setAktiv($aktiv) {
         $this->aktiv = $aktiv;
     }
 
-    function __construct($lieferantenId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $land_kennzeichen, $aktiv) {
-        $this->lieferantenId = $lieferantenId;
+    function __construct($lieferantId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $aktiv) {
+        $this->lieferantId = $lieferantId;
         $this->name = $name;
         $this->telefonnummer = $telefonnummer;
         $this->strasse = $strasse;
         $this->plz = $plz;
         $this->ort = $ort;
         $this->land = $land;
-        $this->land_kennzeichen = $land_kennzeichen;
         $this->aktiv = $aktiv;
     }
 

@@ -12,12 +12,22 @@
  * @author AlexB
  */
 class Lieferantenartikel {
+    private $lieferantenbestellungsId;
     private $artikelId;
     private $artikelName;
     private $lieferantId;
     private $lieferantName;
     private $anzahl;
     
+    function getLieferantenbestellungsId() {
+        return $this->lieferantenbestellungsid;
+    }
+
+    function setLieferantenbestellungsId($lieferantenbestellungsId) {
+        $this->lieferantenbestellungsId = $lieferantenbestellungsId;
+    }
+
+        
     function getArtikelId() {
         return $this->artikelId;
     }
@@ -58,7 +68,8 @@ class Lieferantenartikel {
         $this->anzahl = $anzahl;
     }
 
-    function __construct($artikelId, $artikelName, $lieferantId, $lieferantName, $anzahl) {
+    function __construct($lieferantenbestellungsId,$artikelId, $artikelName, $lieferantId, $lieferantName, $anzahl) {
+        $this->lieferantenbestellungsId = $lieferantenbestellungsId;
         $this->artikelId = $artikelId;
         $this->artikelName = $artikelName;
         $this->lieferantId = $lieferantId;
