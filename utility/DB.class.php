@@ -58,12 +58,12 @@ class DB {
     function getArtikel() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfügbar, lagerstandaktuell FROM artikel";
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfügbar, lagerstandaktuell,aufschlag FROM artikel";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell);
+        $stmt->bind_result($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell,$aufschlag);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell);
+            $artikel = new Artikel($artikelId,$artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell,$aufschlag);
             array_push($resultArray, $artikel);
         }
         $this->conn->close();
@@ -73,15 +73,15 @@ class DB {
     //gibt einen Artikel nach Id zurück
     function getArtikelWithId($artikelId) {
         $this->doConnect();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfügbar, lagerstandaktuell "
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfügbar, lagerstandaktuell,aufschlag "
                 . "FROM artikel "
                 . "WHERE artikelId = ?;";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $artikelId);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell);
+        $stmt->bind_result($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell);
+            $artikel = new Artikel($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
         }
         $this->conn->close();
         return $artikel;
@@ -99,7 +99,7 @@ class DB {
         $stmt->execute();
         $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
         while ($stmt->fetch()) {
-            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
+            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, null, $lieferantName, null, $zahlungsmethode);
             array_push($resultArray, $lieferantenbestellung);
         }
         $this->conn->close();
@@ -118,7 +118,7 @@ class DB {
         $stmt->execute();
         $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
         while ($stmt->fetch()) {
-            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
+            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, null, $lieferantName, null, $zahlungsmethode);        
         }
         $this->conn->close();
         return $lieferantenbestellung;
@@ -138,7 +138,7 @@ class DB {
         $stmt->execute();
         $stmt->bind_result($lieferantenbestellungsId, $artikelId, $artikelName, $lieferantId, $lieferantName, $anzahl);
         while ($stmt->fetch()) {
-            $lieferantenartikel = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
+            $lieferantenartikel = new Lieferantenartikel($lieferantenbestellungsId, null, $artikelId, $artikelName, $lieferantId, $lieferantName, $anzahl);
             array_push($resultArray, $lieferantenartikel);
         }
         $this->conn->close();
