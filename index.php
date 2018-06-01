@@ -14,5 +14,6 @@ and open the template in the editor.
     <body>
         Test
         Test 2
+        Test 3
     </body>
 </html>
