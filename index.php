@@ -33,7 +33,7 @@ and open the template in the editor.
             <div class="jumbotron">
                 <h1>HiFi Einkaufssystem</h1>
             </div>
-            <div class="col-md-3">        
+            <div class="col-md-2">        
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation" <?php if($active=="lieferanten"){ echo 'class="active"';}?>><a href="index.php?menu=lieferanten">Lieferanten</a></li>
                     <li role="presentation" <?php if($active=="artikel"){ echo 'class="active"';}?>><a href="index.php?menu=artikel">Artikel</a></li>
@@ -41,7 +41,7 @@ and open the template in the editor.
                     <li role="presentation" <?php if($active=="offene_bestellungen"){ echo 'class="active"';}?>><a href="index.php?menu=offene_bestellungen">Offene Bestellungen</a></li>
                 </ul>
             </div>
-            <div class="col-md-9" id="content">
+            <div class="col-md-10" id="content">
                 <main>
                     Hier kann auch Ihr Content stehen
                 </main>
