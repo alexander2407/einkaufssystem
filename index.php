@@ -1,6 +1,14 @@
 <?php
 session_start();
 
+include './model/Artikel.php';
+include './model/Lieferant.php';
+include './model/LieferantDetail.php';
+include './model/Lieferantenbestellung.php';
+include './model/Lieferantenartikel.php';
+
+include './utility/DB.class.php';
+
 $active = "";
 
 if (isset($_GET['menu'])) {
