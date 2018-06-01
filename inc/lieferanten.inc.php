@@ -28,7 +28,8 @@ if (!isset($_GET['aendern'])) {
     echo "</div>";
 } else {
     $db = new DB();
-    $lieferant = $db->getLieferant($_GET['aendern']);
+    $id = $_GET['aendern'];
+    $lieferant = $db->getLieferant($id);
     ?>
 
     <form class="form-horizontal">
