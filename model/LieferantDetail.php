@@ -12,48 +12,100 @@
  * @author AlexB
  */
 class LieferantDetail {
-    private $lieferantenId;
+    private $lieferantId;
     private $name;
     private $telefonnummer;
     private $strasse;
+    private $ortId;
     private $plz;
     private $ort;
+    private $landId;
     private $land;
     private $land_kennzeichen;
     private $aktiv;
+    private $zahlungsbedingungId;
     private $skonto;
     private $rabatt;
     private $zahlungsziel;
+    private $lieferbedingungsId;
     private $lieferkosten;
     private $incoterms;
     private $transportart;
+    private $lieferantenkontaktpersonId;
     private $kontakt_vorname;
     private $kontakt_nachname;
     private $kontakt_telefonnummer;
     
-    function __construct($lieferantenId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $land_kennzeichen, $aktiv, $skonto, $rabatt, $zahlungsziel, $lieferkosten, $incoterms, $transportart, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer) {
-        $this->lieferantenId = $lieferantenId;
+    function __construct($lieferantId, $name, $telefonnummer, $strasse, $ortId, $plz, $ort, $landId, $land, $land_kennzeichen, $aktiv, $zahlungsbedingungId, $skonto, $rabatt, $zahlungsziel, $lieferbedingungsId, $lieferkosten, $incoterms, $transportart, $lieferantenkontaktpersonId, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer) {
+        $this->lieferantId = $lieferantId;
         $this->name = $name;
         $this->telefonnummer = $telefonnummer;
         $this->strasse = $strasse;
+        $this->ortId = $ortId;
         $this->plz = $plz;
         $this->ort = $ort;
+        $this->landId = $landId;
         $this->land = $land;
         $this->land_kennzeichen = $land_kennzeichen;
         $this->aktiv = $aktiv;
+        $this->zahlungsbedingungId = $zahlungsbedingungId;
         $this->skonto = $skonto;
         $this->rabatt = $rabatt;
         $this->zahlungsziel = $zahlungsziel;
+        $this->lieferbedingungsId = $lieferbedingungsId;
         $this->lieferkosten = $lieferkosten;
         $this->incoterms = $incoterms;
         $this->transportart = $transportart;
+        $this->lieferantenkontaktpersonId = $lieferantenkontaktpersonId;
         $this->kontakt_vorname = $kontakt_vorname;
         $this->kontakt_nachname = $kontakt_nachname;
         $this->kontakt_telefonnummer = $kontakt_telefonnummer;
     }
+
     
+    function getOrtId() {
+        return $this->ortId;
+    }
+
+    function getLandId() {
+        return $this->landId;
+    }
+
+    function getZahlungsbedingungId() {
+        return $this->zahlungsbedingungId;
+    }
+
+    function getLieferbedingungsId() {
+        return $this->lieferbedingungsId;
+    }
+
+    function getLieferantenkontaktpersonId() {
+        return $this->lieferantenkontaktpersonId;
+    }
+
+    function setOrtId($ortId) {
+        $this->ortId = $ortId;
+    }
+
+    function setLandId($landId) {
+        $this->landId = $landId;
+    }
+
+    function setZahlungsbedingungId($zahlungsbedingungId) {
+        $this->zahlungsbedingungId = $zahlungsbedingungId;
+    }
+
+    function setLieferbedingungsId($lieferbedingungsId) {
+        $this->lieferbedingungsId = $lieferbedingungsId;
+    }
+
+    function setLieferantenkontaktpersonId($lieferantenkontaktpersonId) {
+        $this->lieferantenkontaktpersonId = $lieferantenkontaktpersonId;
+    }
+
+        
     function getLieferantenId() {
-        return $this->lieferantenId;
+        return $this->lieferantId;
     }
 
     function getName() {
@@ -124,8 +176,8 @@ class LieferantDetail {
         return $this->kontakt_telefonnummer;
     }
 
-    function setLieferantenId($lieferantenId) {
-        $this->lieferantenId = $lieferantenId;
+    function setLieferantenId($lieferantId) {
+        $this->lieferantId = $lieferantId;
     }
 
     function setName($name) {

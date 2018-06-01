@@ -14,15 +14,20 @@
 class Lieferantenbestellung {
     private $lieferantenbestellungsId;   //id   
     private $lieferantId;               //lieferantenId
+    private $bestellschein;             //für die Eingabe in die Datenbank
     private $lieferantName;             //Lieferantenname
     private $zahlungsmethode;           //Zahlungsmethode String
     
-    function getLieferantenbestellungId() {
+    function getLieferantenbestellungsId() {
         return $this->lieferantenbestellungsId;
     }
 
     function getLieferantId() {
         return $this->lieferantId;
+    }
+
+    function getBestellschein() {
+        return $this->bestellschein;
     }
 
     function getLieferantName() {
@@ -33,12 +38,16 @@ class Lieferantenbestellung {
         return $this->zahlungsmethode;
     }
 
-    function setLieferantenbestellungId($lieferantenbestellungsId) {
+    function setLieferantenbestellungsId($lieferantenbestellungsId) {
         $this->lieferantenbestellungsId = $lieferantenbestellungsId;
     }
 
     function setLieferantId($lieferantId) {
         $this->lieferantId = $lieferantId;
+    }
+
+    function setBestellschein($bestellschein) {
+        $this->bestellschein = $bestellschein;
     }
 
     function setLieferantName($lieferantName) {
@@ -49,9 +58,10 @@ class Lieferantenbestellung {
         $this->zahlungsmethode = $zahlungsmethode;
     }
 
-    function __construct($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode) {
+    function __construct($lieferantenbestellungsId, $lieferantId, $bestellschein, $lieferantName, $zahlungsmethode) {
         $this->lieferantenbestellungsId = $lieferantenbestellungsId;
         $this->lieferantId = $lieferantId;
+        $this->bestellschein = $bestellschein;
         $this->lieferantName = $lieferantName;
         $this->zahlungsmethode = $zahlungsmethode;
     }

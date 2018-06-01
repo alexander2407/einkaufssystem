@@ -13,12 +13,23 @@
  */
 class Lieferantenartikel {
     private $lieferantenbestellungsId;
+    private $lieferantenlieferungsId;       //zum einfügen in DAtenbank, kA. was da genau drinnen stehen soll
     private $artikelId;
     private $artikelName;
     private $lieferantId;
     private $lieferantName;
     private $anzahl;
     
+        
+    function getLieferantenlieferungsId() {
+        return $this->lieferantenlieferungsId;
+    }
+
+    function setLieferantenlieferungsId($lieferantenlieferungsId) {
+        $this->lieferantenlieferungsId = $lieferantenlieferungsId;
+    }
+
+        
     function getLieferantenbestellungsId() {
         return $this->lieferantenbestellungsid;
     }
@@ -68,13 +79,15 @@ class Lieferantenartikel {
         $this->anzahl = $anzahl;
     }
 
-    function __construct($lieferantenbestellungsId,$artikelId, $artikelName, $lieferantId, $lieferantName, $anzahl) {
+    function __construct($lieferantenbestellungsId, $lieferantenlieferungsId, $artikelId, $artikelName, $lieferantId, $lieferantName, $anzahl) {
         $this->lieferantenbestellungsId = $lieferantenbestellungsId;
+        $this->lieferantenlieferungsId = $lieferantenlieferungsId;
         $this->artikelId = $artikelId;
         $this->artikelName = $artikelName;
         $this->lieferantId = $lieferantId;
         $this->lieferantName = $lieferantName;
         $this->anzahl = $anzahl;
     }
+
 
 }

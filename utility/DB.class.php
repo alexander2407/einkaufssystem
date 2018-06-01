@@ -33,17 +33,22 @@ class DB {
     //gibt einen Lieferanten nach Id zurück
     function getLieferant($lieferantId) {
         $this->doConnect();
-        $query = "SELECT lieferantId, name, telefonnummer, strasse, plz, Ort.bezeichnung, Land.bezeichnung, aktiv "
+        $query = "SELECT lieferantId, name, Lieferant.telefonnummer, strasse, plz, Ort.bezeichnung, Land.bezeichnung, aktiv, skonto, rabatt, zahlungsziel, lieferkosten, incoterms, transportart, vorname, nachname, LieferantenKontaktperson.telefonnummer"
                 . "FROM lieferant "
                 . "JOIN ort USING(ortid) "
                 . "JOIN land USING(landid) "
+                . "JOIN lieferbedingungen USING(lieferbedingungid) "
+                . "JOIN zahlungsbedingungen USING(zahlungsbedingungid) "
+                . "JOIN lieferantkontaktperson USING(lieferantid) "
+                . "JOIN incoterms USING(incotermsid) "
+                . "JOIN transportart USING(transportartid) "
                 . "WHERE lieferantid=?;";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $lieferantId);
         $stmt->execute();
-        $stmt->bind_result($lieferantId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $aktiv);
+        $stmt->bind_result($lieferantId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $aktiv, $skonto, $rabatt, $zahlungsziel, $lieferkosten, $incoterms, $transportart, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
         while ($stmt->fetch()) {
-            $lieferant = new Lieferant($lieferantId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $aktiv);
+            $lieferant = new LieferantDetail($lieferantId, $name, $telefonnummer, $strasse, null, $plz, $ort, null, $land, $land_kennzeichen, $aktiv, null, $skonto, $rabatt, $zahlungsziel, null, $lieferkosten, $incoterms, $transportart, null, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
         }
         $this->conn->close();
         return $lieferant;
