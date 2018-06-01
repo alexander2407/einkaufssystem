@@ -13,5 +13,6 @@ and open the template in the editor.
     </head>
     <body>
         Test
+        Test 2
     </body>
 </html>
