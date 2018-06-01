@@ -1,5 +1,5 @@
 <?php
-include '../utility/DB.class.php';
+
 
 if (!isset($_GET['aendern'])) {
     $db = new DB();
