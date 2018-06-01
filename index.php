@@ -51,6 +51,10 @@ and open the template in the editor.
             </div>
             <div class="col-md-10" id="content">
                 <main>
+                    <!-- Standardmäßig wird hier mittels if abgefragt in welchem Menüeintrag (Session[menu]) der 
+                         Benutzer gerade ist und abhängig davon eine andere php datei inkludiert 
+                         Im Falle eines Detailaufrufs soll das gesamte Main durch die Rückgabe von ajax überschrieben werden
+                         (wie beim Web Test)-->
                     Hier kann auch Ihr Content stehen
                 </main>
             </div>			
