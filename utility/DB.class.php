@@ -59,7 +59,7 @@ class DB {
     function getArtikel() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfügbar, lagerstandaktuell,aufschlag FROM artikel";
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfügbar, lagerstandaktuell,aufschlag FROM artikel;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $stmt->bind_result($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell,$aufschlag);
