@@ -13,7 +13,7 @@
  */
 class Lieferantenartikel {
     private $lieferantenbestellungsId;
-    private $lieferantenlieferungsId;       //zum einfügen in DAtenbank, kA. was da genau drinnen stehen soll
+    private $lieferantenlieferungsId;       
     private $artikelId;
     private $artikelName;
     private $lieferantId;
