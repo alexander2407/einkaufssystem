@@ -1,6 +1,5 @@
 <?php
 session_start();
-include './inc/daten.inc.php';
 
 $active = "";
 
