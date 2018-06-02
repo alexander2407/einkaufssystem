@@ -1,15 +1,18 @@
 <?php
 if (!empty($_GET['loeschen'])) {
-     $db = new DB();
-     $db->setLieferantInaktiv($_GET['loeschen']);
+    $db = new DB();
+    $db->setLieferantInaktiv($_GET['loeschen']);
 }
 
 if (!empty($_GET['aktivieren'])) {
-     $db = new DB();
-     $db->setLieferantAktiv($_GET['aktivieren']);
+    $db = new DB();
+    $db->setLieferantAktiv($_GET['aktivieren']);
 }
 
-if (!isset($_GET['aendern'])) {
+if (!isset($_GET['aendern']) && !isset($_GET['neuerLieferant'])) {
+
+    echo "<div><a class='btn btn-default' href='index.php?neuerLieferant=TRUE' role='button'>Lieferanten anlegen</a></div>";
+
     $db = new DB();
     $lieferanten = $db->getLieferanten();
 
@@ -49,11 +52,12 @@ if (!isset($_GET['aendern'])) {
 
     echo "</table>";
     echo "</div>";
-} else {
+} else if (isset($_GET['aendern'])) {
     $db = new DB();
     $id = $_GET['aendern'];
     $lieferant = $db->getLieferant($id);
     ?>
+    <h2>Lieferanten ändern</h2>
 
     <form class="form-horizontal" method="POST" action="index.php">
         <div class="form-group">
@@ -101,6 +105,8 @@ if (!isset($_GET['aendern'])) {
         </div>
     </form>
     <?php
+} else {
+    echo "<h2>Neuen Lieferanten anlegen</h2>";
 }
 ?>
 
