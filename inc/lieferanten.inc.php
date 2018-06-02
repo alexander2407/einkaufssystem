@@ -36,7 +36,7 @@ if (!isset($_GET['aendern'])) {
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="Email">
+                <input type="text" value="<?php echo $lieferant->getName(); ?>" name="name" class="form-control" id="inputEmail3" placeholder="Email">
             </div>
         </div>
         <div class="form-group">
