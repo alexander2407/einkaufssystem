@@ -60,7 +60,7 @@ if (!isset($_GET['aendern']) && !isset($_GET['neuerLieferant'])) {
     <h3>Lieferanten ändern</h3>
     <br>
 
-    <form class="form-horizontal" method="POST" action="index.php">
+    <form class="form-horizontal" method="POST" action="index.php?lieferantAendern=TRUE">
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
@@ -108,6 +108,53 @@ if (!isset($_GET['aendern']) && !isset($_GET['neuerLieferant'])) {
     <?php
 } else {
     echo "<h3>Neuen Lieferanten anlegen</h3><br>";
+    ?>
+        <form class="form-horizontal" method="POST" action="index.php?lieferantNeu=TRUE">
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text"  name="name" class="form-control" id="inputEmail3" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Telefonnummer</label>
+            <div class="col-sm-10">
+                <input type="number"  name="telefonnummer" class="form-control" id="inputEmail3" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Strasse</label>
+            <div class="col-sm-10">
+                <input type="text"  name="strasse" class="form-control" id="inputEmail3" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">PLZ</label>
+            <div class="col-sm-10">
+                <input type="number"  name="plz" class="form-control" id="inputEmail3">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Ort (ID eingeben)</label>
+            <div class="col-sm-10">
+                <input type="text"  name="ort" class="form-control" id="inputEmail3">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Land (ID eingeben)</label>
+            <div class="col-sm-10">
+                <input type="text"  name="land" class="form-control" id="inputEmail3">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Änderungen übernehmen</button>
+            </div>
+        </div>
+    </form>
+    <?php
 }
 ?>
 
