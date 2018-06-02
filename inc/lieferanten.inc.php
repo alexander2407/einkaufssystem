@@ -22,7 +22,7 @@ if (!isset($_GET['aendern'])) {
             echo "<td><a href='index.php?loeschen=" . $lieferant->getLieferantenId() . "'>Deaktivieren</a></td>";
             echo "</tr>";
         } else {
-            echo "<tr style='background-color: red'>";
+            echo "<tr style='background-color: ff4d4d'>";
             echo "<td>" . $lieferant->getLieferantenId() . "</td>";
             echo "<td>" . $lieferant->getName() . "</td>";
             echo "<td>" . $lieferant->getTelefonnummer() . "</td>";
