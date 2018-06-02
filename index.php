@@ -16,7 +16,7 @@ if (isset($_GET['menu'])) {
     $_SESSION['menu'] = $active;
 }
 if (!isset($_SESSION['menu'])){
-    $_SESSION['menu'] = "offene_bestellungen";
+    $_SESSION['menu'] = "start";
 }
 if (isset($_SESSION['menu'])) {
     $active = $_SESSION['menu'];
@@ -43,6 +43,7 @@ and open the template in the editor.
             </div>
             <div class="col-md-2">        
                 <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" <?php if($active=="start"){ echo 'class="active"';}?>><a href="index.php?menu=start">Startseite</a></li>
                     <li role="presentation" <?php if($active=="lieferanten"){ echo 'class="active"';}?>><a href="index.php?menu=lieferanten">Lieferanten</a></li>
                     <li role="presentation" <?php if($active=="artikel"){ echo 'class="active"';}?>><a href="index.php?menu=artikel">Artikel</a></li>
                     <li role="presentation" <?php if($active=="bestellungen"){ echo 'class="active"';}?>><a href="index.php?menu=bestellungen">Bestellungen</a></li>
