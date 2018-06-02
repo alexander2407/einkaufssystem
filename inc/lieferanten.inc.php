@@ -42,31 +42,31 @@ if (!isset($_GET['aendern'])) {
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Telefonnummer</label>
             <div class="col-sm-10">
-                <input type="number" name="telefonnummer" class="form-control" id="inputEmail3" placeholder="Email">
+                <input type="number" value="<?php echo $lieferant->getTelefonnummer(); ?>" name="telefonnummer" class="form-control" id="inputEmail3" placeholder="Email">
             </div>
         </div>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Strasse</label>
             <div class="col-sm-10">
-                <input type="text" name="strasse" class="form-control" id="inputEmail3" placeholder="Email">
+                <input type="text" value="<?php echo $lieferant->getStrasse(); ?>" name="strasse" class="form-control" id="inputEmail3" placeholder="Email">
             </div>
         </div>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">PLZ</label>
             <div class="col-sm-10">
-                <input type="number" name="plz" class="form-control" id="inputEmail3" placeholder="Email">
+                <input type="number" value="<?php echo $lieferant->getPlz(); ?>" name="plz" class="form-control" id="inputEmail3" placeholder="Email">
             </div>
         </div>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Ort (ID eingeben)</label>
             <div class="col-sm-10">
-                <input type="text" name="ort" class="form-control" id="inputEmail3" placeholder="Email">
+                <input type="text" value="<?php echo $lieferant->getOrtId(); ?>" name="ort" class="form-control" id="inputEmail3" placeholder="Email">
             </div>
         </div>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Land (ID eingeben)</label>
             <div class="col-sm-10">
-                <input type="text" name="land" class="form-control" id="inputEmail3" placeholder="Email">
+                <input type="text" value="<?php echo $lieferant->getLandId(); ?>" name="land" class="form-control" id="inputEmail3" placeholder="Email">
             </div>
         </div>
 
