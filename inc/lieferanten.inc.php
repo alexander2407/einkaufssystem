@@ -57,7 +57,8 @@ if (!isset($_GET['aendern']) && !isset($_GET['neuerLieferant'])) {
     $id = $_GET['aendern'];
     $lieferant = $db->getLieferant($id);
     ?>
-    <h2>Lieferanten ändern</h2>
+    <h3>Lieferanten ändern</h3>
+    <br>
 
     <form class="form-horizontal" method="POST" action="index.php">
         <div class="form-group">
@@ -106,7 +107,7 @@ if (!isset($_GET['aendern']) && !isset($_GET['neuerLieferant'])) {
     </form>
     <?php
 } else {
-    echo "<h2>Neuen Lieferanten anlegen</h2>";
+    echo "<h3>Neuen Lieferanten anlegen</h3><br>";
 }
 ?>
 
