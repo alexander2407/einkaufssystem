@@ -1,6 +1,7 @@
 <?php
 
 class DB {
+
     private $host = "wi-projectdb.technikum-wien.at:3306";
     private $user = "s18-bvz2-fst-31";
     private $pwd = "DbPass4v831";
@@ -29,11 +30,31 @@ class DB {
         $this->conn->close();
         return $resultArray;
     }
-    
+
+    //setzt einen Lieferanten aktiv
+    function setLieferantAktiv($id) {
+        $this->doConnect();
+        $query = "UPDATE lieferant SET Aktiv=1 where lieferantid = ?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $this->conn->close();
+    }
+
+    //setzt einen Lieferanten inaktiv
+    function setLieferantInaktiv($id) {
+        $this->doConnect();
+        $query = "UPDATE lieferant SET Aktiv=0 where lieferantid = ?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $this->conn->close();
+    }
+
     //gibt einen Lieferanten nach Id zurück
     function getLieferant($lieferantId) {
         $this->doConnect();
-        $query = "SELECT lieferantId, name, Lieferant.telefonnummer, strasse, plz, Ort.bezeichnung, Land.bezeichnung, kennzeichen, aktiv, skonto, rabatt, zahlungszieltage, kosten, typ, transportart, vorname, nachname, LieferantenKontaktperson.telefonnummer "
+        $query = "SELECT lieferantId, name, lieferant.Telefonnummer, strasse, plz, Ort.bezeichnung, Land.bezeichnung, kennzeichen, aktiv, skonto, rabatt, zahlungszieltage, kosten, typ, transportart, vorname, nachname, LieferantenKontaktperson.telefonnummer "
                 . "FROM lieferant "
                 . "JOIN ort USING(ortid) "
                 . "JOIN land USING(landid) "
@@ -46,10 +67,9 @@ class DB {
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $lieferantId);
         $stmt->execute();
-        $stmt->bind_result($lieferantId, $name, $telefonnummer, $strasse, $plz, $ort, $land,$land_kennzeichen, $aktiv, $skonto, $rabatt, $zahlungsziel, $lieferkosten, $incoterms, $transportart, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
+        $stmt->bind_result($lieferantId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $land_kennzeichen, $aktiv, $skonto, $rabatt, $zahlungsziel, $lieferkosten, $incoterms, $transportart, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
         while ($stmt->fetch()) {
             $lieferant = new LieferantDetail($lieferantId, $name, $telefonnummer, $strasse, null, $plz, $ort, null, $land, $land_kennzeichen, $aktiv, null, $skonto, $rabatt, $zahlungsziel, null, $lieferkosten, $incoterms, $transportart, null, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
-            
         }
         $this->conn->close();
         return $lieferant;
@@ -62,15 +82,15 @@ class DB {
         $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfügbar, lagerstandaktuell,aufschlag FROM artikel;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell,$aufschlag);
+        $stmt->bind_result($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId,$artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell,$aufschlag);
+            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
             array_push($resultArray, $artikel);
         }
         $this->conn->close();
         return $resultArray;
     }
-    
+
     //gibt einen Artikel nach Id zurück
     function getArtikelWithId($artikelId) {
         $this->doConnect();
@@ -87,7 +107,7 @@ class DB {
         $this->conn->close();
         return $artikel;
     }
-    
+
     //gibt alle Lieferantenbestellungen zurück
     function getLieferantenbestellungen() {
         $this->doConnect();
@@ -106,7 +126,7 @@ class DB {
         $this->conn->close();
         return $resultArray;
     }
-    
+
     function getLieferantenbestellung($lieferantenbestellungsid) {
         $this->doConnect();
         $query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethode "
@@ -119,12 +139,12 @@ class DB {
         $stmt->execute();
         $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
         while ($stmt->fetch()) {
-            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, null, $lieferantName, null, $zahlungsmethode);        
+            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, null, $lieferantName, null, $zahlungsmethode);
         }
         $this->conn->close();
         return $lieferantenbestellung;
     }
-    
+
     //gibt alle Positionen zu einer übergebenen Lieferantenbestellung als array zurück
     function getLieferantenartikel($lieferantenbestellungsId) {
         $this->doConnect();
@@ -145,21 +165,20 @@ class DB {
         $this->conn->close();
         return $resultArray;
     }
-    
-    /*function writeMitarbeiter($mitarbeiter) {
-        $this->doConnect();
-        $query = "INSERT INTO mitarbeiter VALUES(?,?,?,?,?)";
-        $stmt = $this->conn->prepare($query);
-        $id = $mitarbeiter->getPersonalid();
-        $vorname = $mitarbeiter->getVorname();
-        $nachname = $mitarbeiter->getNachname();
-        $geburtsdatum = $mitarbeiter->getGeburtsdatum();
-        $beruf = $mitarbeiter->getBeruf();
-        $stmt->bind_param("issss", $id, $vorname, $nachname, $beruf, $geburtsdatum);
-        $stmt->execute();
-        $this->conn->close();
-    }*/
 
+    /* function writeMitarbeiter($mitarbeiter) {
+      $this->doConnect();
+      $query = "INSERT INTO mitarbeiter VALUES(?,?,?,?,?)";
+      $stmt = $this->conn->prepare($query);
+      $id = $mitarbeiter->getPersonalid();
+      $vorname = $mitarbeiter->getVorname();
+      $nachname = $mitarbeiter->getNachname();
+      $geburtsdatum = $mitarbeiter->getGeburtsdatum();
+      $beruf = $mitarbeiter->getBeruf();
+      $stmt->bind_param("issss", $id, $vorname, $nachname, $beruf, $geburtsdatum);
+      $stmt->execute();
+      $this->conn->close();
+      } */
 }
 
 ?>
