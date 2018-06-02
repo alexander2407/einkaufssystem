@@ -1,12 +1,12 @@
 <?php
-if (!empty($_POST['loeschen'])) {
+if (!empty($_GET['loeschen'])) {
      $db = new DB();
-     $db->setLieferantInaktiv($_POST['loeschen']);
+     $db->setLieferantInaktiv($_GET['loeschen']);
 }
 
-if (!empty($_POST['aktivieren'])) {
+if (!empty($_GET['aktivieren'])) {
      $db = new DB();
-     $db->setLieferantAktiv($_POST['aktivieren']);
+     $db->setLieferantAktiv($_GET['aktivieren']);
 }
 
 if (!isset($_GET['aendern'])) {
