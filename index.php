@@ -57,11 +57,13 @@ and open the template in the editor.
                          Im Falle eines Detailaufrufs soll das gesamte Main durch die Rückgabe von ajax überschrieben werden
                          (wie beim Web Test)-->
                     <?php
-                        if(isset($_SESSION['menu'])) {
                             if ($_SESSION['menu'] == "lieferanten") {
                                 include './inc/lieferanten.inc.php';
                             }
-                        }
+                            if ($_SESSION['menu'] == "artikel") {
+                                include './inc/artikel.inc.php';
+                            }
+                        
                     ?>
                 </main>
             </div>			

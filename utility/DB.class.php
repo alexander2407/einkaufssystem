@@ -79,10 +79,10 @@ class DB {
     function getArtikel() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfügbar, lagerstandaktuell,aufschlag FROM artikel;";
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfuegbar, lagerstandaktuell, aufschlag FROM artikel;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
         while ($stmt->fetch()) {
             $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
             array_push($resultArray, $artikel);
@@ -106,6 +106,22 @@ class DB {
         }
         $this->conn->close();
         return $artikel;
+    }
+    
+    function deleteArtikel($id){
+        $this->doConnect();
+        $query = "DELETE FROM artikel WHERE artikelid=?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $artikelId);
+        $stmt->execute();
+        var_dump($stmt);
+        $this->conn->close();
+        if($stmt){
+           return true; 
+        }
+        else{
+            return false;
+        }
     }
 
     //gibt alle Lieferantenbestellungen zurück
