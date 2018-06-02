@@ -11,7 +11,7 @@ if (!empty($_GET['aktivieren'])) {
 
 if (!isset($_GET['aendern']) && !isset($_GET['neuerLieferant'])) {
 
-    echo "<div><a class='btn btn-default' href='index.php?neuerLieferant=TRUE' role='button'>Lieferanten anlegen</a></div>";
+    echo "<div><a class='btn btn-default' href='index.php?neuerLieferant=TRUE' role='button'>Lieferanten anlegen</a></div><br>";
 
     $db = new DB();
     $lieferanten = $db->getLieferanten();
