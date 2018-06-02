@@ -32,7 +32,7 @@ if (!isset($_GET['aendern'])) {
     $lieferant = $db->getLieferant($id);
     ?>
 
-    <form class="form-horizontal">
+<form class="form-horizontal" method="POST" action="index.php">
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
