@@ -150,7 +150,7 @@ if (!isset($_GET['aendern']) && !isset($_GET['neuerLieferant'])) {
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Änderungen übernehmen</button>
+                <button type="submit" class="btn btn-default">Lieferant anlegen</button>
             </div>
         </div>
     </form>
