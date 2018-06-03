@@ -80,7 +80,7 @@ class DB {
         $this->doConnect();
         $resultArray = array();
         $query = "SELECT lieferantId, name, artikelId, artikelname "
-                . "FROM lieferantliefer "
+                . "FROM lieferantliefert "
                 . "JOIN lieferant using(lieferantid) "
                 . "JOIN artikel using(artikelid) "
                 . "WHERE lieferantid=?;";
@@ -133,7 +133,7 @@ class DB {
         $this->doConnect();
         $resultArray = array();
         $query = "SELECT lieferantId, name, artikelId, artikelname "
-                . "FROM lieferantliefer "
+                . "FROM lieferantliefert "
                 . "JOIN lieferant using(lieferantid) "
                 . "JOIN artikel using(artikelid) "
                 . "WHERE artikelid=?;";
