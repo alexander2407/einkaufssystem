@@ -23,31 +23,30 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
     foreach ($lieferanten as $lieferant) {
         if ($lieferant->getAktiv() == 1) {
             echo "<tr>";
-        }
-        else {
+        } else {
             echo "<tr style='background-color: red'>";
         }
-            echo "<td>" . $lieferant->getLieferantenId() . "</td>";
-            echo "<td>" . $lieferant->getName() . "</td>";
-            echo "<td>" . $lieferant->getTelefonnummer() . "</td>";
-            echo "<td>" . $lieferant->getStrasse() . "</td>";
-            echo "<td>" . $lieferant->getPlz() . "</td>";
-            echo "<td>" . $lieferant->getOrt() . "</td>";
-            echo "<td>" . $lieferant->getLand() . "</td>";
-            $aktivText;
-            if ($lieferant->getAktiv()==1) {
-                $aktivText = "Ja";
-            } else {
-                $aktivText = "Nein";
-            }
-            echo "<td>" . $aktivText . "</td>";
-            echo "<td><a href='index.php?detail=" . $lieferant->getLieferantenId() . "'>Detail</a></td>";
-            if ($lieferant->getAktiv()==1) {
-                echo "<td><a href='index.php?loeschen=" . $lieferant->getLieferantenId() . "'>Deaktivieren</a></td>";
-            } else {
-                echo "<td><a href='index.php?aktivieren=" . $lieferant->getLieferantenId() . "'>Aktivieren</a></td>";
-            }
-            echo "</tr>";
+        echo "<td>" . $lieferant->getLieferantenId() . "</td>";
+        echo "<td>" . $lieferant->getName() . "</td>";
+        echo "<td>" . $lieferant->getTelefonnummer() . "</td>";
+        echo "<td>" . $lieferant->getStrasse() . "</td>";
+        echo "<td>" . $lieferant->getPlz() . "</td>";
+        echo "<td>" . $lieferant->getOrt() . "</td>";
+        echo "<td>" . $lieferant->getLand() . "</td>";
+        $aktivText;
+        if ($lieferant->getAktiv() == 1) {
+            $aktivText = "Ja";
+        } else {
+            $aktivText = "Nein";
+        }
+        echo "<td>" . $aktivText . "</td>";
+        echo "<td><a href='index.php?detail=" . $lieferant->getLieferantenId() . "'>Detail</a></td>";
+        if ($lieferant->getAktiv() == 1) {
+            echo "<td><a href='index.php?loeschen=" . $lieferant->getLieferantenId() . "'>Deaktivieren</a></td>";
+        } else {
+            echo "<td><a href='index.php?aktivieren=" . $lieferant->getLieferantenId() . "'>Aktivieren</a></td>";
+        }
+        echo "</tr>";
     }
 
     echo "</table>";
@@ -56,7 +55,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
     $db = new DB();
     $id = $_GET['detail'];
     $lieferant = $db->getLieferant($id);
-    //var_dump($lieferant);
+    $artikelliste = $db->getArtikelByLieferant($id);
     ?>
 
     <h3>Lieferantendetails</h3>
@@ -81,11 +80,13 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
         <div class="form-group">
             <label for="aktiv" class="col-sm-2 control-label">Aktiv</label>
             <div class="col-sm-10">
-                <input type="text" value="<?php if ($lieferant->getAktiv()) {
-        echo "Ja";
-    } else {
-        echo "Nein";
-    } ?>" name="telefonnummer" class="form-control" id="aktiv" readonly="">
+                <input type="text" value="<?php
+                if ($lieferant->getAktiv()) {
+                    echo "Ja";
+                } else {
+                    echo "Nein";
+                }
+                ?>" name="telefonnummer" class="form-control" id="aktiv" readonly="">
             </div>
         </div>
         <br>
@@ -174,6 +175,31 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
                 <input type="text" value="<?php echo $lieferant->getKontakt_telefonnummer(); ?>" name="kontakt_tel" class="form-control" id="kontakt_tel" readonly="">
             </div>
         </div>
+        <br>
+        <h4>Angebotene Artikel</h4>
+        <?php
+        if (count($artikelliste) > 0) {
+            foreach ($artikelliste as $value) {
+                ?>
+                <div class="form-group">
+                    <label for="artikelid" class="col-sm-2 control-label">ArtikelID</label>
+                    <div class="col-sm-10">
+                        <input type="text" value="<?php echo $value->getArtikelId() ?>" name="artikelid" class="form-control" id="artikelid" readonly="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="artikelname" class="col-sm-2 control-label">Artikelname</label>
+                    <div class="col-sm-10">
+                        <input type="text" value="<?php echo $value->getArtikelname() ?>" name="artikelname" class="form-control" id="artikelname" readonly="">
+                    </div>
+                </div>
+                <br>
+                <?php
+            }
+        } else {
+            echo '<p>Zu diesem Lieferanten gibt es keine Artikel.</p>';
+        }
+        ?>
     </form>
 
     <?php

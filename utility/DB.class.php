@@ -74,6 +74,27 @@ class DB {
         $this->conn->close();
         return $lieferant;
     }
+    
+    //gibt eine Liste der Artikel welche von einem Lieferant geliefert werden können zurück, in Form eines LieferantLiefert Objektes
+    function getArtikelByLieferant($lieferantId){
+        $this->doConnect();
+        $resultArray = array();
+        $query = "SELECT lieferantId, name, artikelId, artikelname "
+                . "FROM lieferantliefer "
+                . "JOIN lieferant using(lieferantid) "
+                . "JOIN artikel using(artikelid) "
+                . "WHERE lieferantid=?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i",$lieferantId);
+        $stmt->execute();
+        $stmt->bind_result($lieferantId, $name, $artikelId, $artikelname);
+        while ($stmt->fetch()) {
+            $lieferantliefert = new LieferantLiefert($lieferantId, $artikelId, $name, $artikelname);
+            array_push($resultArray, $lieferantliefert);
+        }
+        $this->conn->close();
+        return $resultArray;
+    }
 
     //Funktion returned ein Array bestehend aus allen Artikeln
     function getArtikel() {
@@ -106,6 +127,26 @@ class DB {
         }
         $this->conn->close();
         return $artikel;
+    }
+    
+    function getLieferantByArtikel($artikelId){
+        $this->doConnect();
+        $resultArray = array();
+        $query = "SELECT lieferantId, name, artikelId, artikelname "
+                . "FROM lieferantliefer "
+                . "JOIN lieferant using(lieferantid) "
+                . "JOIN artikel using(artikelid) "
+                . "WHERE artikelid=?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i",$artikelId);
+        $stmt->execute();
+        $stmt->bind_result($lieferantId, $name, $artikelId, $artikelname);
+        while ($stmt->fetch()) {
+            $lieferantliefert = new LieferantLiefert($lieferantId, $artikelId, $name, $artikelname);
+            array_push($resultArray, $lieferantliefert);
+        }
+        $this->conn->close();
+        return $resultArray;
     }
     
     function deleteArtikel($id){
