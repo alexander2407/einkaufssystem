@@ -115,15 +115,15 @@ class DB {
     //gibt einen Artikel nach Id zurück
     function getArtikelWithId($artikelId) {
         $this->doConnect();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfügbar, lagerstandaktuell,aufschlag "
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfuegbar, lagerstandaktuell,aufschlag "
                 . "FROM artikel "
                 . "WHERE artikelId = ?;";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $artikelId);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
         }
         $this->conn->close();
         return $artikel;
@@ -151,11 +151,14 @@ class DB {
     
     function deleteArtikel($id){
         $this->doConnect();
+        $query = "DELETE FROM lieferantliefert WHERE artikelid=?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
         $query = "DELETE FROM artikel WHERE artikelid=?;";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $artikelId);
+        $stmt->bind_param("i", $id);
         $stmt->execute();
-        var_dump($stmt);
         $this->conn->close();
         if($stmt){
            return true; 

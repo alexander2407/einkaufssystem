@@ -35,7 +35,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
 } else if (isset($_GET['detail'])) {
     $db = new DB();
     $id = $_GET['detail'];
-    $artikel = $db->getArtikel($id);
+    $artikel = $db->getArtikelWithId($id);
     $lieferantenliste = $db->getLieferantByArtikel($id);
     ?>
 
@@ -46,9 +46,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
     <br>
     <form class="form-horizontal">
         <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">Artikelname</label>
+            <label for="artikelname" class="col-sm-2 control-label">Artikelname</label>
             <div class="col-sm-10">
-                <input type="text" value="<?php echo $artikel->getArtikelname(); ?>" name="name" class="form-control" id="name" readonly="">
+                <input type="text" value="<?php echo $artikel->getArtikelname(); ?>" name="artikelname" class="form-control" id="artikelname" readonly="">
             </div>
         </div>
         <div class="form-group">
@@ -109,9 +109,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Name</label>
+                    <label for="lieferantname" class="col-sm-2 control-label">Lieferantname</label>
                     <div class="col-sm-10">
-                        <input type="text" value="<?php echo $value->getName() ?>" name="name" class="form-control" id="name" readonly="">
+                        <input type="text" value="<?php echo $value->getLieferantname() ?>" name="lieferantname" class="form-control" id="lieferantname" readonly="">
                     </div>
                 </div>
                 <br>
