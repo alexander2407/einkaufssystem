@@ -13,7 +13,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
 
     echo "<div>";
     echo '<table class="table table-striped">';
-    echo "<tr><th>ID</th><th>Name</th><th>Einkaufspreis</th><th>Verkaufspreis</th><th>Mindestbestand</th><th>Verfügbar</th><th>Lagerbestand</th><th>Aufschlag</th></tr>";
+    echo "<tr><th>IDD</th><th>Name</th><th>Einkaufspreis</th><th>Verkaufspreis</th><th>Mindestbestand</th><th>Verfügbar</th><th>Lagerbestand</th><th>Aufschlag</th></tr>";
 
     foreach ($artikel as $art) {
         echo "<tr>";

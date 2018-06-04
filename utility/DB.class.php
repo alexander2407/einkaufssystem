@@ -167,15 +167,35 @@ class DB {
             return false;
         }
     }
+     //es muss nur aus der Tabelle lieferantenbestellung gelöscht werden
+    function deleteBestellung($id){
+        $this->doConnect();
+        $query = "DELETE FROM lieferantenbestellung WHERE lieferantenbestellungsid=?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $this->conn->close();
+        if($stmt){
+           return true; 
+        }
+        else{
+            return false;
+        }
+        
+    }
 
     //gibt alle Lieferantenbestellungen zurück
     function getLieferantenbestellungen() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethode "
+        $query = "SELECT lieferantenbestellungsid, lieferantid, bestellschein, zahlungsmethodeid "
+                . "FROM lieferantenbestellung; ";
+        /*$query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethode "
                 . "FROM lieferantenbestellung "
                 . "join lieferant using(lieferantid) "
                 . "join zahlungsmethode using(zahlungsmethodeid);";
+         * 
+         */
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
