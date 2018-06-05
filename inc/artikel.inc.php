@@ -1,11 +1,12 @@
 <?php
 if (!empty($_GET['loeschen'])) {
+    echo "Zeile 3";
     $db = new DB();
     $db->deleteArtikel($_GET['loeschen']);
 }
 
 if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerArtikel'])) {
-
+    echo "Zeile 9";
     echo "<div><a class='btn btn-default' href='index.php?neuerArtikel=TRUE' role='button'>Artikel anlegen</a></div><br>";
 
     $db = new DB();
@@ -33,6 +34,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
     echo "</table>";
     echo "</div>";
 } else if (isset($_GET['detail'])) {
+    echo "Zeile 37";
     $db = new DB();
     $id = $_GET['detail'];
     $artikel = $db->getArtikelWithId($id);
@@ -124,5 +126,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
     </form>
 
     <?php
+}
+else if (isset ($_GET['neuerArtikel'])){
+    include './inc/artikelAnlegen.inc.php';
 }
 ?>
