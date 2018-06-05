@@ -8,14 +8,14 @@ if (!empty($_GET['loeschen'])) {
 if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['offeneBestellungen'])) {
 
     echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a> &ensp;"
-    . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Bestellungen anzeigen</a></div><br>";
+    . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Lieferantenbestellungen anzeigen</a></div><br>";
 
     $db = new DB();
     $bestellung = $db->getLieferantenbestellungen();
 
     echo "<div>";
     echo '<table class="table table-striped">';
-    echo "<tr><th>BestellungsID</th><th>LieferantID</th><th>Name</th><th>Zahlungsmethode</th></tr>";
+    echo "<tr><th>LieferantenbestellungsID</th><th>LieferantID</th><th>Name</th><th>Zahlungsmethode</th></tr>";
 
     foreach ($bestellung as $b) {
         echo "<tr>";
@@ -37,7 +37,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     //$lieferant = $db->getLieferant($id); //$id ist die id von der Lieferantenbestellung
     ?>
 
-<h3>Bestellungen</h3>
+<h3>Lieferantenbestellungen</h3>
 
     <br>
     <a class="btn btn-default" href="index.php?aendern=<?php echo $id; ?>">Bearbeiten</a>
@@ -87,10 +87,13 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 }else if (isset($_GET['offeneBestellungen'])) {
     $db = new DB();
     $offeneBestellung = $db->getOffeneBestellungen();
+    
+    echo "<h3>Offene Lieferantenbestellungen</h3>";
+    echo "<br>";
 
     echo "<div>";
     echo '<table class="table table-striped">';
-    echo "<tr><th>BestellungsID</th><th>LieferantID</th><th>Name</th><th>Zahlungsmethode</th></tr>";
+    echo "<tr><th>LieferantenbestellungsID</th><th>LieferantID</th><th>Name</th><th>Zahlungsmethode</th></tr>";
 
     foreach ($offeneBestellung as $ob) {
         echo "<tr>";

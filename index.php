@@ -49,8 +49,8 @@ and open the template in the editor.
                     <li role="presentation" <?php if($active=="start"){ echo 'class="active"';}?>><a href="index.php?menu=start">Startseite</a></li>
                     <li role="presentation" <?php if($active=="lieferanten"){ echo 'class="active"';}?>><a href="index.php?menu=lieferanten">Lieferanten</a></li>
                     <li role="presentation" <?php if($active=="artikel"){ echo 'class="active"';}?>><a href="index.php?menu=artikel">Artikel</a></li>
-                    <li role="presentation" <?php if($active=="bestellungen"){ echo 'class="active"';}?>><a href="index.php?menu=bestellungen">Bestellungen</a></li>
-                    <li role="presentation" <?php if($active=="offene_bestellungen"){ echo 'class="active"';}?>><a href="index.php?menu=offene_bestellungen">Offene Bestellungen</a></li>
+                    <li role="presentation" <?php if($active=="bestellungen"){ echo 'class="active"';}?>><a href="index.php?menu=bestellungen">Lieferantenbestellungen</a></li>
+                    <!-- <li role="presentation" <?php if($active=="offene_bestellungen"){ echo 'class="active"';}?>><a href="index.php?menu=offene_bestellungen">Offene Bestellungen</a></li>-->
                 </ul>
             </div>
             <div class="col-md-10" id="content">
@@ -69,9 +69,9 @@ and open the template in the editor.
                             if ($_SESSION['menu'] == "bestellungen") {
                                 include './inc/lieferantenbestellungen.inc.php';
                             }
-                            if ($_SESSION['menu'] == "offene_bestellungen") {
-                                include './inc/offene_bestellungen.inc.php';
-                            }
+//                            if ($_SESSION['menu'] == "offene_bestellungen") {
+//                                include './inc/offene_bestellungen.inc.php';
+//                            }
                             if ($_SESSION['menu'] == "start") {
                                 include './inc/startseite.inc.php';
                             }                            
