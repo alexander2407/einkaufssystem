@@ -64,6 +64,12 @@ and open the template in the editor.
                             if ($_SESSION['menu'] == "artikel") {
                                 include './inc/artikel.inc.php';
                             }
+                            if ($_SESSION['menu'] == "bestellungen") {
+                                include './inc/lieferantenbestellungen.inc.php';
+                            }
+                            if ($_SESSION['menu'] == "offene_bestellungen") {
+                                include './inc/offene_bestellungen.inc.php';
+                            }
                         
                     ?>
                 </main>

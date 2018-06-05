@@ -1,26 +1,28 @@
 <?php
+//echo 'amk';
 if (!empty($_GET['loeschen'])) {
     $db = new DB();
-    $db->deleteBestellung($_GET['loeschen']);
+    $db->deleteBestellung($_GET['loeschen']);//löschen funktioniert
 }
 
-if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung'])) {
+if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['offeneBestellungen'])) {
 
-    echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a></div><br>";
+    echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a>"
+    . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Bestellungen anzeigen</a></div><br>";
 
     $db = new DB();
     $bestellung = $db->getLieferantenbestellungen();
 
     echo "<div>";
     echo '<table class="table table-striped">';
-    echo "<tr><th>BestellungsID</th><th>LieferantID</th><th>Bestellschein</th><th>ZahlungsmethodeID</th></tr>";
+    echo "<tr><th>BestellungsID</th><th>LieferantID</th><th>Name</th><th>Zahlungsmethode</th></tr>";
 
     foreach ($bestellung as $b) {
         echo "<tr>";
         echo "<td>" . $b->getLieferantenbestellungsId() . "</td>";
         echo "<td>" . $b->getLieferantId() . "</td>";
-        echo "<td>" . $b->getBestellschein() . "</td>";
-        echo "<td>" . $b->getZahlungsmethodeId() . "</td>";
+        echo "<td>" . $b->getLieferantName() . "</td>";
+        echo "<td>" . $b->getZahlungsmethode() . "</td>";
         echo "<td><a href='index.php?detail=" . $b->getLieferantenbestellungsId() . "'>Detail</a></td>";
         echo "<td><a href='index.php?loeschen=" . $b->getLieferantenbestellungsId() . "'>Löschen</a></td>";
         echo "</tr>";
@@ -32,6 +34,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     $db = new DB();
     $id = $_GET['detail'];
     $bestellung = $db->getLieferantenbestellung($id);
+    //$lieferant = $db->getLieferant($id); //$id ist die id von der Lieferantenbestellung
     ?>
 
 <h3>Bestellungen</h3>
@@ -77,7 +80,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 <input type="text" value="<?php echo $bestellung->getZahlungsmethode(); ?>" name="zahlungsmethode" class="form-control" id="zahlungsmethode" readonly="">
             </div>
         </div>
+        
     </form>
+    
 <?php
 }
 ?>

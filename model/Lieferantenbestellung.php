@@ -16,7 +16,7 @@ class Lieferantenbestellung {
     private $lieferantId;               //lieferantenId
     private $bestellschein;             //für die Eingabe in die Datenbank
     private $lieferantName;             //Lieferantenname
-    private $zahlungsmethodeId;
+    private $zahlungsmethodeId;         
     private $zahlungsmethode;           //Zahlungsmethode String
     
     function getZahlungsmethodeId() {
