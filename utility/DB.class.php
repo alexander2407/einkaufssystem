@@ -111,6 +111,22 @@ class DB {
         $this->conn->close();
         return $resultArray;
     }
+    
+        //Funktion returned ein Array bestehend aus allen Artikeln die Mindestbestand unterschreiten
+    function getArtikelUnterMindestbestand() {
+        $this->doConnect();
+        $resultArray = array();
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfuegbar, lagerstandaktuell, aufschlag FROM artikel WHERE mindestbestand > lagerstandverfuegbar;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+        while ($stmt->fetch()) {
+            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+            array_push($resultArray, $artikel);
+        }
+        $this->conn->close();
+        return $resultArray;
+    }
 
     //gibt einen Artikel nach Id zurück
     function getArtikelWithId($artikelId) {
