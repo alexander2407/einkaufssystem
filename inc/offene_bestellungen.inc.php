@@ -1,8 +1,24 @@
 <?php
+//echo 'amk';
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
+    $db = new DB();
+    $offeneBestellung = $db->getOffeneBestellungen();
+
+    echo "<div>";
+    echo '<table class="table table-striped">';
+    echo "<tr><th>BestellungsID</th><th>LieferantID</th><th>Name</th><th>Zahlungsmethode</th></tr>";
+
+    foreach ($offeneBestellung as $ob) {
+        echo "<tr>";
+        echo "<td>" . $ob->getLieferantenbestellungsId() . "</td>";
+        echo "<td>" . $ob->getLieferantId() . "</td>";
+        echo "<td>" . $ob->getLieferantName() . "</td>";
+        echo "<td>" . $ob->getZahlungsmethode() . "</td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+    echo "</div>";
+
+    ?>

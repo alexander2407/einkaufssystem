@@ -204,14 +204,16 @@ class DB {
     function getLieferantenbestellungen() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT lieferantenbestellungsid, lieferantid, bestellschein, zahlungsmethodeid "
+        /*$query = "SELECT lieferantenbestellungsid, lieferantid, bestellschein, zahlungsmethodeid "
                 . "FROM lieferantenbestellung; ";
-        /*$query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethode "
+         * 
+         */
+        $query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethode "
                 . "FROM lieferantenbestellung "
                 . "join lieferant using(lieferantid) "
                 . "join zahlungsmethode using(zahlungsmethodeid);";
-         * 
-         */
+        
+         
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
@@ -225,7 +227,7 @@ class DB {
 
     function getLieferantenbestellung($lieferantenbestellungsid) {
         $this->doConnect();
-        $query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethode "
+        $query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethodeid, zahlungsmethode "
                 . "FROM lieferantenbestellung "
                 . "JOIN lieferant using(lieferantid) "
                 . "JOIN zahlungsmethode using(zahlungsmethodeid) "
@@ -233,9 +235,9 @@ class DB {
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $lieferantenbestellungsid);
         $stmt->execute();
-        $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
+        $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethodeId, $zahlungsmethode);
         while ($stmt->fetch()) {
-            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, null, $lieferantName, null, $zahlungsmethode);
+            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, null, $lieferantName, $zahlungsmethodeId, $zahlungsmethode);
         }
         $this->conn->close();
         return $lieferantenbestellung;
@@ -258,6 +260,26 @@ class DB {
             $lieferantenartikel = new Lieferantenartikel($lieferantenbestellungsId, null, $artikelId, $artikelName, $lieferantId, $lieferantName, $anzahl);
             array_push($resultArray, $lieferantenartikel);
         }
+        $this->conn->close();
+        return $resultArray;
+    }
+    
+    function getOffeneBestellungen(){
+        $this->doConnect();
+        $resultArray = array();
+        $query = "select lieferantenbestellungsID, lieferantid, name, zahlungsmethode "
+                . "from lieferantenbestellung join lieferant using(lieferantid) join zahlungsmethode using(zahlungsmethodeid) "
+                . "where lieferantenbestellungsid "
+                . "NOT IN (select lieferbestellungsid from lieferantenlieferungen);";
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->execute();
+        $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
+        while ($stmt->fetch()) {
+            $offeneBestellungen = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, null, $lieferantName, null, $zahlungsmethode);
+            array_push($resultArray, $offeneBestellungen);
+        }
+        //die klasse "Lieferantenbestellung" kann eigentlich auch dafür verwendet werden.
         $this->conn->close();
         return $resultArray;
     }
