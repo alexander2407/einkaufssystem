@@ -7,7 +7,7 @@ if (!empty($_GET['loeschen'])) {
 
 if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['offeneBestellungen'])) {
 
-    echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a>"
+    echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a> &ensp;"
     . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Bestellungen anzeigen</a></div><br>";
 
     $db = new DB();
@@ -84,6 +84,25 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     </form>
     
 <?php
+}else if (isset($_GET['offeneBestellungen'])) {
+    $db = new DB();
+    $offeneBestellung = $db->getOffeneBestellungen();
+
+    echo "<div>";
+    echo '<table class="table table-striped">';
+    echo "<tr><th>BestellungsID</th><th>LieferantID</th><th>Name</th><th>Zahlungsmethode</th></tr>";
+
+    foreach ($offeneBestellung as $ob) {
+        echo "<tr>";
+        echo "<td>" . $ob->getLieferantenbestellungsId() . "</td>";
+        echo "<td>" . $ob->getLieferantId() . "</td>";
+        echo "<td>" . $ob->getLieferantName() . "</td>";
+        echo "<td>" . $ob->getZahlungsmethode() . "</td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+    echo "</div>";
 }
 ?>
 
