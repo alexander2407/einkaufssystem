@@ -23,6 +23,8 @@ if (isset($_SESSION['menu'])) {
     $active = $_SESSION['menu'];
 }
 
+
+
 ?>
 <!DOCTYPE html>
 <!--
@@ -64,6 +66,9 @@ and open the template in the editor.
                             if ($_SESSION['menu'] == "artikel") {
                                 include './inc/artikel.inc.php';
                             }
+                            if ($_SESSION['menu'] == "start") {
+                                include './inc/startseite.inc.php';
+                            }                            
                         
                     ?>
                 </main>
