@@ -122,7 +122,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     ?>
     <form class="form-horizontal" method="POST" action="index.php?bestellungNeu=TRUE">
 
-        <div class="dropdown">
+        <div>
             <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
             
                 <div>
@@ -140,8 +140,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                     </select>
                 </div>
         </div>
-        
-        <div class="dropdown">
+        <br>
+        <div>
             <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsmethode</label>
             
                 <div>
@@ -149,23 +149,19 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                         <?php
                             //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
                             foreach($zahlungsmethoden as $zahlungsmethode){
-                                if($zahlungsmethode->getZahlungsmethodename() == 1){
                                     echo "<option value=" . $zahlungsmethode->getZahlungsmethodeid() . ">" . $zahlungsmethode->getZahlungsmethodename() . "</option>";
-                                }else{
-                                    echo "<option value=" . $zahlungsmethode->getZahlungsmethodeid() . " disabled>" . $zahlungsmethode->getZahlungsmethodename() . "</option>";
-                                }
                             }
                         ?>
                     </select>
                 </div>
         </div>
         <br>
-        <div class="dropdown">
+        <div>
             <label for="inputEmail3" class="col-sm-2 control-label">Abgeschlossen</label>
             
                 <div>
-                    <input type="radio" name="Ja" value="1" />
-                    <input type="radio" name="Nein" value="0" />
+                    <input type="radio" name="Ja" value="1">Ja<br>
+                    <input type="radio" name="Nein" value="0">Nein<br>
                 </div>
         </div>
         <br>
@@ -173,9 +169,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
             
                 <div>
-                    <input type="checkbox" name="eins" value="1" />
-                    <input type="checkbox" name="zwei" value="2" />
-                    <input type="checkbox" name="drei" value="3" />
+                    <input type="checkbox" name="eins" value="1">Artikel 1<br>
+                    <input type="checkbox" name="zwei" value="2">Artikel 2<br>
+                    <input type="checkbox" name="drei" value="3">Artikel 3<br>
                 </div>
         </div>
         <div class="form-group">
