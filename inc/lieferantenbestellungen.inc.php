@@ -171,32 +171,30 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
 
                     <div>
-                        <select name=“artikel”>
-                            <option value="">artikel 1</option>;
-                            //<?php
-//                                foreach($artikel as $a){
-//                                    if($a->getAktiv() == 1){
-//                                        echo "<option value=" . $a->getArtikelid() ."'> " . $a->getArtikelname() . "</option>";
-//                                        echo "</select>";
-//                                            
-//                                        echo "<label class='col-sm-2 control-label'> Menge</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelname() . "Menge" . "' class='form-control' id='Menge'></div>";
-//                                    }else{
-//                                        echo "<option value=" . $a->getArtikelid() ."' disabled> " . $a->getArtikelname();
-//                                        echo "</select>";
-//                                    }
-//                                }
-//                            ?>
+                        <select name=“artikelAuswahl”>
+                            
+                            <?php
+                                foreach($artikel as $a){
+                                    if($a->getAktiv() == 1){
+                                        echo "<option value=" . $a->getArtikelid() ."'> " . $a->getArtikelname() . "</option>";
+
+                                    }else{
+                                        echo "<option value=" . $a->getArtikelid() ."' disabled> " . $a->getArtikelname();
+                                        
+                                    }
+                                }
+                            ?>
                         </select>
                             
                     </div>
         </div>
-                <div class="form-group">
+        <div class="form-group">
                 
-                <label for="lagerort" class="col-sm-2 control-label">Menge</label>
-                                <div class="col-sm-10">
-                                    <input type="number" name="lagerort" class="form-control" id="lagerort" required="">
-                                </div>
+            <label for="lagerort" class="col-sm-2 control-label">Menge</label>
+                <div class="col-sm-2"><!--oder 10-->
+                    <input type="number" name="menge" class="form-control" id="lagerort" required="">
                 </div>
+        </div>
         
         
         <div>
