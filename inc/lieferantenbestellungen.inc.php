@@ -157,7 +157,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                     </select>
                 </div>
         </div>
-        <br>
+<!--        <br>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Abgeschlossen</label>
             
@@ -165,7 +165,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                     <input type="radio" name="Ja" value="1"/> Ja<br>
                     <input type="radio" name="Nein" value="0"/> Nein<br>
                 </div>
-        </div>
+        </div>-->
         <br>
         
         
@@ -196,13 +196,14 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 <div class="col-sm-2"><!--oder 10-->
                     <input type="number" name="menge" class="form-control" id="menge" required="">
                 </div>
-            <a class='btn btn-default' href='index.php?neueBestellung=TRUE&plus=TRUE' role='button'>+</a>
+            <a class='btn btn-default' href='index.php?neueBestellung=TRUE&plus=TRUE' role='button'>Artikel hinzufügen</a>
             
             
             <?php
-            if(isset($_GET['plus'])){
+            if(isset($_GET['plus']) && $_GET['plus'] == TRUE){
                 echo "hiiiiieeeer: " . $_GET['plus'];
             }else{echo "neinnnnnn!!!!";}
+            $_GET['plus'] = FALSE;
             ?>
         </div>
         
