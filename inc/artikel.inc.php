@@ -26,7 +26,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         echo "<td>" . $art->getAufschlag() * 100 . " %" . "</td>";
         echo "<td>" . $art->getLagerstand() . "</td>";
         echo "<td>" . $art->getLagerort() . "</td>";
-        echo "<td>" . $art->getUmsatzsteuer() . "</td>";
+        echo "<td>" . $art->getSteuersatz() . "</td>";
         echo "<td><a href='index.php?detail=" . $art->getArtikelId() . "'>Detail</a></td>";
         echo "<td><a href='index.php?loeschen=" . $art->getArtikelId() . "'>Löschen</a></td>";
         echo "</tr>";
@@ -93,7 +93,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         <div class="form-group">
             <label for="umsatzsteuer" class="col-sm-2 control-label">Umsatzsteuer</label>
             <div class="col-sm-10">
-                <input type="text" value="<?php echo $artikel->getUmsatzsteuer() * 100 . " %"; ?>" name="umsatzsteuer" class="form-control" id="umsatzsteuer" readonly="">
+                <input type="text" value="<?php echo $artikel->getSteuersatz() * 100 . " %"; ?>" name="umsatzsteuer" class="form-control" id="umsatzsteuer" readonly="">
             </div>
         </div>
         <div class="form-group">

@@ -20,7 +20,7 @@ class Artikel {
     private $aufschlag;
     private $lagerstand;
     private $lagerort;
-    private $umsatzsteuer;
+    private $steuersatz;
     private $aktiv;
     
     
@@ -56,8 +56,8 @@ class Artikel {
         return $this->lagerort;
     }
 
-    function getUmsatzsteuer() {
-        return $this->umsatzsteuer;
+    function getSteuersatz() {
+        return $this->steuersatz;
     }
 
     function getAktiv() {
@@ -96,15 +96,15 @@ class Artikel {
         $this->lagerort = $lagerort;
     }
 
-    function setUmsatzsteuer($umsatzsteuer) {
-        $this->umsatzsteuer = $umsatzsteuer;
+    function setSteuersatz($steuersatz) {
+        $this->steuersatz = $steuersatz;
     }
 
     function setAktiv($aktiv) {
         $this->aktiv = $aktiv;
     }
 
-    function __construct($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv) {
+    function __construct($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $steuersatz, $aktiv) {
         $this->artikelId = $artikelId;
         $this->artikelname = $artikelname;
         $this->einkaufspreis = $einkaufspreis;
@@ -113,7 +113,7 @@ class Artikel {
         $this->aufschlag = $aufschlag;
         $this->lagerstand = $lagerstand;
         $this->lagerort = $lagerort;
-        $this->umsatzsteuer = $umsatzsteuer;
+        $this->steuersatz = $steuersatz;
         $this->aktiv = $aktiv;
     }
 

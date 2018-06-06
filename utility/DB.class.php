@@ -100,13 +100,13 @@ class DB {
     function getArtikel() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, umsatzsteuer, aktiv "
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, steuersatz, aktiv "
                 . "FROM artikel join umsatzsteuer using(umsatzsteuerid);";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
+        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $steuersatz, $aktiv);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
+            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $steuersatz, $aktiv);
             array_push($resultArray, $artikel);
         }
         $this->conn->close();
@@ -117,13 +117,13 @@ class DB {
     function getArtikelUnterMindestbestand() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, umsatzsteuer, aktiv "
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, steuersatz, aktiv "
                 . "FROM artikel join umsatzsteuer using(umsatzsteuerid) WHERE mindestbestand > lagerstandverfuegbar;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
+        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $steuersatz, $aktiv);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
+            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $steuersatz, $aktiv);
             array_push($resultArray, $artikel);
         }
         $this->conn->close();
@@ -133,15 +133,15 @@ class DB {
     //gibt einen Artikel nach Id zurück
     function getArtikelWithId($artikelId) {
         $this->doConnect();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, umsatzsteuer, aktiv "
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, steuersatz, aktiv "
                 . "FROM artikel join umsatzsteuer using(umsatzsteuerid)"
                 . "WHERE artikelId = ?;";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $artikelId);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
+        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $steuersatz, $aktiv);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
+            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $steuersatz, $aktiv);
         }
         $this->conn->close();
         return $artikel;
