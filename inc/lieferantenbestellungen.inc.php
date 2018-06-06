@@ -156,12 +156,22 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
               
             </ul>
         </div>
-        <div>
-        <select name=“dropdown2”>
-            <option value="1">Eins</option>
-            <option value="2">Zwei</option>
-            <option value="3">Drei</option>
-        </select>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">dropdown test</label>
+            
+                <div class="dropdown">
+                    <select name=“dropdown2”>
+                        <?php
+                            echo "<option value=" . 0 . ">Bitte Lieferant wählen</option>";
+                            foreach($lieferanten as $lieferant){
+                                echo "<option value=" . $lieferant->getLieferantid() . ">" . $lieferant->getName() . "</option>";
+                            }
+                        ?>
+        <!--                <option value="1">Eins</option>
+                        <option value="2">Zwei</option>
+                        <option value="3">Drei</option>-->
+                    </select>
+                </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
