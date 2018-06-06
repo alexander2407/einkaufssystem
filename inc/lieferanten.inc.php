@@ -24,7 +24,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
         if ($lieferant->getAktiv() == 1) {
             echo "<tr>";
         } else {
-            echo "<tr style='background-color: red'>";
+            echo "<tr style='background-color: tomato'>";
         }
         echo "<td>" . $lieferant->getLieferantId() . "</td>";
         echo "<td>" . $lieferant->getName() . "</td>";

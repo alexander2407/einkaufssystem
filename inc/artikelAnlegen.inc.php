@@ -1,5 +1,4 @@
  <h3>Neuen Artikel anlegen</h3>
-    <br>
     
     <br>
     <br>

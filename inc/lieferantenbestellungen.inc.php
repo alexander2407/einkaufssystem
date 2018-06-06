@@ -23,7 +23,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         echo "<td>" . $b->getLieferantId() . "</td>";
         echo "<td>" . $b->getLieferantName() . "</td>";
         echo "<td>" . $b->getZahlungsmethode() . "</td>";
-        if($b->getAbeschlossen() == 1){
+        if($b->getAbgeschlossen() == 1){
             echo "<td>" . "Ja" . "</td>";
         }else{
             echo "<td>" . "Nein" . "</td>";
@@ -112,6 +112,36 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     echo "</table>";
     echo "</div>";
+} else if(isset($_GET['neueBestellung'])){
+    
+    echo "<h3>Neuen Bestellung anlegen</h3><br>";
+    ?>
+    <form class="form-horizontal" method="POST" action="index.php?bestellungNeu=TRUE">
+        <div class="form-group">
+            <label for="lieferantid" class="col-sm-2 control-label">Lieferant (ID)</label>
+            <div class="col-sm-10">
+                <input type="number"  name="lieferantid" class="form-control" id="inputEmail3" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsmethode (ID)</label>
+            <div class="col-sm-10">
+                <input type="number"  name="zahlungsmethodeid" class="form-control" id="inputEmail3" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Abgeschlossen (1/0)</label>
+            <div class="col-sm-10">
+                <input type="text"  name="abgeschlossen" class="form-control" id="inputEmail3" >
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Bestellung anlegen</button>
+            </div>
+        </div>
+    </form>
+   <?php
 }
 ?>
 
