@@ -170,13 +170,10 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             </ul>
         </div>
         <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              dropdown test 3 <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action1</a></li>
-              <li><a href="#">Another action2</a></li>
-              <li><a href="#">Something else here3</a></li>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
+                <li><a href="#">Regular link1</a></li>
+                <li class="disabled"><a href="#">Disabled link2</a></li>
+                <li><a href="#">Another link3</a></li>
             </ul>
         </div>
         <div class="form-group">
