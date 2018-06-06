@@ -23,7 +23,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         echo "<td>" . $b->getLieferantId() . "</td>";
         echo "<td>" . $b->getLieferantName() . "</td>";
         echo "<td>" . $b->getZahlungsmethode() . "</td>";
-        if($art->getAbeschlossen() == 1){
+        if($b->getAbeschlossen() == 1){
             echo "<td>" . "Ja" . "</td>";
         }else{
             echo "<td>" . "Nein" . "</td>";

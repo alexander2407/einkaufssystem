@@ -118,7 +118,7 @@ class DB {
         $this->doConnect();
         $resultArray = array();
         $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, steuersatz, aktiv "
-                . "FROM artikel join umsatzsteuer using(umsatzsteuerid) WHERE mindestbestand > lagerstandverfuegbar;";
+                . "FROM artikel join umsatzsteuer using(umsatzsteuerid) WHERE mindestbestand > lagerstand;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $steuersatz, $aktiv);
