@@ -222,15 +222,18 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                     <input type="number" name="menge" class="form-control" id="menge" required="">
                 </div>
             <a class='btn btn-default' href='index.php?neueBestellung=TRUE&plus=TRUE' role='button'>Artikel hinzufügen</a>
-            
+        </div>    
             
             <?php
                 //echo "hiiiiieeeer: " . $_GET['plus'];
-            $_GET['plus'] = FALSE;
+            if(isset($_GET['plus'])) { 
+            $STH->bindValue(':FALSE', $_GET['plus']);
+}
+            //$_GET['plus'] = FALSE;
             }else{echo "neinnnnnn!!!!";}
             
             ?>
-        </div>
+        
         
         
         <div>
