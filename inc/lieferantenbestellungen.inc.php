@@ -169,6 +169,16 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
               <li><a href="#">Separated link</a></li>
             </ul>
         </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              dropdown test 3 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action1</a></li>
+              <li><a href="#">Another action2</a></li>
+              <li><a href="#">Something else here3</a></li>
+            </ul>
+        </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Bestellung anlegen</button>
