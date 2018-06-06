@@ -5,7 +5,7 @@ if (!empty($_GET['loeschen'])) {
     $db->deleteBestellung($_GET['loeschen']);//löschen funktioniert
 }
 
-if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['offeneBestellungen'])) {
+if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung'])  && !isset($_GET['BestellungArtikel'])) {
 
     echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a> &ensp;"
     . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Lieferantenbestellungen anzeigen</a></div><br>";
@@ -117,7 +117,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     $db = new DB();
     $lieferanten = $db->getLieferanten();
     $zahlungsmethoden = $db->getZahlungsmethode();
-    $artikel = $db->getArtikel();
+    
     
     echo "<h3>Neue Bestellung anlegen</h3><br>";
     ?>
@@ -188,11 +188,41 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         
         <div>
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Bestellung anlegen</button>
+                <button type="submit" class="btn btn-default" href="index.php?BestellungArtikel=TRUE" >Bestellung anlegen</button>
             </div>
         </div>
     </form>
    <?php
+}else if(isset($_GET['BestellungArtikel'])){
+    $db = new DB();
+    $artikel = $db->getArtikel();
+    
+    ?>
+    <form>
+    
+        <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsmethode</label>
+
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <select name=“artikel”>
+                            <?php
+                                foreach($artikel as $a){
+                                    if($a->getAktiv() == 1){
+                                        echo "<option value=" . $a->getArtikelid() ."'> " . $a->getArtikelname();
+                                            
+                                        echo "<label class='col-sm-2 control-label'>Menge</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelname() . "Menge" . "' class='form-control' id='Menge'></div>";
+                                    }else{
+                                        echo "<option value=" . $a->getArtikelid() ."' disabled> " . $a->getArtikelname();
+                                    }
+                                }
+                            ?>
+                        </select>
+                    </div>
+        </div>
+    </form>
+    
+    
+  <?php  
 }
 ?>
 
