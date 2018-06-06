@@ -195,7 +195,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             
             
             <?php
-            if(isset($_GET['plus']) && $_GET['plus'] == TRUE){
+            if(isset($_GET['plus']) && $_GET['plus'] == "TRUE"){
                 echo "<br>";
                 ?>
             testing
