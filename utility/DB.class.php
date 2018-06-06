@@ -270,7 +270,8 @@ class DB {
         $this->doConnect();
         $resultArray = array();
         $query = "select lieferantenbestellungsID, lieferantid, name, zahlungsmethode "
-                . "from lieferantenbestellung where abgeschlossen = 1;";
+                . "from lieferantenbestellung join lieferant using(lieferantid) join zahlungsmethode using(zahlungsmethodeid)"
+                . " where abgeschlossen = 1;";
         $stmt = $this->conn->prepare($query);
         
         $stmt->execute();
