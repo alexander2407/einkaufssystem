@@ -30,25 +30,25 @@
         <div class="form-group">
             <label for="aufschlag" class="col-sm-2 control-label">Aufschlag</label>
             <div class="col-sm-10">
-                <input type="text" name="aufschlag" class="form-control" id="aufschlag" readonly="">
+                <input type="text" name="aufschlag" class="form-control" id="aufschlag" required="">
             </div>
         </div>
         <div class="form-group">
             <label for="lagerstand" class="col-sm-2 control-label">Lagerstand</label>
             <div class="col-sm-10">
-                <input type="text" name="lagerstand" class="form-control" id="lagerstand" readonly="">
+                <input type="text" name="lagerstand" class="form-control" id="lagerstand" required="">
             </div>
         </div>
         <div class="form-group">
             <label for="lagerort" class="col-sm-2 control-label">Lagerort</label>
             <div class="col-sm-10">
-                <input type="text" name="lagerort" class="form-control" id="lagerort" readonly="">
+                <input type="text" name="lagerort" class="form-control" id="lagerort" required="">
             </div>
         </div>
         <div class="form-group">
             <label for="umsatzsteuer" class="col-sm-2 control-label">Umsatzsteuer</label>
             <div class="col-sm-10">
-                <input type="text" name="umsatzsteuer" class="form-control" id="umsatzsteuer" readonly="">
+                <input type="text" name="umsatzsteuer" class="form-control" id="umsatzsteuer" required="">
             </div>
         </div>
         <div class="form-group">
