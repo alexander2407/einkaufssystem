@@ -196,7 +196,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 <div class="col-sm-2"><!--oder 10-->
                     <input type="number" name="menge" class="form-control" id="menge" required="">
                 </div>
-            <input class="btn btn-default" href="index.php?neueBestellung=TRUE&plus=TRUE" type="button" value="+">
+            <a class='btn btn-default' href='index.php?neueBestellung=TRUE&plus=TRUE' role='button'>+</a>
+            
             
             <?php
             if(isset($_GET['plus'])){
