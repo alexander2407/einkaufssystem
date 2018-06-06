@@ -170,7 +170,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
 
-                    <div class="col-sm-offset-2 col-sm-10">
+                    <div>
                         <select name=“artikel”>
                             <option value="">artikel 1</option>;
                             //<?php
