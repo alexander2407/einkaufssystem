@@ -177,8 +177,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                                 foreach($artikel as $a){
                                     if($a->getAktiv() == 1){
                                         
-                                        echo "<label for='lagerort' class='col-sm-2 control-label'> Menge</label><input type='number' name='" . $a->getArtikelname() . ">";
-                                        echo "<input type='text' name='" . $a->getArtikelname() . "' class='form-control' id=''>" . $a->getArtikelname();
+                                        echo "<label for='lagerort' class='col-sm-2 control-label'> Menge</label><input type='number' name='" . $a->getArtikelname() . ">artikelname";
+                                        //echo "<input type='text' name='" . $a->getArtikelname() . "' class='form-control' id=''>" . $a->getArtikelname();
                                     }else{
                                         echo "<input type='text' name='" . $a->getArtikelname() . "' class='form-control' id='' readonly=''>" . $a->getArtikelname();
                                         echo "<label for='lagerort' class='col-sm-2 control-label'> Menge</label><input type='number' name='" . $a->getArtikelname() . " disabled><br>";
