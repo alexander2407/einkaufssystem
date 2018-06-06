@@ -114,6 +114,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     echo "</div>";
 } else if(isset($_GET['neueBestellung'])){
     
+    $db = new DB();
+    $lieferanten = $db->getLieferanten();
+    
     echo "<h3>Neue Bestellung anlegen</h3><br>";
     ?>
     <form class="form-horizontal" method="POST" action="index.php?bestellungNeu=TRUE">
@@ -134,6 +137,20 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             <div class="col-sm-10">
                 <input type="text"  name="abgeschlossen" class="form-control" id="inputEmail3" >
             </div>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              tschuksl test
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <?php
+                    foreach($lieferanten as $lieferant){
+                        echo "<li>" . $lieferant->getName() . "</li>";
+                    }
+                ?>
+              
+            </ul>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
