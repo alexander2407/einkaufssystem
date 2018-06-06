@@ -100,13 +100,13 @@ class DB {
     function getArtikel() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfuegbar, lagerstandaktuell, aufschlag, artikel.UmsatzsteuerId, Steuersatz FROM artikel JOIN"
-                . " umsatzsteuer where artikel.UmsatzsteuerId = umsatzsteuer.UmsatzsteuerId;";
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, steuersatz, aktiv FROM artikel JOIN"
+                . " umsatzsteuer using(umsatzsteuerid);";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag, $umsatzsteuerId, $steuersatz);
+        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $steuersatz, $aktiv);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag, $umsatzsteuerId);
+            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $steuersatz, $aktiv);
             array_push($resultArray, $artikel);
         }
         $this->conn->close();
