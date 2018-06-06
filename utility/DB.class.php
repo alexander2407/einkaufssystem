@@ -284,6 +284,55 @@ class DB {
         return $resultArray;
     }
 
+    function artikelAnlegen(){
+        $this->doConnect();
+        $artikelname=$_GET['artikelname'];
+        $einkaufspreis=$_GET['einkaufspreis'];
+        $mindestbestand=$_GET['mindestbestand'];
+        $aufschlag=0;
+        $artikelid=0;
+        $query = "SELECT Aufschlag "
+                . "FROM aufschlag;";
+        //echo $query;
+        $stmt=$this->conn->prepare($query);
+        $stmt->execute();
+        $stmt->bind_result($aufschlag1);
+        while($stmt->fetch()){
+          $aufschlag=$aufschlag1;  
+        }
+        //echo $aufschlag;
+        
+        $query = "SELECT max(ArtikelID) "
+                . "FROM Artikel;";
+        //echo $query;
+        $stmt=$this->conn->prepare($query);
+        $stmt->execute();
+        $stmt->bind_result($id);
+        while($stmt->fetch()){
+          $artikelid=$id+1;  
+        }
+        
+        
+        $verkaufspreis=$einkaufspreis*$aufschlag+$einkaufspreis;
+        $lagerstandVerfuegbar=0;
+        $lagerstandAktuell=0;
+        
+        
+        
+        $sql="Insert INTO `artikel` (`ArtikelID`, `Artikelname`, `Einkaufspreis`, `Verkaufspreis`, `Mindestbestand`, `Aufschlag`, `LagerstandVerfuegbar`, `LagerstandAktuell`) VALUES (?,?,?,?,?,?,?,?)";
+        $eintrag = $this->conn->prepare($sql);
+        
+        $eintrag->bind_param("isddidii",$artikelid,$artikelname,$einkaufspreis,$verkaufspreis,$mindestbestand,$aufschlag,$lagerstandVerfuegbar,$lagerstandAktuell);
+        
+        $eintrag->execute();
+        
+        echo "Artikel erfolgreich angelegt";
+        
+        $this->conn->close();
+        
+        
+    }
+    
     /* function writeMitarbeiter($mitarbeiter) {
       $this->doConnect();
       $query = "INSERT INTO mitarbeiter VALUES(?,?,?,?,?)";
