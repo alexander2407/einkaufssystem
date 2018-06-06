@@ -221,7 +221,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 <div class="col-sm-2"><!--oder 10-->
                     <input type="number" name="menge" class="form-control" id="menge" required="">
                 </div>
-            <a class='btn btn-default' href='' role='button'>Artikel hinzufügen</a>
+            <a class='btn btn-default' href='index.php?neueBestellung=TRUE&plus=FALSE' role='button'>Artikel hinzufügen</a>
         </div>    
             
             <?php
