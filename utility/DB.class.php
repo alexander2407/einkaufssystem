@@ -317,13 +317,7 @@ class DB {
         $lagerstandVerfuegbar=0;
         $lagerstandAktuell=0;
         
-        echo $artikelid;
-        echo $artikelname;
-        echo $aufschlag;
-        echo $einkaufspreis;
-        echo $lagerstandAktuell;
-        echo $lagerstandVerfuegbar;
-        echo $mindestbestand;
+        
         
         $sql="Insert INTO `artikel` (`ArtikelID`, `Artikelname`, `Einkaufspreis`, `Verkaufspreis`, `Mindestbestand`, `Aufschlag`, `LagerstandVerfuegbar`, `LagerstandAktuell`) VALUES (?,?,?,?,?,?,?,?)";
         $eintrag = $this->conn->prepare($sql);
