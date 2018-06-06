@@ -313,7 +313,7 @@ class DB {
         }
         
         
-        $verkaufspreis=$einkaufspreis*$aufschlag;
+        $verkaufspreis=$einkaufspreis*$aufschlag+$einkaufspreis;
         $lagerstandVerfuegbar=0;
         $lagerstandAktuell=0;
         
