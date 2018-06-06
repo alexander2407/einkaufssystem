@@ -176,11 +176,11 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                             <?php
                                 foreach($artikel as $a){
                                     if($a->getAktiv() == 1){
-                                        echo "<input type='text' value=" . $a->getArtikelid() . " name='" . $a->getArtikelname() . "' class='form-control' id='' readonly=''>";
-                                        echo "<input type='number' name='" . $a->getArtikelname() . "> Menge <br>";
+                                        echo "<input type='text' value=" . $a->getArtikelid() . " name='" . $a->getArtikelname() . "' class='form-control' id=''>" . $a->getArtikelname();
+                                        echo "<label for='lagerort' class='col-sm-2 control-label'> Menge</label><input type='number' name='" . $a->getArtikelname() . "><br>";
                                     }else{
-                                        echo "<input type='text' value=" . $a->getArtikelid() . " name='" . $a->getArtikelname() . "' class='form-control' id='' readonly=''>";
-                                        echo "<input type='number' name='" . $a->getArtikelname() . " disabled> Menge <br>";
+                                        echo "<input type='text' value=" . $a->getArtikelid() . " name='" . $a->getArtikelname() . "' class='form-control' id='' readonly=''>" . $a->getArtikelname();
+                                        echo "<label for='lagerort' class='col-sm-2 control-label'> Menge</label><input type='number' name='" . $a->getArtikelname() . " disabled> Menge <br>";
                                     }
                                 }
                             ?>
