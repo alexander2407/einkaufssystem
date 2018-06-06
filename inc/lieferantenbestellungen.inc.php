@@ -171,23 +171,18 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         
         <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
-
                     <div>
                         <select name=“artikelAuswahl”>
-                            
                             <?php
                                 foreach($artikel as $a){
                                     if($a->getAktiv() == 1){
                                         echo "<option value=" . $a->getArtikelid() ."'> " . $a->getArtikelname() . "</option>";
-
                                     }else{
                                         echo "<option value=" . $a->getArtikelid() ."' disabled> " . $a->getArtikelname();
-                                        
                                     }
                                 }
                             ?>
                         </select>
-                            
                     </div>
         </div>
         <div class="form-group">
@@ -201,9 +196,39 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             
             <?php
             if(isset($_GET['plus']) && $_GET['plus'] == TRUE){
-                echo "hiiiiieeeer: " . $_GET['plus'];
-            }else{echo "neinnnnnn!!!!";}
+                echo "<br>";
+                ?>
+            testing
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
+                    <div>
+                        <select name=“artikelAuswahl”>
+                            <?php
+                                foreach($artikel as $a){
+                                    if($a->getAktiv() == 1){
+                                        echo "<option value=" . $a->getArtikelid() ."'> " . $a->getArtikelname() . "</option>";
+                                    }else{
+                                        echo "<option value=" . $a->getArtikelid() ."' disabled> " . $a->getArtikelname();
+                                    }
+                                }
+                            ?>
+                        </select>
+                    </div>
+        </div>
+        <div class="form-group">
+                
+            <label for="Menge" class="col-sm-2 control-label">Menge</label>
+                <div class="col-sm-2"><!--oder 10-->
+                    <input type="number" name="menge" class="form-control" id="menge" required="">
+                </div>
+            <a class='btn btn-default' href='index.php?neueBestellung=TRUE&plus=TRUE' role='button'>Artikel hinzufügen</a>
+            
+            
+            <?php
+                //echo "hiiiiieeeer: " . $_GET['plus'];
             $_GET['plus'] = FALSE;
+            }else{echo "neinnnnnn!!!!";}
+            
             ?>
         </div>
         
