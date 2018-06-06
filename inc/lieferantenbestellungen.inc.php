@@ -227,9 +227,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             <?php
                 //echo "hiiiiieeeer: " . $_GET['plus'];
             if(isset($_GET['plus'])) { 
-            $STH->bindValue(':FALSE', $_GET['plus']);
+            
 }
-            //$_GET['plus'] = FALSE;
+            $_GET['plus'] = "FALSE";
             }else{echo "neinnnnnn!!!!";}
             
             ?>
