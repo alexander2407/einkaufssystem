@@ -27,7 +27,12 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         echo "<td>" . $art->getLagerstand() . "</td>";
         echo "<td>" . $art->getLagerort() . "</td>";
         echo "<td>" . $art->getSteuersatz() . "</td>";
-        echo "<td>" . $art->getAktiv() . "</td>";
+        if($art->getAktiv() == 1){
+            echo "<td>" . "Ja" . "</td>";
+        }else{
+            echo "<td>" . "Nein" . "</td>";
+        }
+        //echo "<td>" . $art->getAktiv() . "</td>";
         echo "<td><a href='index.php?detail=" . $art->getArtikelId() . "'>Detail</a></td>";
         echo "<td><a href='index.php?loeschen=" . $art->getArtikelId() . "'>Löschen</a></td>";
         echo "</tr>";
