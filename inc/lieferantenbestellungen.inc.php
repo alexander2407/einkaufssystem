@@ -116,13 +116,14 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     $db = new DB();
     $lieferanten = $db->getLieferanten();
-    $zahlungsmethoden = $db->getZahlungsmethode();//to be implemented
+    $zahlungsmethoden = $db->getZahlungsmethode();
+    $artikel = $db->getArtikel();
     
     echo "<h3>Neue Bestellung anlegen</h3><br>";
     ?>
     <form class="form-horizontal" method="POST" action="index.php?bestellungNeu=TRUE">
 
-        <div>
+        <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
             
                 <div>
@@ -141,7 +142,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 </div>
         </div>
         <br>
-        <div>
+        <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsmethode</label>
             
                 <div>
@@ -156,25 +157,36 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 </div>
         </div>
         <br>
-        <div>
+        <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Abgeschlossen</label>
             
                 <div>
-                    <input type="radio" name="Ja" value="1">Ja<br>
-                    <input type="radio" name="Nein" value="0">Nein<br>
+                    <input type="radio" name="Ja" value="1"/> Ja<br>
+                    <input type="radio" name="Nein" value="0"/> Nein<br>
                 </div>
         </div>
         <br>
-        <div>
+        <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
             
-                <div>
-                    <input type="checkbox" name="eins" value="1">Artikel 1<br>
-                    <input type="checkbox" name="zwei" value="2">Artikel 2<br>
-                    <input type="checkbox" name="drei" value="3">Artikel 3<br>
+                <div class="col-sm-offset-2 col-sm-10">
+                    <?php
+                        foreach($artikel as $a){
+                            if($a->getAktiv() == 1){
+                                    echo "<input type='checkbox' name='' value='" . $a->getArtikelid() ."'>" . $a->getArtikelname() . "<br>";
+                                }else{
+                                    echo "<input type='checkbox' name='' value='" . $a->getArtikelid() ."' disabled>" . $a->getArtikelname() . "<br>";
+                                }
+                     }
+                    ?>
+<!--                    <input type="checkbox" name="eins" value="1"> Artikel 1<br>
+                    <input type="checkbox" name="zwei" value="2"> Artikel 2<br>
+                    <input type="checkbox" name="drei" value="3"> Artikel 3<br>-->
                 </div>
+            
         </div>
-        <div class="form-group">
+        <br>
+        <div>
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Bestellung anlegen</button>
             </div>
