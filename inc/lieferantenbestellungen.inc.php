@@ -141,15 +141,15 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">dropdown test</label>
             
-                <div class="dropdown">
-                    <select name=“liererant”>
+                <div class="btn-default">
+                    <select name=“liererant” class="dropdown">
                         <?php
-                            echo "<option value=" . 0 . ">Bitte Lieferant wählen</option>";
+                            echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
                             foreach($lieferanten as $lieferant){
                                 if($lieferant->getAktiv() == 1){
                                     echo "<option value=" . $lieferant->getLieferantid() . ">" . $lieferant->getName() . "</option>";
                                 }else{
-                                    echo "<option value=" . $lieferant->getLieferantid() . "disabled>" . $lieferant->getName() . "</option>";
+                                    echo "<option value=" . $lieferant->getLieferantid() . " disabled>" . $lieferant->getName() . "</option>";
                                 }
                             }
                         ?>
