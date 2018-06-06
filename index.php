@@ -7,6 +7,7 @@ include './model/LieferantDetail.php';
 include './model/Lieferantenbestellung.php';
 include './model/Lieferantenartikel.php';
 include './model/LieferantLiefert.php';
+include './model/Zahlungsmethode.php';
 
 include './utility/DB.class.php';
 
