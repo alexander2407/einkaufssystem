@@ -173,9 +173,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                     <?php
                         foreach($artikel as $a){
                             if($a->getAktiv() == 1){
-                                    echo "<input type='checkbox' name='' value='" . $a->getArtikelid() ."'>" . $a->getArtikelname() . "<br>";
+                                    echo "<input type='checkbox' name='' value='" . $a->getArtikelid() ."'> " . $a->getArtikelname() . "<br>";
                                 }else{
-                                    echo "<input type='checkbox' name='' value='" . $a->getArtikelid() ."' disabled>" . $a->getArtikelname() . "<br>";
+                                    echo "<input type='checkbox' name='' value='" . $a->getArtikelid() ."' disabled> " . $a->getArtikelname() . "<br>";
                                 }
                      }
                     ?>
@@ -185,7 +185,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 </div>
             
         </div>
-        <br>
+        
         <div>
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Bestellung anlegen</button>

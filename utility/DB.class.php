@@ -237,7 +237,7 @@ class DB {
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $lieferantenbestellungsid);
         $stmt->execute();
-        $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethodeId, $zahlungsmethode, $abgeschlossen);
+        $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethodeid, $zahlungsmethode, $abgeschlossen);
         while ($stmt->fetch()) {
             $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethodeid, $zahlungsmethode, $abgeschlossen);
         }
