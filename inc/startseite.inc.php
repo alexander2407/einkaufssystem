@@ -4,7 +4,7 @@ $artikelUnterBestand = $db->getArtikelUnterMindestbestand();
 
 if (count($artikelUnterBestand) > 0) {
     foreach ($artikelUnterBestand as $artikel) {
-        $menge = $artikel->getMindestbestand() - $artikel->getLagerstandVerfuegbar();
+        $menge = $artikel->getMindestbestand() - $artikel->getLagerstand();
         echo "<div class='alert alert-danger' role='alert'><b>Artikel ".$artikel->getArtikelname()." mit ID ".$artikel->getArtikelId()."</b> hat Mindestbestand unterschritten! Nachzubestellende Menge:".$menge."</div>";
     }
     

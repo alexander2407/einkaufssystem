@@ -15,7 +15,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     echo "<div>";
     echo '<table class="table table-striped">';
-    echo "<tr><th>LieferantenbestellungsID</th><th>LieferantID</th><th>Name</th><th>Zahlungsmethode</th></tr>";
+    echo "<tr><th>LieferantenbestellungsID</th><th>LieferantID</th><th>Name</th><th>Zahlungsmethode</th><th>Abgeschlossen</th></tr>";
 
     foreach ($bestellung as $b) {
         echo "<tr>";
@@ -23,6 +23,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         echo "<td>" . $b->getLieferantId() . "</td>";
         echo "<td>" . $b->getLieferantName() . "</td>";
         echo "<td>" . $b->getZahlungsmethode() . "</td>";
+        echo "<td>" . $b->getAbgeschlossen() . "</td>";
         echo "<td><a href='index.php?detail=" . $b->getLieferantenbestellungsId() . "'>Detail</a></td>";
         echo "<td><a href='index.php?loeschen=" . $b->getLieferantenbestellungsId() . "'>Löschen</a></td>";
         echo "</tr>";
@@ -63,12 +64,6 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             </div>
         </div>
         <div class="form-group">
-            <label for="bestellschein" class="col-sm-2 control-label">Bestellschein</label>
-            <div class="col-sm-10">
-                <input type="text" value="<?php echo $bestellung->getBestellschein(); ?>" name="bestellschein" class="form-control" id="bestellschein" readonly="">
-            </div>
-        </div>
-        <div class="form-group">
             <label for="zahlungsmethodeid" class="col-sm-2 control-label">ZahlungsmethodeID</label>
             <div class="col-sm-10">
                 <input type="text" value="<?php echo $bestellung->getZahlungsmethodeId(); ?>" name="zahlungsmethodeid" class="form-control" id="zahlungsmethodeid" readonly="">
@@ -78,6 +73,12 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             <label for="zahlungsmethode" class="col-sm-2 control-label">Zahlungsmethode</label>
             <div class="col-sm-10">
                 <input type="text" value="<?php echo $bestellung->getZahlungsmethode(); ?>" name="zahlungsmethode" class="form-control" id="zahlungsmethode" readonly="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="abgeschlossen" class="col-sm-2 control-label">Abgeschlossen</label>
+            <div class="col-sm-10">
+                <input type="text" value="<?php echo $bestellung->getAbgeschlossen(); ?>" name="abgeschlossen" class="form-control" id="abgeschlossen" readonly="">
             </div>
         </div>
         

@@ -1,12 +1,12 @@
 <?php
 if (!empty($_GET['loeschen'])) {
-    echo "Zeile 3";
+    //echo "Zeile 3";
     $db = new DB();
     $db->deleteArtikel($_GET['loeschen']);
 }
 
 if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerArtikel'])) {
-    echo "Zeile 9";
+    //echo "Zeile 9";
     echo "<div><a class='btn btn-default' href='index.php?neuerArtikel=TRUE' role='button'>Artikel anlegen</a></div><br>";
 
     $db = new DB();
@@ -14,7 +14,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
 
     echo "<div>";
     echo '<table class="table table-striped">';
-    echo "<tr><th>ID</th><th>Name</th><th>Einkaufspreis</th><th>Verkaufspreis</th><th>Mindestbestand</th><th>Verfügbar</th><th>Lagerbestand</th><th>Aufschlag</th></tr>";
+    echo "<tr><th>ArtikelID</th><th>Artikelname</th><th>Einkaufspreis</th><th>Verkaufspreis</th><th>Mindestbestand</th><th>Aufschlag</th><th>Lagerstand</th><th>Lagerort</th><th>Umsatzsteuer</th><th>Aufschlag</th></tr>";
 
     foreach ($artikel as $art) {
         echo "<tr>";
@@ -23,9 +23,10 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         echo "<td>" . $art->getEinkaufspreis() . "</td>";
         echo "<td>" . $art->getVerkaufspreis() . "</td>";
         echo "<td>" . $art->getMindestbestand() . "</td>";
-        echo "<td>" . $art->getLagerstandVerfuegbar() . "</td>";
-        echo "<td>" . $art->getLagerstandAktuell() . "</td>";
         echo "<td>" . $art->getAufschlag() * 100 . " %" . "</td>";
+        echo "<td>" . $art->getLagerstand() . "</td>";
+        echo "<td>" . $art->getLagerort() . "</td>";
+        echo "<td>" . $art->getUmsatzsteuer() . "</td>";
         echo "<td><a href='index.php?detail=" . $art->getArtikelId() . "'>Detail</a></td>";
         echo "<td><a href='index.php?loeschen=" . $art->getArtikelId() . "'>Löschen</a></td>";
         echo "</tr>";
@@ -72,21 +73,27 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
             </div>
         </div>
         <div class="form-group">
-            <label for="lagerverfuegbar" class="col-sm-2 control-label">Lagerstand Verfügbar</label>
-            <div class="col-sm-10">
-                <input type="text" value="<?php echo $artikel->getLagerstandVerfuegbar(); ?>" name="lagerverfuegbar" class="form-control" id="lagerverfuegbar" readonly="">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="lageraktuell" class="col-sm-2 control-label">Lagerstand Aktuell</label>
-            <div class="col-sm-10">
-                <input type="text" value="<?php echo $artikel->getLagerstandAktuell(); ?>" name="lageraktuell" class="form-control" id="lageraktuell" readonly="">
-            </div>
-        </div>
-        <div class="form-group">
             <label for="aufschlag" class="col-sm-2 control-label">Aufschlag</label>
             <div class="col-sm-10">
                 <input type="text" value="<?php echo $artikel->getAufschlag() * 100 . " %"; ?>" name="aufschlag" class="form-control" id="aufschlag" readonly="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lagerstand" class="col-sm-2 control-label">Lagerstand</label>
+            <div class="col-sm-10">
+                <input type="text" value="<?php echo $artikel->getLagerstand(); ?>" name="lagerstand" class="form-control" id="lagerstand" readonly="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lagerort" class="col-sm-2 control-label">Lagerort</label>
+            <div class="col-sm-10">
+                <input type="text" value="<?php echo $artikel->getLagerort(); ?>" name="lagerort" class="form-control" id="lagerort" readonly="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="umsatzsteuer" class="col-sm-2 control-label">Umsatzsteuer</label>
+            <div class="col-sm-10">
+                <input type="text" value="<?php echo $artikel->getUmsatzsteuer() * 100 . " %"; ?>" name="umsatzsteuer" class="form-control" id="umsatzsteuer" readonly="">
             </div>
         </div>
         <div class="form-group">

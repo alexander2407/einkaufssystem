@@ -18,7 +18,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
 
     echo "<div>";
     echo '<table class="table table-striped">';
-    echo "<tr><th>ID</th><th>Name</th><th>Telefonnummer</th><th>Strasse</th><th>PLZ</th><th>Ort</th><th>Land</th><th>aktiv</th></tr>";
+    echo "<tr><th>ID</th><th>Name</th><th>Telefonnummer</th><th>Strasse</th><th>Hausnummer</th><th>PLZ</th><th>Ort</th><th>Land</th><th>aktiv</th></tr>";
 
     foreach ($lieferanten as $lieferant) {
         if ($lieferant->getAktiv() == 1) {
@@ -30,6 +30,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
         echo "<td>" . $lieferant->getName() . "</td>";
         echo "<td>" . $lieferant->getTelefonnummer() . "</td>";
         echo "<td>" . $lieferant->getStrasse() . "</td>";
+        echo "<td>" . $lieferant->getHausnummer() . "</td>";
         echo "<td>" . $lieferant->getPlz() . "</td>";
         echo "<td>" . $lieferant->getOrt() . "</td>";
         echo "<td>" . $lieferant->getLand() . "</td>";
@@ -95,6 +96,12 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
             <label for="strasse" class="col-sm-2 control-label">Strasse</label>
             <div class="col-sm-10">
                 <input type="text" value="<?php echo $lieferant->getStrasse(); ?>" name="strasse" class="form-control" id="strasse" readonly="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hausnummer" class="col-sm-2 control-label">Hausnummer</label>
+            <div class="col-sm-10">
+                <input type="number" value="<?php echo $lieferant->getHausnummer(); ?>" name="hausnummer" class="form-control" id="hausnummer" readonly="">
             </div>
         </div>
         <div class="form-group">
@@ -231,6 +238,12 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
             </div>
         </div>
         <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Hausnummer</label>
+            <div class="col-sm-10">
+                <input type="number" value="<?php echo $lieferant->getHausnummer(); ?>" name="hausnummer" class="form-control" id="inputEmail3" >
+            </div>
+        </div>
+        <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">PLZ</label>
             <div class="col-sm-10">
                 <input type="number" value="<?php echo $lieferant->getPlz(); ?>" name="plz" class="form-control" id="inputEmail3">
@@ -277,6 +290,12 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
             <label for="inputEmail3" class="col-sm-2 control-label">Strasse</label>
             <div class="col-sm-10">
                 <input type="text"  name="strasse" class="form-control" id="inputEmail3" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Hausnummer</label>
+            <div class="col-sm-10">
+                <input type="number"  name="hausnummer" class="form-control" id="inputEmail3" >
             </div>
         </div>
         <div class="form-group">

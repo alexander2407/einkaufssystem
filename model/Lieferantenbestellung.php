@@ -14,20 +14,11 @@
 class Lieferantenbestellung {
     private $lieferantenbestellungsId;   //id   
     private $lieferantId;               //lieferantenId
-    private $bestellschein;             //für die Eingabe in die Datenbank
     private $lieferantName;             //Lieferantenname
     private $zahlungsmethodeId;         
     private $zahlungsmethode;           //Zahlungsmethode String
+    private $abgeschlossen;
     
-    function getZahlungsmethodeId() {
-        return $this->zahlungsmethodeId;
-    }
-
-    function setZahlungsmethodeId($zahlungsmethodeId) {
-        $this->zahlungsmethodeId = $zahlungsmethodeId;
-    }
-
-        
     function getLieferantenbestellungsId() {
         return $this->lieferantenbestellungsId;
     }
@@ -36,16 +27,20 @@ class Lieferantenbestellung {
         return $this->lieferantId;
     }
 
-    function getBestellschein() {
-        return $this->bestellschein;
-    }
-
     function getLieferantName() {
         return $this->lieferantName;
     }
 
+    function getZahlungsmethodeId() {
+        return $this->zahlungsmethodeId;
+    }
+
     function getZahlungsmethode() {
         return $this->zahlungsmethode;
+    }
+
+    function getAbgeschlossen() {
+        return $this->abgeschlossen;
     }
 
     function setLieferantenbestellungsId($lieferantenbestellungsId) {
@@ -56,26 +51,29 @@ class Lieferantenbestellung {
         $this->lieferantId = $lieferantId;
     }
 
-    function setBestellschein($bestellschein) {
-        $this->bestellschein = $bestellschein;
-    }
-
     function setLieferantName($lieferantName) {
         $this->lieferantName = $lieferantName;
+    }
+
+    function setZahlungsmethodeId($zahlungsmethodeId) {
+        $this->zahlungsmethodeId = $zahlungsmethodeId;
     }
 
     function setZahlungsmethode($zahlungsmethode) {
         $this->zahlungsmethode = $zahlungsmethode;
     }
 
-    function __construct($lieferantenbestellungsId, $lieferantId, $bestellschein, $lieferantName, $zahlungsmethodeId, $zahlungsmethode) {
+    function setAbgeschlossen($abgeschlossen) {
+        $this->abgeschlossen = $abgeschlossen;
+    }
+
+    function __construct($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethodeId, $zahlungsmethode, $abgeschlossen) {
         $this->lieferantenbestellungsId = $lieferantenbestellungsId;
         $this->lieferantId = $lieferantId;
-        $this->bestellschein = $bestellschein;
         $this->lieferantName = $lieferantName;
         $this->zahlungsmethodeId = $zahlungsmethodeId;
         $this->zahlungsmethode = $zahlungsmethode;
+        $this->abgeschlossen = $abgeschlossen;
     }
-
 
 }

@@ -16,12 +16,13 @@ class Lieferant {
     private $name;
     private $telefonnummer;
     private $strasse;
+    private $hausnummer;
     private $plz;
     private $ort;
     private $land;
     private $aktiv;
     
-    function getLieferantenId() {
+    function getLieferantId() {
         return $this->lieferantId;
     }
 
@@ -35,6 +36,10 @@ class Lieferant {
 
     function getStrasse() {
         return $this->strasse;
+    }
+
+    function getHausnummer() {
+        return $this->hausnummer;
     }
 
     function getPlz() {
@@ -53,7 +58,7 @@ class Lieferant {
         return $this->aktiv;
     }
 
-    function setLieferantenId($lieferantId) {
+    function setLieferantId($lieferantId) {
         $this->lieferantId = $lieferantId;
     }
 
@@ -69,6 +74,10 @@ class Lieferant {
         $this->strasse = $strasse;
     }
 
+    function setHausnummer($hausnummer) {
+        $this->hausnummer = $hausnummer;
+    }
+
     function setPlz($plz) {
         $this->plz = $plz;
     }
@@ -81,21 +90,22 @@ class Lieferant {
         $this->land = $land;
     }
 
-
     function setAktiv($aktiv) {
         $this->aktiv = $aktiv;
     }
 
-    function __construct($lieferantId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $aktiv) {
+    function __construct($lieferantId, $name, $telefonnummer, $strasse, $hausnummer, $plz, $ort, $land, $aktiv) {
         $this->lieferantId = $lieferantId;
         $this->name = $name;
         $this->telefonnummer = $telefonnummer;
         $this->strasse = $strasse;
+        $this->hausnummer = $hausnummer;
         $this->plz = $plz;
         $this->ort = $ort;
         $this->land = $land;
         $this->aktiv = $aktiv;
     }
+
 
     
     

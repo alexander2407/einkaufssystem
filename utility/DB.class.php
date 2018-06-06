@@ -16,15 +16,15 @@ class DB {
     function getLieferanten() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT lieferantId, name, telefonnummer, strasse, plz, Ort.bezeichnung, Land.bezeichnung, aktiv "
+        $query = "SELECT lieferantId, name, telefonnummer, strasse, hausnummer, plz, Ort.bezeichnung, Land.bezeichnung, aktiv "
                 . "FROM lieferant "
                 . "join ort using(ortid) "
                 . "join land using(landid);";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($lieferantId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $aktiv);
+        $stmt->bind_result($lieferantId, $name, $telefonnummer, $strasse, $hausnummer, $plz, $ort, $land, $aktiv);
         while ($stmt->fetch()) {
-            $lieferant = new Lieferant($lieferantId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $aktiv);
+            $lieferant = new Lieferant($lieferantId, $name, $telefonnummer, $strasse, $hausnummer, $plz, $ort, $land, $aktiv);
             array_push($resultArray, $lieferant);
         }
         $this->conn->close();
@@ -54,7 +54,7 @@ class DB {
     //gibt einen Lieferanten nach Id zurück
     function getLieferant($lieferantId) {
         $this->doConnect();
-        $query = "SELECT lieferantId, name, lieferant.Telefonnummer, strasse, plz, Ort.bezeichnung, Land.bezeichnung, kennzeichen, aktiv, skonto, rabatt, zahlungszieltage, kosten, typ, transportart, vorname, nachname, LieferantenKontaktperson.telefonnummer "
+        $query = "SELECT lieferantId, name, lieferant.Telefonnummer, strasse, hausnummer, plz, Ort.bezeichnung, Land.bezeichnung, kennzeichen, aktiv, skonto, rabatt, zahlungszieltage, kosten, typ, transportart, vorname, nachname, LieferantenKontaktperson.telefonnummer "
                 . "FROM lieferant "
                 . "JOIN ort USING(ortid) "
                 . "JOIN land USING(landid) "
@@ -67,9 +67,9 @@ class DB {
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $lieferantId);
         $stmt->execute();
-        $stmt->bind_result($lieferantId, $name, $telefonnummer, $strasse, $plz, $ort, $land, $land_kennzeichen, $aktiv, $skonto, $rabatt, $zahlungsziel, $lieferkosten, $incoterms, $transportart, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
+        $stmt->bind_result($lieferantId, $name, $telefonnummer, $strasse, $hausnummer, $plz, $ort, $land, $land_kennzeichen, $aktiv, $skonto, $rabatt, $zahlungsziel, $lieferkosten, $incoterms, $transportart, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
         while ($stmt->fetch()) {
-            $lieferant = new LieferantDetail($lieferantId, $name, $telefonnummer, $strasse, null, $plz, $ort, null, $land, $land_kennzeichen, $aktiv, null, $skonto, $rabatt, $zahlungsziel, null, $lieferkosten, $incoterms, $transportart, null, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
+            $lieferant = new LieferantDetail($lieferantId, $name, $telefonnummer, $strasse, $hausnummer, null, $plz, $ort, null, $land, $land_kennzeichen, $aktiv, null, $skonto, $rabatt, $zahlungsziel, null, $lieferkosten, $incoterms, $transportart, null, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
         }
         $this->conn->close();
         return $lieferant;
@@ -100,12 +100,13 @@ class DB {
     function getArtikel() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfuegbar, lagerstandaktuell, aufschlag FROM artikel;";
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, umsatzsteuer, aktiv "
+                . "FROM artikel join umsatzsteuer using(umsatzsteuerid);";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
             array_push($resultArray, $artikel);
         }
         $this->conn->close();
@@ -116,12 +117,13 @@ class DB {
     function getArtikelUnterMindestbestand() {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfuegbar, lagerstandaktuell, aufschlag FROM artikel WHERE mindestbestand > lagerstandverfuegbar;";
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, umsatzsteuer, aktiv "
+                . "FROM artikel join umsatzsteuer using(umsatzsteuerid) WHERE mindestbestand > lagerstandverfuegbar;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
             array_push($resultArray, $artikel);
         }
         $this->conn->close();
@@ -131,15 +133,15 @@ class DB {
     //gibt einen Artikel nach Id zurück
     function getArtikelWithId($artikelId) {
         $this->doConnect();
-        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, lagerstandverfuegbar, lagerstandaktuell,aufschlag "
-                . "FROM artikel "
+        $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, umsatzsteuer, aktiv "
+                . "FROM artikel join umsatzsteuer using(umsatzsteuerid)"
                 . "WHERE artikelId = ?;";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $artikelId);
         $stmt->execute();
-        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+        $stmt->bind_result($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
         while ($stmt->fetch()) {
-            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerstandVerfuegbar, $lagerstandAktuell, $aufschlag);
+            $artikel = new Artikel($artikelId, $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuer, $aktiv);
         }
         $this->conn->close();
         return $artikel;
@@ -208,7 +210,7 @@ class DB {
                 . "FROM lieferantenbestellung; ";
          * 
          */
-        $query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethode "
+        $query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethode, abgeschlossen "
                 . "FROM lieferantenbestellung "
                 . "join lieferant using(lieferantid) "
                 . "join zahlungsmethode using(zahlungsmethodeid);";
@@ -216,9 +218,9 @@ class DB {
          
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
+        $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode, $abgeschlossen);
         while ($stmt->fetch()) {
-            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, null, $lieferantName, null, $zahlungsmethode);
+            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, $lieferantName, null, $zahlungsmethode, $abgeschlossen);
             array_push($resultArray, $lieferantenbestellung);
         }
         $this->conn->close();
@@ -227,7 +229,7 @@ class DB {
 
     function getLieferantenbestellung($lieferantenbestellungsid) {
         $this->doConnect();
-        $query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethodeid, zahlungsmethode "
+        $query = "SELECT lieferantenbestellungsid, lieferantid, name, zahlungsmethodeid, zahlungsmethode, abgeschlossen "
                 . "FROM lieferantenbestellung "
                 . "JOIN lieferant using(lieferantid) "
                 . "JOIN zahlungsmethode using(zahlungsmethodeid) "
@@ -235,9 +237,9 @@ class DB {
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $lieferantenbestellungsid);
         $stmt->execute();
-        $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethodeId, $zahlungsmethode);
+        $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethodeId, $zahlungsmethode, $abgeschlossen);
         while ($stmt->fetch()) {
-            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, null, $lieferantName, $zahlungsmethodeId, $zahlungsmethode);
+            $lieferantenbestellung = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethodeid, $zahlungsmethode, $abgeschlossen);
         }
         $this->conn->close();
         return $lieferantenbestellung;
@@ -268,22 +270,21 @@ class DB {
         $this->doConnect();
         $resultArray = array();
         $query = "select lieferantenbestellungsID, lieferantid, name, zahlungsmethode "
-                . "from lieferantenbestellung join lieferant using(lieferantid) join zahlungsmethode using(zahlungsmethodeid) "
-                . "where lieferantenbestellungsid "
-                . "NOT IN (select lieferbestellungsid from lieferantenlieferungen);";
+                . "from lieferantenbestellung where abgeschlossen = 1;";
         $stmt = $this->conn->prepare($query);
         
         $stmt->execute();
         $stmt->bind_result($lieferantenbestellungsId, $lieferantId, $lieferantName, $zahlungsmethode);
         while ($stmt->fetch()) {
-            $offeneBestellungen = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, null, $lieferantName, null, $zahlungsmethode);
+            $offeneBestellungen = new Lieferantenbestellung($lieferantenbestellungsId, $lieferantId, $lieferantName, null, $zahlungsmethode, null);
             array_push($resultArray, $offeneBestellungen);
         }
         //die klasse "Lieferantenbestellung" kann eigentlich auch dafür verwendet werden.
         $this->conn->close();
         return $resultArray;
     }
-
+    
+    //muss noch angepasst werden
     function artikelAnlegen(){
         $this->doConnect();
         $artikelname=$_GET['artikelname'];
