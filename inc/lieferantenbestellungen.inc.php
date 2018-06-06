@@ -171,16 +171,16 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         
         <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
-                    <div>
+                    <div class="col-sm-3">
                         
                             <?php
                                 foreach($artikel as $a){
                                     if($a->getAktiv() == 1){
                                         echo "<input type='text' name='" . $a->getArtikelname() . "' class='form-control' id=''>" . $a->getArtikelname();
-                                        echo "<label for='lagerort' class='col-sm-2 control-label'> Menge</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelname() . "></div><br>";
+                                        echo "<label for='lagerort' class='col-sm-2 control-label'> Menge</label><input type='number' name='" . $a->getArtikelname() . "><br>";
                                     }else{
                                         echo "<input type='text' name='" . $a->getArtikelname() . "' class='form-control' id='' readonly=''>" . $a->getArtikelname();
-                                        echo "<label for='lagerort' class='col-sm-2 control-label'> Menge</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelname() . " disabled></div><br>";
+                                        echo "<label for='lagerort' class='col-sm-2 control-label'> Menge</label><input type='number' name='" . $a->getArtikelname() . " disabled><br>";
                                     }
                                 }
                             ?>
