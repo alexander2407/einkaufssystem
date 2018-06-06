@@ -26,7 +26,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
         } else {
             echo "<tr style='background-color: red'>";
         }
-        echo "<td>" . $lieferant->getLieferantenId() . "</td>";
+        echo "<td>" . $lieferant->getLieferantId() . "</td>";
         echo "<td>" . $lieferant->getName() . "</td>";
         echo "<td>" . $lieferant->getTelefonnummer() . "</td>";
         echo "<td>" . $lieferant->getStrasse() . "</td>";
@@ -41,11 +41,11 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
             $aktivText = "Nein";
         }
         echo "<td>" . $aktivText . "</td>";
-        echo "<td><a href='index.php?detail=" . $lieferant->getLieferantenId() . "'>Detail</a></td>";
+        echo "<td><a href='index.php?detail=" . $lieferant->getLieferantId() . "'>Detail</a></td>";
         if ($lieferant->getAktiv() == 1) {
-            echo "<td><a href='index.php?loeschen=" . $lieferant->getLieferantenId() . "'>Deaktivieren</a></td>";
+            echo "<td><a href='index.php?loeschen=" . $lieferant->getLieferantId() . "'>Deaktivieren</a></td>";
         } else {
-            echo "<td><a href='index.php?aktivieren=" . $lieferant->getLieferantenId() . "'>Aktivieren</a></td>";
+            echo "<td><a href='index.php?aktivieren=" . $lieferant->getLieferantId() . "'>Aktivieren</a></td>";
         }
         echo "</tr>";
     }

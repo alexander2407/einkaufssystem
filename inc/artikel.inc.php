@@ -41,7 +41,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
     echo "</table>";
     echo "</div>";
 } else if (isset($_GET['detail'])) {
-    echo "Zeile 37";
+    //echo "Zeile 37";
     $db = new DB();
     $id = $_GET['detail'];
     $artikel = $db->getArtikelWithId($id);
