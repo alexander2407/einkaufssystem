@@ -5,7 +5,7 @@ if (!empty($_GET['loeschen'])) {
     $db->deleteBestellung($_GET['loeschen']);//löschen funktioniert
 }
 
-if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung'])  && !isset($_GET['BestellungArtikel'])) {
+if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung'])) {
 
     echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a> &ensp;"
     . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Lieferantenbestellungen anzeigen</a></div><br>";
@@ -167,6 +167,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 </div>
         </div>
         <br>
+        
+        
         <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
 
@@ -190,10 +192,17 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         </div>
         <div class="form-group">
                 
-            <label for="lagerort" class="col-sm-2 control-label">Menge</label>
+            <label for="Menge" class="col-sm-2 control-label">Menge</label>
                 <div class="col-sm-2"><!--oder 10-->
-                    <input type="number" name="menge" class="form-control" id="lagerort" required="">
+                    <input type="number" name="menge" class="form-control" id="menge" required="">
                 </div>
+            <input class="btn btn-default" type="button" value="+">
+            
+            <?php
+            if(isset($_GET['+'])){
+                echo "hiiiiieeeer: " . $_GET['+'];
+            }else{echo "neinnnnnn!!!!";}
+            ?>
         </div>
         
         
