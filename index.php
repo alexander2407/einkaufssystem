@@ -50,7 +50,7 @@ and open the template in the editor.
                     <li role="presentation" <?php if($active=="lieferanten"){ echo 'class="active"';}?>><a href="index.php?menu=lieferanten">Lieferanten</a></li>
                     <li role="presentation" <?php if($active=="artikel"){ echo 'class="active"';}?>><a href="index.php?menu=artikel">Artikel</a></li>
                     <li role="presentation" <?php if($active=="bestellungen"){ echo 'class="active"';}?>><a href="index.php?menu=bestellungen">Lieferantenbestellungen</a></li>
-                    <!-- <li role="presentation" <?php if($active=="offene_bestellungen"){ echo 'class="active"';}?>><a href="index.php?menu=offene_bestellungen">Offene Bestellungen</a></li>-->
+                    <!-- <li role="presentation" <?php //if($active=="offene_bestellungen"){ echo 'class="active"';}?>><a href="index.php?menu=offene_bestellungen">Offene Bestellungen</a></li>-->
                 </ul>
             </div>
             <div class="col-md-10" id="content">
