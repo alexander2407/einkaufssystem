@@ -175,8 +175,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                         
                             <?php
                                 foreach($artikel as $a){
-                                        echo "<label for='lagerort' class='col-sm-8 control-label'>" . $a->getArtikelname() . " Menge:" . "</label><input type='number' name='" . $a->getArtikelname() . ">";
-                                        echo "<input type='text' value=0 name='" . $a->getArtikelname() . "' class='form-control col-sm-3' id=''> Menge";
+                                        echo "<label for='lagerort' class='col-sm-12 control-label'>" . $a->getArtikelname() . " Menge:" . "</label><input type='number' name='" . $a->getArtikelname() . ">";
+                                        echo "artikelname<input type='text' value=0 name='" . $a->getArtikelname() . "' class='form-control col-sm-3' id=''>";
                                 }
                             ?>
                         
