@@ -5,7 +5,7 @@ if (!empty($_GET['loeschen'])) {
     $db->deleteBestellung($_GET['loeschen']);//löschen funktioniert
 }
 
-if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung'])) {
+if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['artikelHinzufügen'])) {
 
     echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a> &ensp;"
     . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Lieferantenbestellungen anzeigen</a></div><br>";
@@ -122,7 +122,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     echo "<h3>Neue Bestellung anlegen</h3><br>";
     ?>
-    <form class="form-horizontal" method="POST" action="index.php?bestellungNeu=TRUE">
+    <form class="form-horizontal" method="POST" action="index.php?artikelHinzufügen=TRUE">
 
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
@@ -169,29 +169,42 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         <br>
         
         
-        <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
-                    <div class="col-sm-4">
-                        
-                            <?php
-                                foreach($artikel as $a){
-                                        echo "<label for='lagerort' class='col-sm-12 control-label'>" . $a->getArtikelname() . " Menge:" . "</label><input type='number' name='" . $a->getArtikelname() . ">";
-                                        echo "artikelname<input type='text' value=0 name='" . $a->getArtikelname() . "' class='form-control col-sm-3' id=''>";
-                                }
-                            ?>
-                        
-                    </div>
-        </div>
         <div>
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default" >Bestellung anlegen</button>
+                <button type="submit" class="btn btn-default" >Artikel hinzufügen</button>
             </div>
         </div>
     </form>
+    
+    <form class="form-inline">
+            <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
+                        <div class="col-sm-4">
+
+                                <?php
+                                    foreach($artikel as $a){
+                                            echo "<label for='lagerort' class='col-sm-12 control-label'>" . $a->getArtikelname() . " Menge:" . "</label><input type='number' name='" . $a->getArtikelname() . ">";
+                                            echo "artikelname<input type='text' value=0 name='" . $a->getArtikelname() . "' class='form-control col-sm-3' id=''>";
+                                    }
+                                ?>
+
+                        </div>
+            </div>
+        </form>
    <?php
-}
+}else if(isset($_GET['artikelHinzufügen'])){
+    
+    echo "hallo test <br>";
+    if(isset($_GET['zahlungsmethode'])){
+        echo $_GET['zahlungsmethode'];
+    }
+
 
     ?>
+    html
+    
+<?php } ?>
+
 
 
 
