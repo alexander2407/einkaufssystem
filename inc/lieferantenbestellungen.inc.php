@@ -172,71 +172,21 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
                     <div>
-                        <select name=“artikelAuswahl”>
+                        
                             <?php
                                 foreach($artikel as $a){
                                     if($a->getAktiv() == 1){
-                                        echo "<option value=" . $a->getArtikelid() ."'> " . $a->getArtikelname() . "</option>";
+                                        echo "<input type='text' value=" . $a->getArtikelid() . " name='" . $a->getArtikelname() . "' class='form-control' id='' readonly=''>";
+                                        echo "<input type='number' name='" . $a->getArtikelname() . "> Menge <br>";
                                     }else{
-                                        echo "<option value=" . $a->getArtikelid() ."' disabled> " . $a->getArtikelname();
+                                        echo "<input type='text' value=" . $a->getArtikelid() . " name='" . $a->getArtikelname() . "' class='form-control' id='' readonly=''>";
+                                        echo "<input type='number' name='" . $a->getArtikelname() . " disabled> Menge <br>";
                                     }
                                 }
                             ?>
-                        </select>
+                        
                     </div>
         </div>
-        <div class="form-group">
-                
-            <label for="Menge" class="col-sm-2 control-label">Menge</label>
-                <div class="col-sm-2"><!--oder 10-->
-                    <input type="number" name="menge" class="form-control" id="menge" required="">
-                </div>
-            <a class='btn btn-default' href='index.php?neueBestellung=TRUE&plus=TRUE' role='button'>Artikel hinzufügen</a>
-            
-            
-            <?php
-            if(isset($_GET['plus']) && $_GET['plus'] == "TRUE"){
-                echo "<br>";
-                ?>
-            testing
-            <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
-                    <div>
-                        <select name=“artikelAuswahl”>
-                            <?php
-                                foreach($artikel as $a){
-                                    if($a->getAktiv() == 1){
-                                        echo "<option value=" . $a->getArtikelid() ."'> " . $a->getArtikelname() . "</option>";
-                                    }else{
-                                        echo "<option value=" . $a->getArtikelid() ."' disabled> " . $a->getArtikelname();
-                                    }
-                                }
-                            ?>
-                        </select>
-                    </div>
-        </div>
-        <div class="form-group">
-                
-            <label for="Menge" class="col-sm-2 control-label">Menge</label>
-                <div class="col-sm-2"><!--oder 10-->
-                    <input type="number" name="menge" class="form-control" id="menge" required="">
-                </div>
-            <a class='btn btn-default' href='index.php?neueBestellung=TRUE&plus=FALSE' role='button'>Artikel hinzufügen</a>
-        </div>    
-            
-            <?php
-                //echo "hiiiiieeeer: " . $_GET['plus'];
-            if(isset($_GET['plus'])) { 
-            
-}
-            $_GET['plus'] = "FALSE";
-            
-            }
-            
-            ?>
-        
-        
-        
         <div>
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default" >Bestellung anlegen</button>
