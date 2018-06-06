@@ -14,7 +14,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
 
     echo "<div>";
     echo '<table class="table table-striped">';
-    echo "<tr><th>ArtikelID</th><th>Artikelname</th><th>Einkaufspreis</th><th>Verkaufspreis</th><th>Mindestbestand</th><th>Aufschlag</th><th>Lagerstand</th><th>Lagerort</th><th>Umsatzsteuer</th><th>Aufschlag</th></tr>";
+    echo "<tr><th>ArtikelID</th><th>Artikelname</th><th>Einkaufspreis</th><th>Verkaufspreis</th><th>Mindestbestand</th><th>Aufschlag</th><th>Lagerstand</th><th>Lagerort</th><th>Umsatzsteuer</th><th>Aktiv</th></tr>";
 
     foreach ($artikel as $art) {
         echo "<tr>";
@@ -27,6 +27,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         echo "<td>" . $art->getLagerstand() . "</td>";
         echo "<td>" . $art->getLagerort() . "</td>";
         echo "<td>" . $art->getSteuersatz() . "</td>";
+        echo "<td>" . $art->getAktiv() . "</td>";
         echo "<td><a href='index.php?detail=" . $art->getArtikelId() . "'>Detail</a></td>";
         echo "<td><a href='index.php?loeschen=" . $art->getArtikelId() . "'>Löschen</a></td>";
         echo "</tr>";
