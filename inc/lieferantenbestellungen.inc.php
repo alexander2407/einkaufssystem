@@ -144,12 +144,15 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <?php
-                    echo "<li>" . "test" . "</li>";
-                    foreach($lieferanten as $lieferant){
-                        echo "<li>" . $lieferant->getName() . "</li>";
-                    }
-                ?>
+                //<?php
+//                    echo "<li>" . "test" . "</li>";
+//                    foreach($lieferanten as $lieferant){
+//                        echo "<li>" . $lieferant->getName() . "</li>";
+//                    }
+//                ?>
+                <li><a href="#">test 1</a></li>
+                <li><a href="#">test 2</a></li>
+                <li><a href="#">test 3</a></li>
               
             </ul>
         </div>
