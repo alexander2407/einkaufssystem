@@ -114,7 +114,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     echo "</div>";
 } else if(isset($_GET['neueBestellung'])){
     
-    echo "<h3>Neuen Bestellung anlegen</h3><br>";
+    echo "<h3>Neue Bestellung anlegen</h3><br>";
     ?>
     <form class="form-horizontal" method="POST" action="index.php?bestellungNeu=TRUE">
         <div class="form-group">
