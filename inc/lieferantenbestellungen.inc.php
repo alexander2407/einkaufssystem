@@ -116,35 +116,19 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     $db = new DB();
     $lieferanten = $db->getLieferanten();
+    $zahlungsmethoden = $db->getZahlungsmethode();//to be implemented
     
     echo "<h3>Neue Bestellung anlegen</h3><br>";
     ?>
     <form class="form-horizontal" method="POST" action="index.php?bestellungNeu=TRUE">
-        <div class="form-group">
-            <label for="lieferantid" class="col-sm-2 control-label">Lieferant (ID)</label>
-            <div class="col-sm-10">
-                <input type="number"  name="lieferantid" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsmethode (ID)</label>
-            <div class="col-sm-10">
-                <input type="number"  name="zahlungsmethodeid" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Abgeschlossen (1/0)</label>
-            <div class="col-sm-10">
-                <input type="text"  name="abgeschlossen" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">dropdown test</label>
+
+        <div class="dropdown">
+            <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
             
-                <div class="btn-default">
-                    <select name=“liererant” class="dropdown">
+                <div>
+                    <select name=“lieferant” class="dropdown">
                         <?php
-                            echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
+                            //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
                             foreach($lieferanten as $lieferant){
                                 if($lieferant->getAktiv() == 1){
                                     echo "<option value=" . $lieferant->getLieferantid() . ">" . $lieferant->getName() . "</option>";
@@ -154,6 +138,44 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                             }
                         ?>
                     </select>
+                </div>
+        </div>
+        
+        <div class="dropdown">
+            <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsmethode</label>
+            
+                <div>
+                    <select name=“zahlungsmethode”>
+                        <?php
+                            //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
+                            foreach($zahlungsmethoden as $zahlungsmethode){
+                                if($zahlungsmethode->getZahlungsmethodename() == 1){
+                                    echo "<option value=" . $zahlungsmethode->getZahlungsmethodeid() . ">" . $zahlungsmethode->getZahlungsmethodename() . "</option>";
+                                }else{
+                                    echo "<option value=" . $zahlungsmethode->getZahlungsmethodeid() . " disabled>" . $zahlungsmethode->getZahlungsmethodename() . "</option>";
+                                }
+                            }
+                        ?>
+                    </select>
+                </div>
+        </div>
+        <br>
+        <div class="dropdown">
+            <label for="inputEmail3" class="col-sm-2 control-label">Abgeschlossen</label>
+            
+                <div>
+                    <input type="radio" name="Ja" value="1" />
+                    <input type="radio" name="Nein" value="0" />
+                </div>
+        </div>
+        <br>
+        <div>
+            <label for="inputEmail3" class="col-sm-2 control-label">Artikel</label>
+            
+                <div>
+                    <input type="checkbox" name="eins" value="1" />
+                    <input type="checkbox" name="zwei" value="2" />
+                    <input type="checkbox" name="drei" value="3" />
                 </div>
         </div>
         <div class="form-group">
