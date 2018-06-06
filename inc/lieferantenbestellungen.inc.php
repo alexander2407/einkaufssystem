@@ -187,11 +187,13 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 //                                }
 //                            ?>
                         </select>
-                            <label for="lagerort" class="col-sm-2 control-label">Menge</label>
+                            
+                    </div>
+                
+                <label for="lagerort" class="col-sm-2 control-label">Menge</label>
                                 <div class="col-sm-10">
                                     <input type="number" name="lagerort" class="form-control" id="lagerort" required="">
                                 </div>
-                    </div>
         </div>
         
         <div>
