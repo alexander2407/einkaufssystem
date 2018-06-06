@@ -172,20 +172,25 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
                     <div class="col-sm-offset-2 col-sm-10">
                         <select name=“artikel”>
-                            <?php
-                                foreach($artikel as $a){
-                                    if($a->getAktiv() == 1){
-                                        echo "<option value=" . $a->getArtikelid() ."'> " . $a->getArtikelname();
-                                        echo "</select>";
-                                            
-                                        echo "<label class='col-sm-2 control-label'> Menge</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelname() . "Menge" . "' class='form-control' id='Menge'></div>";
-                                    }else{
-                                        echo "<option value=" . $a->getArtikelid() ."' disabled> " . $a->getArtikelname();
-                                        echo "</select>";
-                                    }
-                                }
-                            ?>
-                        <!--</select>-->
+                            <option value="">artikel 1</option>;
+                            //<?php
+//                                foreach($artikel as $a){
+//                                    if($a->getAktiv() == 1){
+//                                        echo "<option value=" . $a->getArtikelid() ."'> " . $a->getArtikelname() . "</option>";
+//                                        echo "</select>";
+//                                            
+//                                        echo "<label class='col-sm-2 control-label'> Menge</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelname() . "Menge" . "' class='form-control' id='Menge'></div>";
+//                                    }else{
+//                                        echo "<option value=" . $a->getArtikelid() ."' disabled> " . $a->getArtikelname();
+//                                        echo "</select>";
+//                                    }
+//                                }
+//                            ?>
+                        </select>
+                            <label for="lagerort" class="col-sm-2 control-label">Menge</label>
+                                <div class="col-sm-10">
+                                    <input type="number" name="lagerort" class="form-control" id="lagerort" required="">
+                                </div>
                     </div>
         </div>
         
