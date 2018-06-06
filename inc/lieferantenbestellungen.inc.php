@@ -138,38 +138,21 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 <input type="text"  name="abgeschlossen" class="form-control" id="inputEmail3" >
             </div>
         </div>
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              tschuksl test
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                //<?php
-//                    echo "<li>" . "test" . "</li>";
-//                    foreach($lieferanten as $lieferant){
-//                        echo "<li>" . $lieferant->getName() . "</li>";
-//                    }
-//                ?>
-                <li><a href="#">test 1</a></li>
-                <li><a href="#">test 2</a></li>
-                <li><a href="#">test 3</a></li>
-              
-            </ul>
-        </div>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">dropdown test</label>
             
                 <div class="dropdown">
-                    <select name=“dropdown2”>
+                    <select name=“liererant”>
                         <?php
                             echo "<option value=" . 0 . ">Bitte Lieferant wählen</option>";
                             foreach($lieferanten as $lieferant){
-                                echo "<option value=" . $lieferant->getLieferantid() . ">" . $lieferant->getName() . "</option>";
+                                if($lieferant->getAktiv() == 1){
+                                    echo "<option value=" . $lieferant->getLieferantid() . ">" . $lieferant->getName() . "</option>";
+                                }else{
+                                    echo "<option value=" . $lieferant->getLieferantid() . "disabled>" . $lieferant->getName() . "</option>";
+                                }
                             }
                         ?>
-        <!--                <option value="1">Eins</option>
-                        <option value="2">Zwei</option>
-                        <option value="3">Drei</option>-->
                     </select>
                 </div>
         </div>
