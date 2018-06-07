@@ -128,7 +128,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
             
                 <div>
-                    <select name=lieferant class="dropdown">
+                    <select name="lieferant" class="dropdown">
                         <?php
                             //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
                             foreach($lieferanten as $lieferant){
@@ -181,20 +181,19 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 }else if(isset($_GET['artikelHinzufügen'])){
     
     $db = new DB();
-    $artikel = $db->getArtikel();
+    $artikel = $db->getArtikelByLieferant($_POST['lieferant']);
     
-    echo "hallo test <br>";
-    if(isset($_POST['zahlungsmethode'])){
-        echo "da is sie: " . $_POST['zahlungsmethode'];
-    }
-    if(isset($_POST['Lieferant'])){
-        echo "da is er: " . $_POST['lieferant'];
-    }
+//    if(isset($_POST['zahlungsmethode'])){
+//        echo "da is sie: " . $_POST['zahlungsmethode'];
+//    }
+//    if(isset($_POST['Lieferant'])){
+//        echo "da is er: " . $_POST['lieferant'];
+//    }
 
     ?>
     
-    <h3>Artikel von -Lieferantname-, bitte Anzahl eintragen</h3>
-    
+    <h3>Lieferant: <?php echo $_POST['lieferant']; ?> <br> Zahlungsmethode: <?php echo $_POST['zahlungsmethode']; ?> <br> Artikelmengen erfassen</h3>
+    <br>
     <form class="form-horizontal" method="GET" action="index.php">
         
         
