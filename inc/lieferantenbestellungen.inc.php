@@ -1,5 +1,5 @@
 <?php
-//echo 'amk';
+$v_lieferant = 0;
 if (!empty($_GET['loeschen'])) {
     $db = new DB();
     $db->deleteBestellung($_GET['loeschen']); //löschen funktioniert
@@ -217,6 +217,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     $artikel = $db->getArtikelByLieferant($_POST['lieferant']);
     $lieferant = $db->getLieferant($_POST['lieferant']);
     $zahlungsmethode = $db->getZahlungsmethodeById($_POST['zahlungsmethode']);
+    $v_lieferant = $_POST['lieferant'];
 
     
     if(isset($_GET['bestellungAnlegen'])){
@@ -298,7 +299,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     <?php
 } else if(isset($_GET['bestellungAnlegen'])){
     $db = new DB();
-    $db->testTabelle($_POST['lieferant']);
+    $db->testTabelle($v_lieferant);
 
     ?>
     
