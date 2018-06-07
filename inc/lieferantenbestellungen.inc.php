@@ -298,7 +298,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     <?php
 } else if(isset($_GET['bestellungAnlegen'])){
     $db = new DB();
-    $db->testTabelle(100);
+    $db->testTabelle($_POST['lieferant']);
 
     ?>
     
