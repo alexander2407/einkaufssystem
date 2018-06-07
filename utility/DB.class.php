@@ -390,14 +390,14 @@ class DB {
         
         
         $sql="Insert INTO `artikel` (`Artikelname`, `Einkaufspreis`, `Verkaufspreis`, `Mindestbestand`, `Aufschlag`, `Lagerstand`, `Lagerort`, `UmsatzsteuerId`, `Aktiv`) VALUES (?,?,?,?,?,?,?,?,?);";
-        echo $sql;
-        echo "<br>";
-        echo $artikelname.",".$einkaufspreis.",".$verkaufspreis.",".$mindestbestand.",".$aufschlag.",".$lagerstand.",".$lagerort.",".$umsatzsteuerid.",".$aktiv;
+        //echo $sql;
+        //echo "<br>";
+        //echo $artikelname.",".$einkaufspreis.",".$verkaufspreis.",".$mindestbestand.",".$aufschlag.",".$lagerstand.",".$lagerort.",".$umsatzsteuerid.",".$aktiv;
         $eintrag = $this->conn->prepare($sql);
  
-        $eintrag->bind_param("sddidisii",$artikelname,$einkaufspreis,$verkaufspreis,$mindestbestand,$aufschlag,$lagerstand,$lagerort,$umsatzsteuerId,$atkiv);
-        echo "<br>";
-        var_dump($eintrag);
+        $eintrag->bind_param("sddidisii",$artikelname,$einkaufspreis,$verkaufspreis,$mindestbestand,$aufschlag,$lagerstand,$lagerort,$umsatzsteuerid,$atkiv);
+        //echo "<br>";
+        //var_dump($eintrag);
         
         
         $eintrag->execute();
@@ -409,6 +409,22 @@ class DB {
         $this->conn->close();
         
         
+    }
+    
+    function getUmsatzsteuer(){
+        $this->doConnect();
+        $resultArray=array();
+        $query = "SELECT * from umsatzsteuer";
+        $stmt=$this->conn->prepare($query);
+        $stmt->execute();
+        $stmt->bind_result($id,$steuersatz);
+        $i=0;
+        while($stmt->fetch()){
+            $ust= new Ust($id, $steuersatz);
+            array_push($resultArray, $ust);
+        }
+        return $resultArray;
+        $this->conn->close();
     }
     
     function getZahlungsmethode() {
