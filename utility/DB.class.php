@@ -321,7 +321,7 @@ class DB {
         $resultArray = array();
         $query = "select lieferantenbestellungsID, lieferantid, name, zahlungsmethode "
                 . "from lieferantenbestellung join lieferant using(lieferantid) join zahlungsmethode using(zahlungsmethodeid)"
-                . " where abgeschlossen = 1;";
+                . " where abgeschlossen = 0;";
         $stmt = $this->conn->prepare($query);
         
         $stmt->execute();
@@ -333,6 +333,25 @@ class DB {
         //die klasse "Lieferantenbestellung" kann eigentlich auch dafür verwendet werden.
         $this->conn->close();
         return $resultArray;
+    }
+    
+    function countOffeneBestellungenToArtikel($artikel){
+        $this->doConnect();
+        $query = "select count(*) "
+                . "from artikel "
+                . "inner join lieferantenartikel using(artikelid) "
+                . "inner join lieferantenbestellung using(lieferantenbestellungsId) "
+                . "where artikelid=? and abgeschlossen = 0;";
+        $stmt = $this->conn->prepare($query);
+        $artikelId = $artikel->getArtikelId();
+        $stmt->bind_param("i",$artikelId);
+        $stmt->execute();
+        $stmt->bind_result($count);
+        while ($stmt->fetch()) {
+            $number = $count;
+        }
+        $this->conn->close();
+        return $number;
     }
     
     //muss noch angepasst werden
