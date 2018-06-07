@@ -229,7 +229,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     <h5 color="green">Lieferant: <?php echo $lieferant->getName(); ?> <br> Zahlungsmethode: <?php echo $zahlungsmethode->getZahlungsmethodename(); ?> </h5>
     <br>
     <br>
-    <form class="form-horizontal" method="GET" action="index.php">
+    <form class="form-horizontal" method="GET" action="index.php?artikelHinzufügen=TRUE">
 
 
         <?php
@@ -247,7 +247,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     <?php
         if(isset($_GET['angelegt'])){
-            $_GET['angelegt'] = "jo";
+            //$_GET['angelegt'] = "jo";
             echo "JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }else{echo "NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";}
     ?>
