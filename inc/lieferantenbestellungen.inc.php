@@ -5,7 +5,7 @@ if (!empty($_GET['loeschen'])) {
     $db->deleteBestellung($_GET['loeschen']); //löschen funktioniert
 }
 
-if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['artikelHinzufügen']) && !isset($_GET['offeneBestellungen'])) {
+if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['artikelHinzufügen']) && !isset($_GET['offeneBestellungen']) && !isset($_GET['bestellungAnlegen'])) {
 
     echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a> &ensp;"
     . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Lieferantenbestellungen anzeigen</a></div><br>";
@@ -217,7 +217,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     $artikel = $db->getArtikelByLieferant($_POST['lieferant']);
     $lieferant = $db->getLieferant($_POST['lieferant']);
     $zahlungsmethode = $db->getZahlungsmethodeById($_POST['zahlungsmethode']);
-    $db->testTabelle(99);
+
     
     if(isset($_GET['bestellungAnlegen'])){
             //$alleArtikel = array();
@@ -296,7 +296,16 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     ?>
     
     <?php
-}
+} else if(isset($_GET['bestellungAnlegen'])){
+    $db = new DB();
+    $db->testTabelle(100);
+
+    ?>
+    
+    <h3>angelegt!!!!!!!!!!!!!</h3>
+
+    <?php
+    }
     ?>
 
 
