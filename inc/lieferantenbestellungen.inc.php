@@ -240,7 +240,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
         <div>
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" name="angelegt" class="btn btn-default" >Bestellung aufgeben</button>
+                <button type="submit" name="angelegt" value="TRUE" class="btn btn-default" >Bestellung aufgeben</button>
             </div>
         </div>
     </form>
