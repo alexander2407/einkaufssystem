@@ -252,10 +252,13 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 <input type="text"  name="lieferant" value="<?php echo $lieferant->getName(); ?>" class="form-control" id="inputEmail3" readonly="">
             </div>
         </div>
+        
+        <a name="lieferantid" value="<?php echo $lieferant->getLieferantId(); ?>"></a>
+        
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsbedingungen</label>
             <div class="col-sm-10">
-                <input type="text"  name="zahlungsbedingungen" value="<?php echo $zahlungsmethode->getZahlungsmethodename(); ?>" class="form-control" id="inputEmail3" >
+                <input type="text"  name="zahlungsbedingungen" value="<?php echo $zahlungsmethode->getZahlungsmethodename(); ?>" class="form-control" id="inputEmail3" readonly="">
             </div>
         </div>
 
@@ -315,8 +318,10 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 //            foreach($alleArtikel as $arti){
 //                $anzahlArtikel ++;
 //            }
-            echo "lieferantenname: " . $_GET['lieferant'];
-    $db->testTabelle($v_lieferant);
+            echo "lieferantenname: " . $_POST['lieferant'];
+            echo "<br>";
+            echo "lieferantenname: " . $_POST['lieferantid'];
+    //$db->testTabelle($v_lieferant);
 
     ?>
     
