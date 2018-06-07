@@ -217,10 +217,11 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     $artikel = $db->getArtikelByLieferant($_POST['lieferant']);
     $lieferant = $db->getLieferant($_POST['lieferant']);
     $zahlungsmethode = $db->getZahlungsmethodeById($_POST['zahlungsmethode']);
+    $db->testTabelle(99);
     
     if(isset($_GET['bestellungAnlegen'])){
             //$alleArtikel = array();
-            $db = new DB();
+            //$db = new DB();
             $alleArtikel = $db->getArtikelByLieferant($_POST['lieferant']);
             $anzahlArtikel = 0;
             foreach($alleArtikel as $arti){
@@ -228,7 +229,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             }
             
             //echo "anzahl artikel: " . $anzahlArtikel;
-            $db->testTabelle(99); //fügt in "testtab" die anzahl der artikelIDs des ausgewählten lieferanten ein.
+            $db->testTabelle(98); //fügt in "testtab" die anzahl der artikelIDs des ausgewählten lieferanten ein.
     }
     
 //    if(isset($_POST['zahlungsmethode'])){
