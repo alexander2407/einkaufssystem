@@ -26,7 +26,6 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         echo "<td>" . $art->getAufschlag() * 100 . " %" . "</td>";
         echo "<td>" . $art->getLagerstand() . "</td>";
         echo "<td>" . $art->getLagerort() . "</td>";
-        echo "<td>" . $art->getSteuersatz() . "</td>";
         if($art->getAktiv() == 1){
             echo "<td>" . "Ja" . "</td>";
         }else{
@@ -112,6 +111,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
     } ?>" name="aufschlag" class="form-control" id="aufschlag" readonly="">
             </div>
         </div>
+        <br>
         <h4>Lieferanten die diesen Artikel liefern</h4>
     <?php
     if (count($lieferantenliste) > 0) {

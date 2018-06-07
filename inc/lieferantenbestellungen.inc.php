@@ -2,7 +2,7 @@
 //echo 'amk';
 if (!empty($_GET['loeschen'])) {
     $db = new DB();
-    $db->deleteBestellung($_GET['loeschen']);//löschen funktioniert
+    $db->deleteBestellung($_GET['loeschen']); //löschen funktioniert
 }
 
 if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['artikelHinzufügen'])) {
@@ -23,9 +23,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         echo "<td>" . $b->getLieferantId() . "</td>";
         echo "<td>" . $b->getLieferantName() . "</td>";
         echo "<td>" . $b->getZahlungsmethode() . "</td>";
-        if($b->getAbgeschlossen() == 1){
+        if ($b->getAbgeschlossen() == 1) {
             echo "<td>" . "Ja" . "</td>";
-        }else{
+        } else {
             echo "<td>" . "Nein" . "</td>";
         }
         //echo "<td>" . $b->getAbgeschlossen() . "</td>";
@@ -43,7 +43,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     //$lieferant = $db->getLieferant($id); //$id ist die id von der Lieferantenbestellung
     ?>
 
-<h3>Lieferantenbestellungen</h3>
+    <h3>Lieferantenbestellungen</h3>
 
     <br>
     <a class="btn btn-default" href="index.php?aendern=<?php echo $id; ?>">Bearbeiten</a>
@@ -86,14 +86,14 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 <input type="text" value="<?php echo $bestellung->getAbgeschlossen(); ?>" name="abgeschlossen" class="form-control" id="abgeschlossen" readonly="">
             </div>
         </div>
-        
+
     </form>
-    
-<?php
-}else if (isset($_GET['offeneBestellungen'])) {
+
+    <?php
+} else if (isset($_GET['offeneBestellungen'])) {
     $db = new DB();
     $offeneBestellung = $db->getOffeneBestellungen();
-    
+
     echo "<h3>Offene Lieferantenbestellungen</h3>";
     echo "<br>";
 
@@ -112,74 +112,74 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     echo "</table>";
     echo "</div>";
-} else if(isset($_GET['neueBestellung'])){
-    
+} else if (isset($_GET['neueBestellung'])) {
+
     $db = new DB();
     $lieferanten = $db->getLieferanten();
     $zahlungsmethoden = $db->getZahlungsmethode();
-    
-    
-    
+
+
+
     echo "<h3>Neue Bestellung anlegen</h3><br>";
     ?>
     <form class="form-horizontal" method="POST" action="index.php?artikelHinzufügen=TRUE">
 
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
-            
-                <div>
-                    <select name="lieferant" class="dropdown">
-                        <?php
-                            //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
-                            foreach($lieferanten as $lieferant){
-                                if($lieferant->getAktiv() == 1){
-                                    echo "<option value=" . $lieferant->getLieferantid() . ">" . $lieferant->getName() . "</option>";
-                                }else{
-                                    echo "<option value=" . $lieferant->getLieferantid() . " disabled>" . $lieferant->getName() . "</option>";
-                                }
-                            }
-                        ?>
-                    </select>
-                </div>
+
+            <div class="div col-sm-10"> 
+                <select name="lieferant" class="form-control">
+                    <?php
+                    //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
+                    foreach ($lieferanten as $lieferant) {
+                        if ($lieferant->getAktiv() == 1) {
+                            echo "<option value=" . $lieferant->getLieferantid() . ">" . $lieferant->getName() . "</option>";
+                        } else {
+                            echo "<option value=" . $lieferant->getLieferantid() . " disabled>" . $lieferant->getName() . "</option>";
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
         </div>
         <br>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsmethode</label>
-            
-                <div>
-                    <select name="zahlungsmethode">
-                        <?php
-                            //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
-                            foreach($zahlungsmethoden as $zahlungsmethode){
-                                    echo "<option value=" . $zahlungsmethode->getZahlungsmethodeid() . ">" . $zahlungsmethode->getZahlungsmethodename() . "</option>";
-                            }
-                        ?>
-                    </select>
-                </div>
+
+            <div class="col-sm-10">
+                <select name="zahlungsmethode" class="form-control">
+                    <?php
+                    //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
+                    foreach ($zahlungsmethoden as $zahlungsmethode) {
+                        echo "<option value=" . $zahlungsmethode->getZahlungsmethodeid() . ">" . $zahlungsmethode->getZahlungsmethodename() . "</option>";
+                    }
+                    ?>
+                </select>
+            </div>
         </div>
-<!--        <br>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Abgeschlossen</label>
-            
-                <div>
-                    <input type="radio" name="Ja" value="1"/> Ja<br>
-                    <input type="radio" name="Nein" value="0"/> Nein<br>
-                </div>
-        </div>-->
+        <!--        <br>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">Abgeschlossen</label>
+                    
+                        <div>
+                            <input type="radio" name="Ja" value="1"/> Ja<br>
+                            <input type="radio" name="Nein" value="0"/> Nein<br>
+                        </div>
+                </div>-->
         <br>
-        
-        
+
+
         <div>
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default" >Artikel hinzufügen</button>
             </div>
         </div>
     </form>
-    
-    
-   <?php
-}else if(isset($_GET['artikelHinzufügen'])){
-    
+
+
+    <?php
+} else if (isset($_GET['artikelHinzufügen'])) {
+
     $db = new DB();
     $artikel = $db->getArtikelByLieferant($_POST['lieferant']);
     $lieferant = $db->getLieferant($_POST['lieferant']);
@@ -190,20 +190,18 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 //    if(isset($_POST['Lieferant'])){
 //        echo "da is er: " . $_POST['lieferant'];
 //    }
-
     ?>
-    
-    <h3>Lieferant: <?php echo $lieferant->getName(); ?> <br> Zahlungsmethode: <?php //echo $zahlungsmethode->getZahlungsmethodename(); ?> <br> Artikelmengen erfassen</h3>
+
+    <h3>Lieferant: <?php echo $lieferant->getName(); ?> <br> Zahlungsmethode: <?php //echo $zahlungsmethode->getZahlungsmethodename();  ?> <br> Artikelmengen erfassen</h3>
     <br>
     <form class="form-horizontal" method="GET" action="index.php">
-        
-        
-                <?php
-                    foreach($artikel as $a){
-                        echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
-                   }
-                
-                ?>
+
+
+        <?php
+        foreach ($artikel as $a) {
+            echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
+        }
+        ?>
 
         <div>
             <div class="col-sm-offset-2 col-sm-10">
@@ -211,10 +209,10 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             </div>
         </div>
     </form>
-    
-<?php 
-   } 
-  ?>
+
+    <?php
+}
+?>
 
 
 
