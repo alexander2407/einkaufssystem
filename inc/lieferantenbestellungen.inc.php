@@ -122,7 +122,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     echo "<h3>Neue Bestellung anlegen</h3><br>";
     ?>
-    <form class="form-horizontal" method="GET" action="index.php?artikelHinzufügen=TRUE">
+    <form class="form-horizontal" method="POST" action="index.php?artikelHinzufügen=TRUE">
 
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
@@ -178,14 +178,14 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     
    <?php
-}else if(isset($_GET['artikelHinzufügen'])){
+}else if(isset($_POST['artikelHinzufügen'])){
     
     $db = new DB();
     $artikel = $db->getArtikel();
     
     echo "hallo test <br>";
-    if(isset($_GET['zahlungsmethode'])){
-        echo "da is sie: " . $_GET['zahlungsmethode'];
+    if(isset($_POST['zahlungsmethode'])){
+        echo "da is sie: " . $_POST['zahlungsmethode'];
     }
 
     ?>
