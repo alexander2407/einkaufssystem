@@ -342,7 +342,7 @@ class DB {
         $einkaufspreis=$_GET['einkaufspreis'];
         $mindestbestand=$_GET['mindestbestand'];
         $aufschlag=0;
-        $artikelid=0;
+        $artikelid=null;
         $query = "SELECT Aufschlag "
                 . "FROM aufschlag;";
         //echo $query;
@@ -354,30 +354,35 @@ class DB {
         }
         //echo $aufschlag;
         
-        $query = "SELECT max(ArtikelID) "
-                . "FROM Artikel;";
+        
         //echo $query;
-        $stmt=$this->conn->prepare($query);
-        $stmt->execute();
-        $stmt->bind_result($id);
-        while($stmt->fetch()){
-          $artikelid=$id+1;  
-        }
+       // $stmt=$this->conn->prepare($query);
+        //$stmt->execute();
+        //$stmt->bind_result($id);
+        //while($stmt->fetch()){
+         // $artikelid=$id+1;  
+        //}
         
         
         $verkaufspreis=$einkaufspreis*$aufschlag+$einkaufspreis;
-        $lagerstandVerfuegbar=0;
-        $lagerstandAktuell=0;
+        $lagerstand=0;
+        $lagerort=$_GET['lagerort'];
+        $aktiv=1;
         
         
-        
-        $sql="Insert INTO `artikel` (`ArtikelID`, `Artikelname`, `Einkaufspreis`, `Verkaufspreis`, `Mindestbestand`, `Aufschlag`, `LagerstandVerfuegbar`, `LagerstandAktuell`) VALUES (?,?,?,?,?,?,?,?)";
+        $sql="Insert INTO `artikel` (`Artikelname`, `Einkaufspreis`, `Verkaufspreis`, `Mindestbestand`, `Aufschlag`, `Lagerstand`, `Lagerort`,`UmsatzsteuerId`,`Aktiv`) VALUES (?,?,?,?,?,?,?,?,?)";
+        echo $sql;
+        echo "<br>";
         $eintrag = $this->conn->prepare($sql);
+        var_dump($eintrag);
+        $eintrag->bind_param("sddidisii",$artikelname,$einkaufspreis,$verkaufspreis,$mindestbestand,$aufschlag,$lagerstand,$lagerort,$umsatzsteuerId,$atkiv);
         
-        $eintrag->bind_param("isddidii",$artikelid,$artikelname,$einkaufspreis,$verkaufspreis,$mindestbestand,$aufschlag,$lagerstandVerfuegbar,$lagerstandAktuell);
+        
         
         $eintrag->execute();
         
+        
+        echo "<br>";
         echo "Artikel erfolgreich angelegt";
         
         $this->conn->close();
