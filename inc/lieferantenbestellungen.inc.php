@@ -233,7 +233,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
 
         <?php
-        $v_lieferant = $_POST['lieferant'];
+        //$v_lieferant = $_POST['lieferant'];
         
         foreach ($artikel as $a) {
             echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
@@ -248,6 +248,20 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     </form>
 
     <?php
+    
+    if(isset($_GET['bestellungAnlegen'])){
+            //$alleArtikel = array();
+            $db = new DB();
+            $alleArtikel = $db->getArtikelByLieferant($_POST['lieferant']);
+            $anzahlArtikel = 0;
+            foreach($alleArtikel as $arti){
+                $anzahlArtikel ++;
+            }
+            
+            //echo "anzahl artikel: " . $anzahlArtikel;
+            $testtab = $db->testTabelle($anzahlArtikel); //fügt in "testtab" die anzahl der artikelIDs des ausgewählten lieferanten ein.
+    }
+    
 //        if(isset($_GET['bestellungAnlegen'])){
 //            $alleArtikel = getArtikelByLieferant($_POST['lieferant']);
 //            $anzahlArtikel = 0;
@@ -266,21 +280,6 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         //}
     ?>
 
-    <?php
-} else if(isset($_GET['bestellungAnlegen'])){
-            //$alleArtikel = array();
-            $db = new DB();
-            //$alleArtikel = $db->getArtikelByLieferant($v_lieferant);
-            $anzahlArtikel = 0;
-            foreach($artikel as $arti){
-                $anzahlArtikel ++;
-            }
-            
-            echo "anzahl artikel: " . $anzahlArtikel;
-?>
-
-    <h3 color="green">Bestellung angelegt!</h3>
-    
     <?php
 }
     ?>
