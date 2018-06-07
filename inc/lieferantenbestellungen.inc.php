@@ -268,6 +268,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     <?php
 } else if(isset($_GET['bestellungAnlegen'])){
+            $alleArtikel = array();
             $alleArtikel = getArtikelByLieferant($v_lieferant);
             $anzahlArtikel = 0;
             foreach($alleArtikel as $artikel){
