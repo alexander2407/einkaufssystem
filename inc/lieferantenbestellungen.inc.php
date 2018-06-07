@@ -217,6 +217,20 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     $artikel = $db->getArtikelByLieferant($_POST['lieferant']);
     $lieferant = $db->getLieferant($_POST['lieferant']);
     $zahlungsmethode = $db->getZahlungsmethodeById($_POST['zahlungsmethode']);
+    
+    if(isset($_GET['bestellungAnlegen'])){
+            //$alleArtikel = array();
+            $db = new DB();
+            $alleArtikel = $db->getArtikelByLieferant($_POST['lieferant']);
+            $anzahlArtikel = 0;
+            foreach($alleArtikel as $arti){
+                $anzahlArtikel ++;
+            }
+            
+            //echo "anzahl artikel: " . $anzahlArtikel;
+            $db->testTabelle(99); //fügt in "testtab" die anzahl der artikelIDs des ausgewählten lieferanten ein.
+    }
+    
 //    if(isset($_POST['zahlungsmethode'])){
 //        echo "da is sie: " . $_POST['zahlungsmethode'];
 //    }
@@ -249,18 +263,18 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     <?php
     
-    if(isset($_GET['bestellungAnlegen'])){
-            //$alleArtikel = array();
-            $db = new DB();
-            $alleArtikel = $db->getArtikelByLieferant($_POST['lieferant']);
-            $anzahlArtikel = 0;
-            foreach($alleArtikel as $arti){
-                $anzahlArtikel ++;
-            }
-            
-            //echo "anzahl artikel: " . $anzahlArtikel;
-            $db->testTabelle(99); //fügt in "testtab" die anzahl der artikelIDs des ausgewählten lieferanten ein.
-    }
+//    if(isset($_GET['bestellungAnlegen'])){
+//            //$alleArtikel = array();
+//            $db = new DB();
+//            $alleArtikel = $db->getArtikelByLieferant($_POST['lieferant']);
+//            $anzahlArtikel = 0;
+//            foreach($alleArtikel as $arti){
+//                $anzahlArtikel ++;
+//            }
+//            
+//            //echo "anzahl artikel: " . $anzahlArtikel;
+//            $db->testTabelle(99); //fügt in "testtab" die anzahl der artikelIDs des ausgewählten lieferanten ein.
+//    }
     
 //        if(isset($_GET['bestellungAnlegen'])){
 //            $alleArtikel = getArtikelByLieferant($_POST['lieferant']);

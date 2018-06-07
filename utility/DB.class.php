@@ -485,9 +485,6 @@ class DB {
         $stmt->bind_param("i", $anzahl);
         $stmt->execute();
         $this->conn->close();
-        
-        echo "in testtabelle angelegt";
-        
     }
     
     /* function writeMitarbeiter($mitarbeiter) {
