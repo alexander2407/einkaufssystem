@@ -246,14 +246,14 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     </form>
 
     <?php
-        if(isset($_GET['bestellungAnlegen'])){
-            $alleArtikel = getArtikelByLieferant($_POST['lieferant']);
-            $anzahlArtikel = 0;
-            foreach($alleArtikel as $artikel){
-                $anzahlArtikel ++;
-            }
-            
-            echo "anzahl artikel: " . $anzahlArtikel;
+//        if(isset($_GET['bestellungAnlegen'])){
+//            $alleArtikel = getArtikelByLieferant($_POST['lieferant']);
+//            $anzahlArtikel = 0;
+//            foreach($alleArtikel as $artikel){
+//                $anzahlArtikel ++;
+//            }
+//            
+//            echo "anzahl artikel: " . $anzahlArtikel;
 
 //            $artikelarray = array();
 //            $artikelarray = 
@@ -261,7 +261,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 //            $anlegen = $db->lieferantenbestellungErfassen($_POST['lieferant'], $artikelarray, $_POST['zahlungsmethode']);
             
             
-        }
+        //}
     ?>
 
     <?php
