@@ -190,32 +190,22 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     <h3>Artikel von -Lieferantname-, bitte Anzahl eintragen</h3>
     
     <form class="form-horizontal" method="GET" action="index.php">
-        <div class="form-group">
+        
+<!--        <div class="form-group">
             <label for="artikelname" class="col-sm-2 control-label">Artikelname</label>
             <div class="col-sm-10">
                 <input type="text" name="artikelname" class="form-control" id="artikelname"  required="" >
             </div>
-        </div>
-        <div class="form-group">
-            <label for="einkaufspreis" class="col-sm-2 control-label">Einkaufspreis</label>
-            <div class="col-sm-10">
-                <input type="text"  name="einkaufspreis" class="form-control" id="einkaufspreis"  required="">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="verkaufspreis" class="col-sm-2 control-label">Verkaufspreis</label>
-            <div class="col-sm-10">
-                <input type="text"  name="verkaufspreis" class="form-control" id="verkaufspreis"  required="">
-            </div>
-        </div>
+        </div>-->
+
         
-                //<?php
-//                    foreach($artikel as $a){
-//                        echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
-//                    }
-//                
-//                ?>
-                                //<?php
+                <?php
+                    foreach($artikel as $a){
+                        echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
+                   }
+                
+                ?>
+                                <?php
 //                                    foreach($artikel as $a){
 //                                            echo "<label for='lagerort' class='col-sm-12 control-label'>" . $a->getArtikelname() . " Menge:" . "</label><input type='number' name='" . $a->getArtikelname() . ">";
 //                                            echo "artikelname<input type='text' value=0 name='" . $a->getArtikelname() . "' class='form-control col-sm-3' id=''>";
