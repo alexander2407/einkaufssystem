@@ -193,7 +193,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     ?>
     
-    <h3>Lieferant: <?php echo $lieferant->getName(); ?> <br> Zahlungsmethode: <?php echo $zahlungsmethode->getZahlungsmethodename(); ?> <br> Artikelmengen erfassen</h3>
+    <h3>Lieferant: <?php echo $lieferant->getName(); ?> <br> Zahlungsmethode: <?php //echo $zahlungsmethode->getZahlungsmethodename(); ?> <br> Artikelmengen erfassen</h3>
     <br>
     <form class="form-horizontal" method="GET" action="index.php">
         
