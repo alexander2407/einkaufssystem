@@ -482,16 +482,10 @@ class DB {
         $this->doConnect();
         $query = "INSERT INTO testtab VALUES(?);";
         $stmt = $this->conn->prepare($query);
-        
-        
         $stmt->bind_param("i", $anzahl);
         $stmt->execute();
-        $return = $this->conn->errno;
         $this->conn->close();
-        if($return == 0){
-            return true;
-        }
-        return false;
+        
     }
     
     /* function writeMitarbeiter($mitarbeiter) {

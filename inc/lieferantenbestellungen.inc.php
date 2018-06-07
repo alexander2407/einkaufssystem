@@ -259,7 +259,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             }
             
             //echo "anzahl artikel: " . $anzahlArtikel;
-            $testtab = $db->testTabelle($anzahlArtikel); //fügt in "testtab" die anzahl der artikelIDs des ausgewählten lieferanten ein.
+            $db->testTabelle($anzahlArtikel); //fügt in "testtab" die anzahl der artikelIDs des ausgewählten lieferanten ein.
     }
     
 //        if(isset($_GET['bestellungAnlegen'])){
@@ -279,7 +279,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             
         //}
     ?>
-
+    <h3>angelegt!!!!!!!!!!!!!!!!!!!!!</h3>
     <?php
 }
     ?>
