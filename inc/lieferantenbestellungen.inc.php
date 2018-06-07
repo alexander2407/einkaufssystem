@@ -270,16 +270,16 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 } else if(isset($_GET['bestellungAnlegen'])){
             //$alleArtikel = array();
             $db = new DB();
-            $alleArtikel = $db->getArtikelByLieferant($v_lieferant);
+            //$alleArtikel = $db->getArtikelByLieferant($v_lieferant);
             $anzahlArtikel = 0;
-            foreach($alleArtikel as $artikel){
+            foreach($artikel as $arti){
                 $anzahlArtikel ++;
             }
             
             echo "anzahl artikel: " . $anzahlArtikel;
 ?>
 
-    <h3>testausgabe</h3>
+    <h3 color="green">Bestellung angelegt!</h3>
     
     <?php
 }
