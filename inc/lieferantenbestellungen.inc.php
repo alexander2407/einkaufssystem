@@ -191,8 +191,10 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 //        echo "da is er: " . $_POST['lieferant'];
 //    }
     ?>
-
-    <h3>Lieferant: <?php echo $lieferant->getName(); ?> <br> Zahlungsmethode: <?php echo $zahlungsmethode->getZahlungsmethodename();  ?> <br> Artikelmengen erfassen</h3>
+    <h3>Artikelmengen erfassen</h3>
+    <br>
+    <h5 color="green">Lieferant: <?php echo $lieferant->getName(); ?> <br> Zahlungsmethode: <?php echo $zahlungsmethode->getZahlungsmethodename();  ?> </h5>
+    <br>
     <br>
     <form class="form-horizontal" method="GET" action="index.php">
 
@@ -209,6 +211,11 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             </div>
         </div>
     </form>
+    
+    <?php
+        
+    
+    ?>
 
     <?php
 }
