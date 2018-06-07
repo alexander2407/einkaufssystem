@@ -342,7 +342,7 @@ class DB {
         $einkaufspreis=$_GET['einkaufspreis'];
         $mindestbestand=$_GET['mindestbestand'];
         $aufschlag=0;
-        $artikelid=null;
+        $umsatzsteuerid=$_GET['umsatzsteuer'];
         $query = "SELECT Aufschlag "
                 . "FROM aufschlag;";
         //echo $query;
@@ -370,13 +370,15 @@ class DB {
         $aktiv=1;
         
         
-        $sql="Insert INTO `artikel` (`Artikelname`, `Einkaufspreis`, `Verkaufspreis`, `Mindestbestand`, `Aufschlag`, `Lagerstand`, `Lagerort`,`UmsatzsteuerId`,`Aktiv`) VALUES (?,?,?,?,?,?,?,?,?)";
+        $sql="Insert INTO `artikel` (`Artikelname`, `Einkaufspreis`, `Verkaufspreis`, `Mindestbestand`, `Aufschlag`, `Lagerstand`, `Lagerort`, `UmsatzsteuerId`, `Aktiv`) VALUES (?,?,?,?,?,?,?,?,?);";
         echo $sql;
         echo "<br>";
+        echo $artikelname.",".$einkaufspreis.",".$verkaufspreis.",".$mindestbestand.",".$aufschlag.",".$lagerstand.",".$lagerort.",".$umsatzsteuerid.",".$aktiv;
         $eintrag = $this->conn->prepare($sql);
-        var_dump($eintrag);
+ 
         $eintrag->bind_param("sddidisii",$artikelname,$einkaufspreis,$verkaufspreis,$mindestbestand,$aufschlag,$lagerstand,$lagerort,$umsatzsteuerId,$atkiv);
-        
+        echo "<br>";
+        var_dump($eintrag);
         
         
         $eintrag->execute();
