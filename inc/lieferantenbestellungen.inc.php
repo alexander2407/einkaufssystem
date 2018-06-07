@@ -246,9 +246,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     </form>
 
     <?php
-        if(!empty($_GET['angelegt'])){
+        if(isset($_GET['angelegt'])){
             echo "JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        }
+        }else{echo "NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";}
     ?>
 
     <?php
