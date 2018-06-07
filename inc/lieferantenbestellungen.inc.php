@@ -178,7 +178,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     
    <?php
-}else if(isset($_POST['artikelHinzufügen'])){
+}else if(isset($_GET['artikelHinzufügen'])){
     
     $db = new DB();
     $artikel = $db->getArtikel();
