@@ -122,13 +122,13 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     echo "<h3>Neue Bestellung anlegen</h3><br>";
     ?>
-    <form class="form-horizontal" method="GET" action="index.php?artikelHinzufügen=TRUE">
+    <form class="form-horizontal" method="POST" action="index.php?artikelHinzufügen=TRUE">
 
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
             
                 <div>
-                    <select name=“lieferant” class="dropdown">
+                    <select name=lieferant class="dropdown">
                         <?php
                             //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
                             foreach($lieferanten as $lieferant){
@@ -147,7 +147,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsmethode</label>
             
                 <div>
-                    <select name=“zahlungsmethode”>
+                    <select name="zahlungsmethode">
                         <?php
                             //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
                             foreach($zahlungsmethoden as $zahlungsmethode){
@@ -184,8 +184,11 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     $artikel = $db->getArtikel();
     
     echo "hallo test <br>";
-    if(isset($_GET['zahlungsmethode'])){
-        echo "da is sie: " . $_GET['zahlungsmethode'];
+    if(isset($_POST['zahlungsmethode'])){
+        echo "da is sie: " . $_POST['zahlungsmethode'];
+    }
+    if(isset($_POST['Lieferant'])){
+        echo "da is er: " . $_POST['lieferant'];
     }
 
     ?>
