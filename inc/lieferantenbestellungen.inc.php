@@ -233,6 +233,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
 
         <?php
+        $v_lieferant = $_POST['lieferant'];
+        
         foreach ($artikel as $a) {
             echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
         }
@@ -266,7 +268,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     <?php
 } else if(isset($_GET['bestellungAnlegen'])){
-            $alleArtikel = getArtikelByLieferant($_POST['lieferant']);
+            $alleArtikel = getArtikelByLieferant($v_lieferant);
             $anzahlArtikel = 0;
             foreach($alleArtikel as $artikel){
                 $anzahlArtikel ++;
