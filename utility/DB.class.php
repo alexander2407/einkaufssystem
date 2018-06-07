@@ -421,7 +421,7 @@ class DB {
         $stmt->bind_result($id,$steuersatz);
         $i=0;
         while($stmt->fetch()){
-            $ust= new Ust($id, $steuersatz);
+            $ust= new Ust($id, $steuersatz); //wo ist die klasse "Ust" ?
             array_push($resultArray, $ust);
         }
         return $resultArray;
@@ -472,6 +472,10 @@ class DB {
         }
         $this->conn->close();
         return $id;
+    }
+    
+    function lieferantenbestellungErfassen($lieferantenid, $artikelarray, $zahlungsmethode){
+        
     }
     
     /* function writeMitarbeiter($mitarbeiter) {
