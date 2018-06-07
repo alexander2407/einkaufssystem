@@ -75,6 +75,24 @@ class DB {
         return $lieferant;
     }
     
+    //gibt den ersten Lieferant zu einem Artikel zurück
+    function getFirstLieferantIdToArtikel($artikelId){
+        $this->doConnect();
+        $query = "SELECT lieferantId "
+                . "FROM lieferantliefert "
+                . "WHERE artikelid=? "
+                . "LIMIT 1;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i",$artikelId);
+        $stmt->execute();
+        $stmt->bind_result($lieferantId);
+        while($stmt->fetch()){
+            $id = $lieferantId;
+        }
+        $this->conn->close();
+        return $id;
+    }
+    
     //gibt eine Liste der Artikel welche von einem Lieferant geliefert werden können zurück, in Form eines LieferantLiefert Objektes
     function getArtikelByLieferant($lieferantId){
         $this->doConnect();
@@ -244,6 +262,17 @@ class DB {
         $this->conn->close();
         return $lieferantenbestellung;
     }
+    
+    function insertLieferantenbestellung($lieferantenbestellung){
+        $this->doConnect();
+        $query = "INSERT INTO lieferantenbestellung(LieferantId, ZahlungsmethodeId, abgeschlossen) VALUES(?,?,?);";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("iii", $lieferantenbestellung->getLieferantId(), $lieferantenbestellung->getZahlungsmethodeId(), $lieferantenbestellung->getAbgeschlossen());
+        $stmt->execute();
+        $id = $this->conn->insert_id;
+        $this->conn->close();
+        return $id;
+    }
 
     //gibt alle Positionen zu einer übergebenen Lieferantenbestellung als array zurück
     function getLieferantenartikel($lieferantenbestellungsId) {
@@ -264,6 +293,20 @@ class DB {
         }
         $this->conn->close();
         return $resultArray;
+    }
+    
+    function insertLieferantenartikel($lieferantenartikel){
+        $this->doConnect();
+        $query = "INSERT INTO lieferantenartikel VALUES(?,?,?);";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("iii", $lieferantenartikel->getAnzahl(), $lieferantenartikel->getArtikelId(), $lieferantenartikel->getLieferantenbestellungsId());
+        $stmt->execute();
+        $return = $this->conn->errno;
+        $this->conn->close();
+        if($return == 0){
+            return true;
+        }
+        return false;
     }
     
     function getOffeneBestellungen(){
@@ -364,6 +407,21 @@ class DB {
         }
         $this->conn->close();
         return $resultArray;
+    }
+    
+    function getFirstZahlungsmethodeId(){
+        $this->doConnect();
+        $query = "SELECT zahlungsmethodeid "
+                . "FROM zahlungsmethode "
+                . "LIMIT 1;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $stmt->bind_result($zahlungsmethodeId);
+        while($stmt->fetch()){
+            $id = $zahlungsmethodeId;
+        }
+        $this->conn->close();
+        return $id;
     }
     
     /* function writeMitarbeiter($mitarbeiter) {
