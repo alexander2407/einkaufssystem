@@ -270,7 +270,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 } else if(isset($_GET['bestellungAnlegen'])){
             //$alleArtikel = array();
             $db = new DB();
-            $alleArtikel = $db->getArtikelByLieferant($_POST['lieferant']);
+            $alleArtikel = $db->getArtikelByLieferant($v_lieferant);
             $anzahlArtikel = 0;
             foreach($alleArtikel as $artikel){
                 $anzahlArtikel ++;
