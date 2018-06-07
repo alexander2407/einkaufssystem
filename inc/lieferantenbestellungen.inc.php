@@ -244,7 +244,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     <br>
     <h5 color="green">Lieferant: <?php echo $lieferant->getName(); ?> <br> Zahlungsmethode: <?php echo $zahlungsmethode->getZahlungsmethodename(); ?> </h5>
     <br>
-    <br>
+    
     <form class="form-horizontal" method="POST" action="index.php?bestellungAnlegen=TRUE">
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
@@ -255,7 +255,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsbedingungen</label>
             <div class="col-sm-10">
-                <input type="number"  name="zahlungsbedingungen" value="<?php echo $zahlungsmethode->getZahlungsmethodename(); ?>" class="form-control" id="inputEmail3" >
+                <input type="text"  name="zahlungsbedingungen" value="<?php echo $zahlungsmethode->getZahlungsmethodename(); ?>" class="form-control" id="inputEmail3" >
             </div>
         </div>
 
@@ -309,7 +309,13 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     <?php
 } else if(isset($_GET['bestellungAnlegen'])){
-    $db = new DB();
+            $db = new DB();
+//            $alleArtikel = $db->getArtikelByLieferant($_POST['lieferant']);
+//            $anzahlArtikel = 0;
+//            foreach($alleArtikel as $arti){
+//                $anzahlArtikel ++;
+//            }
+            echo "lieferantenname: " . $_GET['lieferant'];
     $db->testTabelle($v_lieferant);
 
     ?>
