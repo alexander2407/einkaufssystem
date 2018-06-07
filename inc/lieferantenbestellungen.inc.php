@@ -247,6 +247,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     <?php
         if(isset($_GET['angelegt'])){
+            $_GET['angelegt'] = "jo";
             echo "JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         }else{echo "NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";}
     ?>
