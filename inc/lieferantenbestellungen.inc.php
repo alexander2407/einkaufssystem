@@ -189,7 +189,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     <h3>Artikel von -Lieferantname-, bitte Anzahl eintragen</h3>
     
-    <form class="form-group" method="GET" action="index.php">
+    <form class="form-horizontal" method="GET" action="index.php">
 
         
                 <?php
