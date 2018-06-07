@@ -31,7 +31,7 @@ class Lieferantenartikel {
 
         
     function getLieferantenbestellungsId() {
-        return $this->lieferantenbestellungsid;
+        return $this->lieferantenbestellungsId;
     }
 
     function setLieferantenbestellungsId($lieferantenbestellungsId) {

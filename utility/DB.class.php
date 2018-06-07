@@ -86,6 +86,7 @@ class DB {
         $stmt->bind_param("i",$artikelId);
         $stmt->execute();
         $stmt->bind_result($lieferantId);
+        $id = null;
         while($stmt->fetch()){
             $id = $lieferantId;
         }
@@ -267,7 +268,10 @@ class DB {
         $this->doConnect();
         $query = "INSERT INTO lieferantenbestellung(LieferantId, ZahlungsmethodeId, abgeschlossen) VALUES(?,?,?);";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("iii", $lieferantenbestellung->getLieferantId(), $lieferantenbestellung->getZahlungsmethodeId(), $lieferantenbestellung->getAbgeschlossen());
+        $lieferantId = $lieferantenbestellung->getLieferantId();
+        $zahlungsmethodeId = $lieferantenbestellung->getZahlungsmethodeId();
+        $abgeschlossen = $lieferantenbestellung->getAbgeschlossen();
+        $stmt->bind_param("iii", $lieferantId, $zahlungsmethodeId, $abgeschlossen);
         $stmt->execute();
         $id = $this->conn->insert_id;
         $this->conn->close();
@@ -299,7 +303,10 @@ class DB {
         $this->doConnect();
         $query = "INSERT INTO lieferantenartikel VALUES(?,?,?);";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("iii", $lieferantenartikel->getAnzahl(), $lieferantenartikel->getArtikelId(), $lieferantenartikel->getLieferantenbestellungsId());
+        $anzahl = $lieferantenartikel->getAnzahl();
+        $artikelId = $lieferantenartikel->getArtikelId();
+        $lieferantenbestellungsId = $lieferantenartikel->getLieferantenbestellungsId();
+        $stmt->bind_param("iii", $anzahl, $artikelId, $lieferantenbestellungsId);
         $stmt->execute();
         $return = $this->conn->errno;
         $this->conn->close();
