@@ -350,6 +350,22 @@ class DB {
         return $resultArray;
     }
     
+    function getZahlungsmethodeById($id) {
+        $this->doConnect();
+        $resultArray = array();
+        $query = "SELECT zahlungsmethodeid, zahlungsmethode from zahlungsmethode where zahlungsmethodeid=?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->bind_result($zahlungsmethodeid, $zahlungsmethodename);
+        while ($stmt->fetch()) {
+            $zahlungsmethode = new Zahlungsmethode($zahlungsmethodeid, $zahlungsmethodename);
+            array_push($resultArray, $zahlungsmethode);
+        }
+        $this->conn->close();
+        return $resultArray;
+    }
+    
     /* function writeMitarbeiter($mitarbeiter) {
       $this->doConnect();
       $query = "INSERT INTO mitarbeiter VALUES(?,?,?,?,?)";

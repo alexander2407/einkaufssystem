@@ -182,7 +182,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     $db = new DB();
     $artikel = $db->getArtikelByLieferant($_POST['lieferant']);
-    
+    $lieferant = $db->getLieferant($_POST['lieferant']);
+    $zahlungsmethode = $db->getZahlungsmethodeById($_POST['zahlungsmethode']);
 //    if(isset($_POST['zahlungsmethode'])){
 //        echo "da is sie: " . $_POST['zahlungsmethode'];
 //    }
@@ -192,7 +193,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     ?>
     
-    <h3>Lieferant: <?php echo $_POST['lieferant']; ?> <br> Zahlungsmethode: <?php echo $_POST['zahlungsmethode']; ?> <br> Artikelmengen erfassen</h3>
+    <h3>Lieferant: <?php echo $lieferant->getName(); ?> <br> Zahlungsmethode: <?php echo $zahlungsmethode->getZahlungsmethodename(); ?> <br> Artikelmengen erfassen</h3>
     <br>
     <form class="form-horizontal" method="GET" action="index.php">
         
