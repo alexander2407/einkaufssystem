@@ -353,7 +353,7 @@ class DB {
     function getZahlungsmethodeById($id) {
         $this->doConnect();
         $resultArray = array();
-        $query = "SELECT zahlungsmethodeid, zahlungsmethode from zahlungsmethode where zahlungsmethodeid=?";
+        $query = "SELECT zahlungsmethodeid, zahlungsmethode from zahlungsmethode where zahlungsmethodeid = ?;";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
