@@ -229,7 +229,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     <h5 color="green">Lieferant: <?php echo $lieferant->getName(); ?> <br> Zahlungsmethode: <?php echo $zahlungsmethode->getZahlungsmethodename(); ?> </h5>
     <br>
     <br>
-    <form class="form-horizontal" method="POST" action="index.php?artikelHinzufügen=TRUE&bestellungAnlegen=TRUE">
+    <form class="form-horizontal" method="POST" action="index.php?bestellungAnlegen=TRUE">
 
 
         <?php
@@ -265,8 +265,21 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     ?>
 
     <?php
-}
+} else if(isset($_GET['bestellungAnlegen'])){
+            $alleArtikel = getArtikelByLieferant($_POST['lieferant']);
+            $anzahlArtikel = 0;
+            foreach($alleArtikel as $artikel){
+                $anzahlArtikel ++;
+            }
+            
+            echo "anzahl artikel: " . $anzahlArtikel;
 ?>
+
+    <h3>testausgabe</h3>
+    
+    <?php
+}
+    ?>
 
 
 
