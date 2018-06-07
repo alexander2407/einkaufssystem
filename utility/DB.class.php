@@ -402,7 +402,7 @@ class DB {
     
     function getZahlungsmethodeById($id) {
         $this->doConnect();
-        $resultArray = array();
+        //$resultArray = array();
         $query = "SELECT zahlungsmethodeid, zahlungsmethode from zahlungsmethode where zahlungsmethodeid = ?;";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
@@ -410,10 +410,10 @@ class DB {
         $stmt->bind_result($zahlungsmethodeid, $zahlungsmethodename);
         while ($stmt->fetch()) {
             $zahlungsmethode = new Zahlungsmethode($zahlungsmethodeid, $zahlungsmethodename);
-            array_push($resultArray, $zahlungsmethode);
+            //array_push($resultArray, $zahlungsmethode);
         }
         $this->conn->close();
-        return $resultArray;
+        return $zahlungsmethode;
     }
     
     function getFirstZahlungsmethodeId(){
