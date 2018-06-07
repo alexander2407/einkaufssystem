@@ -122,7 +122,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     echo "<h3>Neue Bestellung anlegen</h3><br>";
     ?>
-    <form class="form-horizontal" method="POST" action="index.php?artikelHinzufügen=TRUE">
+    <form class="form-horizontal" method="GET" action="index.php?artikelHinzufügen=TRUE">
 
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
@@ -184,6 +184,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     $artikel = $db->getArtikel();
     
     echo "hallo test <br>";
+    if(isset($_GET['zahlungsmethode'])){
+        echo "da is sie: " . $_GET['zahlungsmethode'];
+    }
 
     ?>
     
@@ -191,13 +194,6 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     <form class="form-horizontal" method="GET" action="index.php">
         
-<!--        <div class="form-group">
-            <label for="artikelname" class="col-sm-2 control-label">Artikelname</label>
-            <div class="col-sm-10">
-                <input type="text" name="artikelname" class="form-control" id="artikelname"  required="" >
-            </div>
-        </div>-->
-
         
                 <?php
                     foreach($artikel as $a){
@@ -205,12 +201,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                    }
                 
                 ?>
-                                <?php
-//                                    foreach($artikel as $a){
-//                                            echo "<label for='lagerort' class='col-sm-12 control-label'>" . $a->getArtikelname() . " Menge:" . "</label><input type='number' name='" . $a->getArtikelname() . ">";
-//                                            echo "artikelname<input type='text' value=0 name='" . $a->getArtikelname() . "' class='form-control col-sm-3' id=''>";
-//                                    }
-//                                ?>
+
 
     </form>
     
