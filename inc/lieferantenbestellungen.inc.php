@@ -246,7 +246,18 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     <br>
     <br>
     <form class="form-horizontal" method="POST" action="index.php?bestellungAnlegen=TRUE">
-
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Lieferant</label>
+            <div class="col-sm-10">
+                <input type="text"  name="lieferant" value="<?php echo $lieferant->getName(); ?>" class="form-control" id="inputEmail3" readonly="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Zahlungsbedingungen</label>
+            <div class="col-sm-10">
+                <input type="number"  name="zahlungsbedingungen" value="<?php echo $zahlungsmethode->getZahlungsmethodename(); ?>" class="form-control" id="inputEmail3" >
+            </div>
+        </div>
 
         <?php
         //$v_lieferant = $_POST['lieferant'];
