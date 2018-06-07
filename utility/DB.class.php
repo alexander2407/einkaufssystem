@@ -284,9 +284,10 @@ class DB {
         $resultArray = array();
         $query = "SELECT lieferantenbestellungsid, artikelId, artikelname, lieferantId, name, anzahl "
                 . "FROM lieferantenartikel "
+                . "join lieferantenbestellung using(lieferantenbestellungsID)"
                 . "join lieferant using(lieferantid) "
                 . "join artikel using(artikelid) "
-                . "where lieferantenbestellungid = ?;";
+                . "where lieferantenbestellungsid = ?;";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $lieferantenbestellungsId);
         $stmt->execute();
