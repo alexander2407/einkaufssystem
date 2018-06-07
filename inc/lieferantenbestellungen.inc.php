@@ -189,17 +189,12 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     
     <h3>Artikel von -Lieferantname-, bitte Anzahl eintragen</h3>
     
-    <form class="form-inline" method="GET" action="index.php">
-            <div class="form-group">
-                <label for="artikelname" class="col-sm-2 control-label">Artikelname</label>
-                <div class="col-sm-10">
-                    <input type="text" name="artikelname" class="form-control" id="artikelname"  required="" >
-                </div>
-            </div>
+    <form class="form-group" method="GET" action="index.php">
+
         
                 <?php
                     foreach($artikel as $a){
-                        echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><input type='number' name='" . $a->getArtikelid . "' class='form-control' id='artikelname'  required='' ></div></div>";
+                        echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
                     }
                 
                 ?>
@@ -210,8 +205,6 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 //                                    }
 //                                ?>
 
-                        </div>
-            </div>
     </form>
     
 <?php 
