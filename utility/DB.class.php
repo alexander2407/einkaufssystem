@@ -485,7 +485,7 @@ class DB {
          //zuerst insert in lieferbestellung dann in lieferantenartikel (mit foreach)
         $query= "Insert INTO lieferantenbestellung VALUES (?,?,?);";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("iii", $lieferantenid, $zahlungsmethodeid, true);
+        $stmt->bind_param("ii", $lieferantenid, $zahlungsmethodeid);
         $stmt->execute();
         //insert in lieferantenartikel vornehmen, abfragen ob anzahl > 0
         $cnt = 0;
