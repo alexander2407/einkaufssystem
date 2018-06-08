@@ -352,20 +352,22 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             $intArrayMenge = array_map(
             function($value) { return (int)$value; },
             $artikelMengeArray);
-            echo "<br>";
-            echo "";
-            var_dump($intArrayMenge);
             
-            $artikelid = array();
-            $cnt=0;
-            foreach($intArrayMenge as $a){
-            $artikelid[] = $a;
-            $cnt++;
-            }
-            echo "<br>";
-            var_dump($artikelid);
-            echo "<br>anzahl erster artikel: ";
-            echo $intArrayMenge[0];
+            
+//            echo "<br>";
+//            echo "";
+//            var_dump($intArrayMenge);
+//            
+//            $artikelid = array();
+//            $cnt=0;
+//            foreach($intArrayMenge as $a){
+//            $artikelid[] = $a;
+//            $cnt++;
+//            }
+//            echo "<br>";
+//            var_dump($artikelid);
+//            echo "<br>anzahl erster artikel: ";
+//            echo $intArrayMenge[0];
         
 
 
