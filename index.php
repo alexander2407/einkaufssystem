@@ -53,7 +53,7 @@ and open the template in the editor.
             <div class="jumbotron">
                 <h1>HiFi Einkaufssystem</h1>
             </div>
-            <div class="col-xs-6 col-sm-3">
+            <div class="col-md-2">
 <!--                col-md-2-->
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation" <?php if($active=="start"){ echo 'class="active"';}?>><a href="index.php?menu=start">Startseite</a></li>
