@@ -330,6 +330,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 $artikelMengeArray[] = $_POST[$alleArtikel[$anzahlArtikel]->getArtikelId()];
                 $anzahlArtikel ++;
             }
+            $lastid = getLieferantenbestellungsIdLast() + 1;
             
             
             echo "lieferantenname: " . $_POST['lieferant'];
@@ -337,7 +338,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             echo "lieferantenid: " . $_POST['lieferantid'];
             echo "<br>";
             echo "ZMid: " . $_POST['zahlungsbedingungenid'];
-            
+            echo "<br>";
+            echo "ZMid: " . $lastid;
             echo "<br>";
             echo "jetzt das mengenarray testen:";
             echo "<br>";
@@ -347,9 +349,11 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
             
+            if($anzahlArtikel > 0){
+                $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $artikelMengeArray, $_POST['zahlungsbedingungenid'], $lastid);
+            }
             
             
-            $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $artikelMengeArray, $_POST['zahlungsbedingungenid']);
             
 
     //$db->testTabelle($anzahlArtikel);
