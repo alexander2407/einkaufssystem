@@ -492,7 +492,7 @@ class DB {
         $lastId = $this->getLieferantenbestellungsIdLast();
         foreach($artikelArray as $x){
             if($artikelMengeArray[$cnt] > 0){
-                $query = "Insert into lieferantenartikel (Anzahl, ArtikelID, LieferantenbestellungsID) values (?,?,?)";
+                $query = "Insert into lieferantenartikel (Anzahl, ArtikelID, LieferantenbestellungsID) values (?,?,?);";
                 $stmt = $this->conn->prepare($query);
                 $stmt->bind_param("iii", $artikelMengeArray[$cnt], $x->getArtikelId(), $lastId);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
                 $stmt->execute();
