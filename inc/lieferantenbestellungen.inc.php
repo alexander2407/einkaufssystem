@@ -344,7 +344,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             echo "<br>";
             foreach($alleArtikel as $a){
                 echo "artikelid: " . $a->getArtikelId(). "<br>";
-                echo "artikelid: " . $_POST[$a->getArtikelId()];
+                echo "artikelid: " . $_POST[$a->getArtikelId()] . "<br>";
             }
             
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
