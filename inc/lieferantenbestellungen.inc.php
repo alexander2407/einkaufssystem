@@ -264,12 +264,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             </div>
         </div>
         <h4>Artikel der <?php echo $lieferant->getName(); ?>:</h4>
+        <br>
         <?php//hier sonderfall von 0 artikeln von lieferant abfangen
-        if(empty($artikel)){
-            
-            Für den Lieferanten sind keine Artikel vorhanden.
-            
-        }
+        
         
         foreach ($artikel as $a) {
             echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
