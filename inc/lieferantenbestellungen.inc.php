@@ -389,8 +389,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     ?>
     
-    <h3>angelegt!!!!!!!!!!!!!</h3>
-    <br>
+    
+    
     <div class="alert alert-success" role="alert">Bestellung angelegt</div>
 
     <?php
