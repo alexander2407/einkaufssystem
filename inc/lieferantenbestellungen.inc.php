@@ -269,10 +269,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         if(empty($artikel)){
             echo "<br>";
             echo "Für den Lieferanten ".$lieferant->getName()." sind keine Artikel vorhanden.";
-            echo "<br>";
-            echo "<button type='submit' href='index.php?neueBestellung=TRUE' class='btn btn-default' >zurück</button>";
+
         }
-        
+        //hier eventuell mit else und zusätzlichem button erweitern
         foreach ($artikel as $a) {
             echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
         }
@@ -392,9 +391,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 
     ?>
     
-    <h3>angelegt!!!!!!!!!!!!!</h3>
-    <div class="alert alert-success" role="alert">Bestellung angelegt</div>
-
+    <div class="alert alert-success" role="alert">Bestellung angelegt!</div>
+<!--    hier vielleicht noch abfragen ob die anzahl der artikel der lieferanten kleiner 1 sind, dann ein rotes aler mit nicht angelegt.-->
     <?php
     }
     ?>
