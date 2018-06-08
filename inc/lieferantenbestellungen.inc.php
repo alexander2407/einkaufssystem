@@ -264,7 +264,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             </div>
         </div>
         <h4>Artikel der <?php echo $lieferant->getName(); ?>:</h4>
-        <?php//hier den sonderfall für 0 artikel einfügen
+        <?php
+        //$v_lieferant = $_POST['lieferant'];
         
         foreach ($artikel as $a) {
             echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
@@ -348,23 +349,23 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 //            var_dump($artikelMengeArray);
 //            echo "<br>";
 //            var_dump($alleArtikel);
-//            $intArrayMenge = array_map(
-//            function($value) { return (int)$value; },
-//            $artikelMengeArray);
-//            echo "<br>";
-//            echo "";
-//            var_dump($intArrayMenge);
-//            
-//            $artikelid = array();
-//            $cnt=0;
-//            foreach($intArrayMenge as $a){
-//            $artikelid[] = $a;
-//            $cnt++;
-//            }
-//            echo "<br>";
-//            var_dump($artikelid);
-//            echo "<br>anzahl erster artikel: ";
-//            echo $intArrayMenge[0];
+            $intArrayMenge = array_map(
+            function($value) { return (int)$value; },
+            $artikelMengeArray);
+            echo "<br>";
+            echo "";
+            var_dump($intArrayMenge);
+            
+            $artikelid = array();
+            $cnt=0;
+            foreach($intArrayMenge as $a){
+            $artikelid[] = $a;
+            $cnt++;
+            }
+            echo "<br>";
+            var_dump($artikelid);
+            echo "<br>anzahl erster artikel: ";
+            echo $intArrayMenge[0];
         
 
 
