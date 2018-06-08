@@ -515,6 +515,21 @@ class DB {
         return $id;
     }
     
+    function getZahlungsbedingungen(){
+        $this->doConnect();
+        $resultArray = array();
+        $query = "select * from zahlungsbedingungen;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $stmt->bind_result($zahlungsbedingungenId, $skonto, $rabatt, $zahlungszieltage);
+        while($stmt->fetch()){
+            $zahlungsbedingung = new Zahlungsbedingungen($zahlungsbedingungenId, $skonto, $rabatt, $zahlungszieltage);
+            array_push($resultArray, $zahlungsbedingung);
+        }
+        $this->conn->close();
+        return $resultArray;
+    }
+    
     function testTabelle($anzahl){
         $this->doConnect();
         $query = "INSERT INTO testtab VALUES(?);";
