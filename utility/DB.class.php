@@ -359,8 +359,8 @@ class DB {
         $resultArray = array();
         $query = "select lieferantenbestellungsID, lieferantid, name, zahlungsmethode "
                 . "from lieferantenbestellung join lieferant using(lieferantid) join zahlungsmethode using(zahlungsmethodeid)"
-                . " where abgeschlossen = 0; "
-                . "order by lieferantenbestellungsId";
+                . " where abgeschlossen = 0 "
+                . "order by lieferantenbestellungsId;";
         $stmt = $this->conn->prepare($query);
         
         $stmt->execute();

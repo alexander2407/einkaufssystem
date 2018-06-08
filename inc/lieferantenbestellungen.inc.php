@@ -224,7 +224,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             }
             
             //echo "anzahl artikel: " . $anzahlArtikel;
-            $db->testTabelle(98); //fügt in "testtab" die anzahl der artikelIDs des ausgewählten lieferanten ein.
+            //$db->testTabelle(98); //fügt in "testtab" die anzahl der artikelIDs des ausgewählten lieferanten ein.
     }
     
 //    if(isset($_POST['zahlungsmethode'])){
@@ -267,10 +267,14 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         <?php
         //$v_lieferant = $_POST['lieferant'];
         if(empty($artikel)){
-            echo "<br>";
+            
             echo "Für den Lieferanten ".$lieferant->getName()." sind keine Artikel vorhanden.";
+            echo "<br>";
+            echo "<div class='col-sm-offset-2 col-sm-10'>
+                    <button type='submit' href='index.php?neueBestellung=TRUE' class='btn btn-default' >zurück</button>
+                  </div>";
 
-        }
+        }else{
         //hier eventuell mit else und zusätzlichem button erweitern
         foreach ($artikel as $a) {
             echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
@@ -285,7 +289,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     </form>
 
     <?php
-    
+        }
 //    if(isset($_GET['bestellungAnlegen'])){
 //            //$alleArtikel = array();
 //            $db = new DB();
