@@ -520,10 +520,10 @@ class DB {
         $cnt = 0;
         $lastId = $this->getLieferantenbestellungsIdLast();
         foreach($intArtikelArray as $x){
-            if($intArtikelArray[$cnt] > 0){
+            if($artikelMengeArray[$cnt] > 0){
                 $query1 = "Insert into lieferantenartikel (Anzahl, ArtikelID, LieferantenbestellungsID) values (?,?,?);";
                 $stmt1 = $this->conn->prepare($query1);
-                $stmt1->bind_param("iii", $artikelMengeArray[$cnt], $x, $lastId);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
+                $stmt1->bind_param("iii", $artikelMengeArray[$cnt], $x, 40);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
                 $stmt1->execute();
             }
             $cnt ++;
