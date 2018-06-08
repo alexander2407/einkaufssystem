@@ -503,9 +503,10 @@ class DB {
     
     function lieferantenbestellungErfassen($lieferantenid, $artikelArray, $artikelMengeArray, $zahlungsmethodeid){
         //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
-        $this->doConnect(); $abgeschlossen = 1; $artikelid = array();
-        
-        
+        $this->doConnect();
+        $abgeschlossen = 1;
+        $artikelid = array();
+
         foreach($artikelArray as $a){
             $artikelid[] = $a->getArtikelId();
         }
@@ -522,14 +523,16 @@ class DB {
         $lastId = $this->getLieferantenbestellungsIdLast();
         foreach($intArtikelArray as $x){
             if($artikelMengeArray[$cnt] > 0){
+                $this->doConnect();
                 $query1 = "Insert into lieferantenartikel (Anzahl, ArtikelID, LieferantenbestellungsID) values (?,?,?);";
                 $stmt1 = $this->conn->prepare($query1);
                 $stmt1->bind_param("iii", $artikelMengeArray[$cnt], $x, $lastId);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
                 $stmt1->execute();
+                $this->conn->close();
             }
             $cnt ++;
         }
-        $close = $this->conn->close();
+        $this->conn->close();
     }
     
     function getLieferantenbestellungsIdLast(){
