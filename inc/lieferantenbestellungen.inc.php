@@ -349,18 +349,18 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             var_dump($artikelMengeArray);
             echo "<br>";
             var_dump($alleArtikel);
-            $intArray = array_map(
+            $intArrayMenge = array_map(
             function($value) { return (int)$value; },
             $artikelMengeArray);
             echo "<br>";
-            var_dump($intArray);
+            var_dump($intArrayMenge);
 
 
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
             
-//            if($anzahlArtikel > 0){
-//                $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $artikelMengeArray, $_POST['zahlungsbedingungenid']);
-//            }
+            if($anzahlArtikel > 0){
+                $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $intArrayMenge, $_POST['zahlungsbedingungenid']);
+            }
             
             
             
