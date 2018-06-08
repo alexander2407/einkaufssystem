@@ -354,6 +354,13 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             $artikelMengeArray);
             echo "<br>";
             var_dump($intArrayMenge);
+            
+            $artikelid = array();
+            foreach($intArrayMenge as $a){
+            $artikelid[] = $a;
+            echo "<br>";
+            var_dump($artikelid);
+        }
 
 
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.

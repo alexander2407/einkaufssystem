@@ -502,7 +502,7 @@ class DB {
     
     function lieferantenbestellungErfassen($lieferantenid, $artikelArray, $artikelMengeArray, $zahlungsmethodeid){
         //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
-        $this->doConnect(); $abgeschlossen = 1; $artikelid = array(); $intArtikelArray = array();
+        $this->doConnect(); $abgeschlossen = 1; $artikelid = array();
         
         
         foreach($artikelArray as $a){
