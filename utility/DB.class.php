@@ -474,7 +474,15 @@ class DB {
         return $id;
     }
     
-    function lieferantenbestellungErfassen($lieferantenid, $artikelarray, $zahlungsmethode){
+    function lieferantenbestellungErfassen($lieferantenid, $artikelarray, $artikelMengeArray, $zahlungsmethode){
+        //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
+        $this->doConnect();
+        $artikelid = array();
+        foreach($artikelarray as $a){
+            $artikelid[] = $a->getArtikelId();
+        }
+        
+        
         
     }
     

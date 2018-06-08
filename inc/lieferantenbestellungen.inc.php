@@ -269,7 +269,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 <input type="text"  name="zahlungsbedingungenid" value="<?php echo $zahlungsmethode->getZahlungsmethodeid(); ?>" class="form-control" id="inputEmail3" readonly="">
             </div>
         </div>
-        <h4>Artikel:</h4>
+        <h4>Artikel der <?php echo $lieferant->getName(); ?>:</h4>
         <?php
         //$v_lieferant = $_POST['lieferant'];
         
@@ -322,16 +322,37 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 } else if(isset($_GET['bestellungAnlegen'])){
             $db = new DB();
             $alleArtikel = $db->getArtikelByLieferant($_POST['lieferantid']);
+            $artikelMengeArray = array();
+            
             $anzahlArtikel = 0;
             foreach($alleArtikel as $arti){
+                
+                $artikelMengeArray[] = $_POST[$alleArtikel[$anzahlArtikel]->getArtikelId()];
                 $anzahlArtikel ++;
             }
+            
+            
             echo "lieferantenname: " . $_POST['lieferant'];
+            echo "<br>";
             echo "lieferantenid: " . $_POST['lieferantid'];
+            echo "<br>";
             echo "ZMid: " . $_POST['zahlungsbedingungenid'];
             
+            echo "<br>";
+            echo "jetzt das mengenarray testen:";
+            echo "<br>";
+            foreach($artikelMengeArray as $menge){
+                echo "menge: " . $menge;
+            }
+            
+            //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
+            
+            
+            
+            //$db->lieferantenbestellungErfassen($_POST['lieferantid'], $artikelArray, $artikelMengeArray, $_POST['zahlungsbedingungenid']);
+            
 
-    $db->testTabelle($anzahlArtikel);
+    //$db->testTabelle($anzahlArtikel);
 
     ?>
     
