@@ -265,12 +265,6 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         </div>
         <h4>Artikel der <?php echo $lieferant->getName(); ?>:</h4>
         <?php//hier den sonderfall für 0 artikel einfügen
-        if(empty($artikel)){
-            echo "<br>";
-            echo "Für den Lieferanten ".$lieferant->getName()." sind keine Artikel vorhanden.";
-            echo "<br>";
-            echo "<button type='submit' href='index.php?neueBestellung=TRUE' class='btn btn-default' >zurück</button>";
-        }
         
         foreach ($artikel as $a) {
             echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
