@@ -450,8 +450,9 @@ class DB {
             $ust= new Ust($id, $steuersatz); //wo ist die klasse "Ust" ?
             array_push($resultArray, $ust);
         }
-        return $resultArray;
+        
         $this->conn->close();
+        return $resultArray;//reihenfolge der beiden vertauscht
     }
     
     function getZahlungsmethode() {
@@ -521,9 +522,9 @@ class DB {
         $lastId = $this->getLieferantenbestellungsIdLast();
         foreach($intArtikelArray as $x){
             if($artikelMengeArray[$cnt] > 0){
-                $query1 = "Insert into lieferantenartikel (Anzahl, ArtikelID, LieferantenbestellungsID) values (?,?,?);";
+                $query1 = "insert into testtab values (?);";//"Insert into lieferantenartikel (Anzahl, ArtikelID, LieferantenbestellungsID) values (?,?,?);";
                 $stmt1 = $this->conn->prepare($query1);
-                $stmt1->bind_param("iii", 55, 3, 10);//$artikelMengeArray[$cnt], $x, $lastId);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
+                $stmt1->bind_param("i", 27);//("iii", $artikelMengeArray[$cnt], $x, $lastId);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
                 $stmt1->execute();
             }
             $cnt ++;

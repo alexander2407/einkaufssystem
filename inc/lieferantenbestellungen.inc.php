@@ -364,7 +364,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             }
             echo "<br>";
             var_dump($artikelid);
-            echo "<br>";
+            echo "<br>anzahl erster artikel: ";
             echo $intArrayMenge[0];
         
 
