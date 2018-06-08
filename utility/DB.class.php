@@ -510,7 +510,7 @@ class DB {
         }
         $intArtikelArray = array_map(
             function($value) { return (int)$value; },
-            $$artikelid);
+            $artikelid);
          //zuerst insert in lieferbestellung dann in lieferantenartikel (mit foreach)
         $query= "Insert INTO lieferantenbestellung (LieferantId, ZahlungsmethodeId, abgeschlossen) VALUES (?,?,?);";
         $stmt = $this->conn->prepare($query);
