@@ -346,7 +346,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 echo "artikelid: " . $a->getArtikelId(). "<br>";
                 echo "artikelid: " . $_POST[$a->getArtikelId()] . "<br>";
             }
-            
+            var_dump($artikelMengeArray);
+            echo "<br>";
+            var_dump($alleArtikel);
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
             
             if($anzahlArtikel > 0){
