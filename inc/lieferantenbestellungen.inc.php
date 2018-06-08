@@ -339,7 +339,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             echo "<br>";
             echo "ZMid: " . $_POST['zahlungsbedingungenid'];
             echo "<br>";
-            echo "ZMid: " . $lastid;
+            //echo "ZMid: " . $lastid;
             echo "<br>";
             echo "jetzt das mengenarray testen:";
             echo "<br>";
