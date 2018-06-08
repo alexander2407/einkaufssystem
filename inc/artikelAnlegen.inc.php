@@ -1,8 +1,7 @@
 <h3>Neuen Artikel anlegen</h3>
 <?php
-
-if(!empty($_GET['lieferantid']) && !empty($_GET['artikelid'])){
-    $db=new DB();
+if (!empty($_GET['lieferantid']) && !empty($_GET['artikelid'])) {
+    $db = new DB();
     $db->lieferant_liefert_artikel();
     $_SESSION['neuerArtikel'] = FALSE;
 }
@@ -65,7 +64,6 @@ if (!empty($_GET['artikelname'])) {
     </form>
 
     <?php
-    
 } else {
     ?>   
     <br>
@@ -117,24 +115,21 @@ if (!empty($_GET['artikelname'])) {
             <label for="umsatzsteuer" class="col-sm-2 control-label">Umsatzsteuer</label>
             <div class="col-sm-10">
                 <select class="form-control" name="umsatzsteuer"  id="umsatzsteuer" required="">
-                    <?php
-                    $db = new DB();
-                    $array = $db->getUmsatzsteuer();
-                    foreach ($array as $eintrag) {
-                        $value = $eintrag->getId();
-                        echo "<option value='$value'>";
-                        echo $eintrag->getSteuersatz();
-                        echo "</option>";
-                    }
-                    ?>
+    <?php
+    $db = new DB();
+    $array = $db->getUmsatzsteuer();
+    foreach ($array as $eintrag) {
+        $value = $eintrag->getId();
+        echo "<option value='$value'>";
+        echo $eintrag->getSteuersatz();
+        echo "</option>";
+    }
+    ?>
                 </select>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Artikel anlegen</button>
-            </div>
-        </div>
+
+        <button type="submit" class="btn btn-default">Artikel anlegen</button>
 
     </form>
 
