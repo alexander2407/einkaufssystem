@@ -359,7 +359,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             $artikelid = array();
             $cnt=0;
             foreach($intArrayMenge as $a){
-            $artikelid[] = $a[$cnt];
+            $artikelid[] = 55;
             $cnt++;
             }
             echo "<br>";
