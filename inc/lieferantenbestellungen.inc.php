@@ -330,7 +330,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 $artikelMengeArray[] = $_POST[$alleArtikel[$anzahlArtikel]->getArtikelId()];
                 $anzahlArtikel ++;
             }
-            $lastid = getLieferantenbestellungsIdLast() + 1;
+            //$lastid = getLieferantenbestellungsIdLast() + 1;
             
             
             echo "lieferantenname: " . $_POST['lieferant'];
@@ -350,7 +350,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
             
             if($anzahlArtikel > 0){
-                $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $artikelMengeArray, $_POST['zahlungsbedingungenid'], $lastid);
+                $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $artikelMengeArray, $_POST['zahlungsbedingungenid']);
             }
             
             
