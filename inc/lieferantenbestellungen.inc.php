@@ -267,12 +267,11 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         <?php
         //$v_lieferant = $_POST['lieferant'];
         if(empty($artikel)){
-            
+            echo "<br>";
             echo "<div class='alert alert-danger' role='alert'>Für den Lieferanten ".$lieferant->getName()." sind keine Artikel vorhanden.</div>";
             echo "<br>";
-            echo "<br>";
             echo "<div class='col-sm-offset-2 col-sm-10'>
-                    <button type='button' href='index.php' class='btn btn-default' >zurück</button>
+                    <button type='button' href='index.php?menu=bestellungen' class='btn btn-default' >zurück</button>
                   </div>";
 
         }else{
