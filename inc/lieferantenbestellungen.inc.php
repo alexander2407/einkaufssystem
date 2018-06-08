@@ -271,7 +271,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             echo "<div class='alert alert-danger' role='alert'>Für den Lieferanten ".$lieferant->getName()." sind keine Artikel vorhanden.</div>";
             echo "<br>";
             echo "<div class='col-sm-offset-2 col-sm-10'>
-                    <a href='index.php?menu=bestellungen' class='button'>zurück</a>
+                    <a href='index.php?neueBestellung=TRUE' class='btn btn-default'>zurück</a>
                   </div>";
 
         }else{
