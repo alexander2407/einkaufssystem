@@ -346,6 +346,11 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             foreach($artikelMengeArray as $menge){
                 echo "menge: " . $menge. "<br>";
             }
+            echo "jetzt das artikelarray testen:";
+            echo "<br>";
+            foreach($alleArtikel as $a){
+                echo "artikelid: " . $a->getArtikelId(). "<br>";
+            }
             
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
             
