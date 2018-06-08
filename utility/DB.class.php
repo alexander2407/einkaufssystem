@@ -489,11 +489,12 @@ class DB {
         $stmt->execute();
         //insert in lieferantenartikel vornehmen, abfragen ob anzahl > 0
         $cnt = 0;
+        $lastId = getLieferantenbestellungsIdLast();
         foreach($artikelArray as $x){
             if($artikelMengeArray[$cnt] > 0){
                 $query = "Insert into lieferantenartikel values (?,?,?)";
                 $stmt = $this->conn->prepare($query);
-                $stmt->bind_param("iii", $artikelMengeArray[$cnt], $x->getArtikelId(), getLieferantenbestellungsIdLast());//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
+                $stmt->bind_param("iii", $artikelMengeArray[$cnt], $x->getArtikelId(), $lastId);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
                 $stmt->execute();
             }
             $cnt ++;
