@@ -349,7 +349,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             
             
             
-            $db->lieferantenbestellungErfassen($_POST['lieferantid'], $artikelArray, $artikelMengeArray, $_POST['zahlungsbedingungenid']);
+            $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $artikelMengeArray, $_POST['zahlungsbedingungenid']);
             
 
     //$db->testTabelle($anzahlArtikel);
