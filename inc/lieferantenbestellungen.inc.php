@@ -349,6 +349,15 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             var_dump($artikelMengeArray);
             echo "<br>";
             var_dump($alleArtikel);
+            echo "ohne vardump";
+            $stack = array("Orange", "Banane");
+            var_dump($stack);
+            echo "mit vardump";
+            array_push($stack, "Apfel", "Himbeere");
+            var_dump($stack);
+            
+
+
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
             
             if($anzahlArtikel > 0){
