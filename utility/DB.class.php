@@ -504,10 +504,13 @@ class DB {
         //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
         $this->doConnect(); $abgeschlossen = 1; $artikelid = array();
         
-        
+        $artikelid = array();
         foreach($artikelArray as $a){
             $artikelid[] = $a->getArtikelId();
         }
+        $intArtikelArray = array_map(
+            function($value) { return (int)$value; },
+            $$artikelid);
          //zuerst insert in lieferbestellung dann in lieferantenartikel (mit foreach)
         $query= "Insert INTO lieferantenbestellung (LieferantId, ZahlungsmethodeId, abgeschlossen) VALUES (?,?,?);";
         $stmt = $this->conn->prepare($query);
@@ -516,12 +519,12 @@ class DB {
         //insert in lieferantenartikel vornehmen, abfragen ob anzahl > 0
         $cnt = 0;
         $lastId = $this->getLieferantenbestellungsIdLast();
-        foreach($artikelArray as $x){
-            if($artikelMengeArray[$cnt] > 0){
-                $query = "Insert into lieferantenartikel (Anzahl, ArtikelID, LieferantenbestellungsID) values (?,?,?);";
-                $stmt = $this->conn->prepare($query);
-                $stmt->bind_param("iii", $artikelMengeArray[$cnt], $x->getArtikelId(), $lastId);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
-                $stmt->execute();
+        foreach($intArtikelArray as $x){
+            if($intArtikelArray[$cnt] > 0){
+                $query1 = "Insert into lieferantenartikel (Anzahl, ArtikelID, LieferantenbestellungsID) values (?,?,?);";
+                $stmt1 = $this->conn->prepare($query1);
+                $stmt1->bind_param("iii", $artikelMengeArray[$cnt], $x, $lastId);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
+                $stmt1->execute();
             }
             $cnt ++;
         }
