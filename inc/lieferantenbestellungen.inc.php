@@ -266,10 +266,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
         <h4>Artikel der <?php echo $lieferant->getName(); ?>:</h4>
         <?php//hier sonderfall von 0 artikeln von lieferant abfangen
         if(empty($artikel)){
-            echo "<br>";
-            echo "<h5>Für den Lieferanten ".$lieferant->getName()." sind keine Artikel vorhanden.</h5>";
-            echo "<br>";
-            echo "<button type='submit' href='index.php?neueBestellung=TRUE' class='btn btn-default' >zurück</button>";
+            
+            Für den Lieferanten sind keine Artikel vorhanden.
+            
         }
         
         foreach ($artikel as $a) {
@@ -394,6 +393,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
     ?>
     
     <h3>angelegt!!!!!!!!!!!!!</h3>
+    <br>
+    <div class="alert alert-success" role="alert">Bestellung angelegt</div>
 
     <?php
     }
