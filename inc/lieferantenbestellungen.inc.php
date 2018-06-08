@@ -342,14 +342,14 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             echo "jetzt das mengenarray testen:";
             echo "<br>";
             foreach($artikelMengeArray as $menge){
-                echo "menge: " . $menge;
+                echo "menge: " . $menge. "<br>";
             }
             
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
             
             
             
-            //$db->lieferantenbestellungErfassen($_POST['lieferantid'], $artikelArray, $artikelMengeArray, $_POST['zahlungsbedingungenid']);
+            $db->lieferantenbestellungErfassen($_POST['lieferantid'], $artikelArray, $artikelMengeArray, $_POST['zahlungsbedingungenid']);
             
 
     //$db->testTabelle($anzahlArtikel);

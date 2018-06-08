@@ -474,16 +474,45 @@ class DB {
         return $id;
     }
     
-    function lieferantenbestellungErfassen($lieferantenid, $artikelarray, $artikelMengeArray, $zahlungsmethode){
+    function lieferantenbestellungErfassen($lieferantenid, $artikelArray, $artikelMengeArray, $zahlungsmethodeid){
         //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
         $this->doConnect();
         $artikelid = array();
         foreach($artikelarray as $a){
             $artikelid[] = $a->getArtikelId();
         }
+         //zuerst insert in lieferbestellung dann in lieferantenartikel (mit foreach)
+        $query= "Insert INTO lieferantenbestellung VALUES (?,?,?);";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("iii", $lieferantenid, $zahlungsmethodeid, 1);
+        $stmt->execute();
+        //insert in lieferantenartikel vornehmen, abfragen ob anzahl > 0
+        $cnt = 0;
+        foreach($artikelarray as $x){
+            if($artikelMengeArray[$cnt] > 0){
+                $query = "Insert into lieferantenartikel values (?,?,?)";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bind_param("iii", $artikelMengeArray[$cnt], $x->getArtikelId(), getLieferantenbestellungsIdLast());//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
+                $stmt->execute();
+            }
+            //sonst mach nix
+            $cnt ++;
+        }
+        $this->conn->close();
         
-        
-        
+    }
+    
+    function getLieferantenbestellungsIdLast(){
+        $this->doConnect();
+        $query = "select max(lieferantenbestellungsid) from lieferantenbestellung;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $stmt->bind_result($maxid);
+        while($stmt->fetch()){
+            $id = $maxid;
+        }
+        $this->conn->close();
+        return $id;
     }
     
     function testTabelle($anzahl){
