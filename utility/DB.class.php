@@ -477,6 +477,7 @@ class DB {
     function lieferantenbestellungErfassen($lieferantenid, $artikelArray, $artikelMengeArray, $zahlungsmethodeid){
         //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
         $this->doConnect();
+        $abgeschlossen = 1;
         $artikelid = array();
         foreach($artikelArray as $a){
             $artikelid[] = $a->getArtikelId();
@@ -484,7 +485,7 @@ class DB {
          //zuerst insert in lieferbestellung dann in lieferantenartikel (mit foreach)
         $query= "Insert INTO lieferantenbestellung VALUES (?,?,?);";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("iii", $lieferantenid, $zahlungsmethodeid, 1);
+        $stmt->bind_param("iii", $lieferantenid, $zahlungsmethodeid, $abgeschlossen);
         $stmt->execute();
         //insert in lieferantenartikel vornehmen, abfragen ob anzahl > 0
         $cnt = 0;
