@@ -1,4 +1,11 @@
 <?php
+if(isset($_POST['lieferantenname']) && isset($_POST['telefonnummer']) && isset($_POST['zahlungsbedingungen']) && isset($_POST['lieferbedingungen']) && isset($_POST['strasse']) && isset($_POST['hausnummer']) && isset($_POST['ort'])){
+    $db=new DB();
+    $lieferantDetail = new LieferantDetail(null, $_POST['lieferantenname'], $_POST['telefonnummer'], $_POST['strasse'], $_POST['hausnummer'], $_POST['ort'], null, null, null, null, null, true, $_POST['zahlungsbedingungen'], null, null, null, $_POST['lieferbedingungen'], null, null, null, null, null, null, null);       
+    $newId = $db->insertLieferant($lieferantDetail);
+    echo "<div class='alert alert-success' role='alert'>Lieferant wurde erfolgreich gespeichert. ID:  " . $newId ." </div>";
+}
+
 if (!empty($_GET['loeschen'])) {
     $db = new DB();
     $db->setLieferantInaktiv($_GET['loeschen']);
@@ -271,9 +278,10 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
     </form>
     <?php
 } else if(isset($_GET['neuerLieferant'])) {
-    echo "<h3>Neuen Lieferanten anlegen</h3><br>";
-    include './lieferantAnlegen.inc.php';
+    include './inc/lieferantAnlegen.inc.php';
 }
+
+
 ?>
 
 

@@ -1,3 +1,6 @@
+<?php
+$db = new DB();
+?>
 <h3>Neuen Lieferanten anlegen</h3>
 <br>
 <form class="form-horizontal" method="POST" action="index.php">
@@ -18,58 +21,90 @@
         <div class="col-sm-10">
             <?php
             $zahlungsbedingungen = $db->getZahlungsbedingungen();
-            echo '<select class="form-control" id="zahlungsbedingungen">';
+            echo '<select class="form-control" id="zahlungsbedingungen" name="zahlungsbedingungen">';
             foreach ($zahlungsbedingungen as $value) {
                 ?>
-            <option value="<?php echo $zahlungsbedingungen->getZahlungsbedingungenId(); ?>">
-            <?php
-                echo 'Skonto: '.$zahlungsbedingungen->getSkonto().', Rabatt: '.$zahlungsbedingungen->getRabatt().", Zahlungsziel: ".$zahlungsbedingungen->getZahlungszieltage();
-            ?>
-            </option>
-            <?php
+                <option value="<?php echo $value->getZahlungsbedingungenId(); ?>">
+                    <?php
+                    $skonto = 0;
+                    $rabatt = 0;
+                    $zahlungsziel = 0;
+                    if($value->getSkonto()!=null){
+                        $skonto = $value->getSkonto();
+                    }
+                    if($value->getRabatt()!=null){
+                        $rabatt = $value->getRabatt();
+                    }
+                    if($value->getZahlungszieltage()!=null){
+                        $zahlungsziel = $value->getZahlungszieltage();
+                    }
+                    echo 'Skonto: ' . $skonto . ', Rabatt: ' . $rabatt . ", Zahlungsziel: " . $zahlungsziel ." Tage";
+                    ?>
+                </option>
+                <?php
             }
             echo '</select>';
             ?>
         </div>
     </div>
-    <!--<div class="form-group">
-        <label for="aufschlag" class="col-sm-2 control-label">Aufschlag</label>
-        <div class="col-sm-10">
-            <input type="text" name="aufschlag" class="form-control" id="aufschlag" required="">
-        </div>
-    </div>-->
-    <!--<div class="form-group">
-        <label for="lagerstand" class="col-sm-2 control-label">Lagerstand</label>
-        <div class="col-sm-10">
-            <input type="text" name="lagerstand" class="form-control" id="lagerstand" required="">
-        </div>
-    </div>-->
     <div class="form-group">
-        <label for="lagerort" class="col-sm-2 control-label">Lagerort</label>
+        <label for="lieferbedingungen" class="col-sm-2 control-label">Lieferbedingungen</label>
         <div class="col-sm-10">
-            <input type="text" name="lagerort" class="form-control" id="lagerort" required="">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="umsatzsteuer" class="col-sm-2 control-label">Umsatzsteuer</label>
-        <div class="col-sm-10">
-            <select class="form-control" name="umsatzsteuer"  id="umsatzsteuer" required="">
-                <?php
-                $db = new DB();
-                $array = $db->getUmsatzsteuer();
-                foreach ($array as $eintrag) {
-                    $value = $eintrag->getId();
-                    echo "<option value='$value'>";
-                    echo $eintrag->getSteuersatz();
-                    echo "</option>";
-                }
+            <?php
+            $lieferbedingungen = $db->getLieferbedingungen();
+            echo '<select class="form-control" id="lieferbedingungen" name="lieferbedingungen">';
+            foreach ($lieferbedingungen as $value) {
                 ?>
-            </select>
+                <option value="<?php echo $value->getLieferbedingungenId(); ?>">
+                    <?php
+                    $kosten = 0;
+                    if($value->getKosten()!=null){
+                        $kosten = $value->getKosten();
+                    }
+                    echo 'Kosten: ' . $kosten . ', Incoterms: ' . $value->getIncoterms() . ", Transportart: " . $value->getTransportart();
+                    ?>
+                </option>
+                <?php
+            }
+            echo '</select>';
+            ?>
         </div>
     </div>
+    <div class="form-group">
+        <label for="strasse" class="col-sm-2 control-label">Strasse</label>
+        <div class="col-sm-10">
+            <input type="text"  name="strasse" class="form-control" id="strasse"  required="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="hausnummer" class="col-sm-2 control-label">Hausnummer</label>
+        <div class="col-sm-10">
+            <input type="number"  name="hausnummer" class="form-control" id="hausnummer"  required="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ort" class="col-sm-2 control-label">Ort</label>
+        <div class="col-sm-10">
+            <?php
+            $orte = $db->getOrt();
+            echo '<select class="form-control" id="ort" name="ort">';
+            foreach ($orte as $value) {
+                ?>
+                <option value="<?php echo $value->getOrtId(); ?>">
+                    <?php
+                    echo 'PLZ: ' . $value->getPlz() . ', ' . $value->getBezeichnung() . ", Land: " . $value->getLandKennzeichen() . " " . $value->getLandBezeichnung();
+                    ?>
+                </option>
+                <?php
+            }
+            echo '</select>';
+            ?>
+        </div>
+    </div>
+
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Artikel anlegen</button>
+            <button type="submit" class="btn btn-default">Lieferant anlegen</button>
         </div>
     </div>
 
