@@ -8,7 +8,7 @@ include './model/Lieferantenbestellung.php';
 include './model/Lieferantenartikel.php';
 include './model/LieferantLiefert.php';
 include './model/Zahlungsmethode.php';
-
+include './model/Ust.php';
 include './utility/DB.class.php';
 
 $active = "";
@@ -22,6 +22,9 @@ if (!isset($_SESSION['menu'])){
 }
 if (isset($_SESSION['menu'])) {
     $active = $_SESSION['menu'];
+}
+if(isset($_GET['neuerArtikel'])){
+    $_SESSION['neuerArtikel']=TRUE;
 }
 
 
