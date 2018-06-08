@@ -263,7 +263,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 <input type="text"  name="zahlungsbedingungenid" value="<?php echo $zahlungsmethode->getZahlungsmethodeid(); ?>" class="form-control" id="inputEmail3" readonly="">
             </div>
         </div>
-        <h4>Artikel der <?php echo $lieferant->getName(); ?>:</h4>
+        <h3>Artikel der <?php echo $lieferant->getName(); ?>:</h3>
         <?php
         //$v_lieferant = $_POST['lieferant'];
         if(empty($artikel)){
@@ -271,7 +271,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             echo "<div class='alert alert-danger' role='alert'>Für den Lieferanten ".$lieferant->getName()." sind keine Artikel vorhanden.</div>";
             echo "<br>";
             echo "<div class='col-sm-offset-2 col-sm-10'>
-                    <button type='button' href='index.php?menu=bestellungen' class='btn btn-default' >zurück</button>
+                    <a href='index.php?menu=bestellungen' class='button'>zurück</a>
                   </div>";
 
         }else{
