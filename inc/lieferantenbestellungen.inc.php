@@ -327,40 +327,44 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             //$lastid = getLieferantenbestellungsIdLast() + 1;
             
             
-            echo "lieferantenname: " . $_POST['lieferant'];
-            echo "<br>";
-            echo "lieferantenid: " . $_POST['lieferantid'];
-            echo "<br>";
-            echo "ZMid: " . $_POST['zahlungsbedingungenid'];
-            echo "<br>";
-            //echo "ZMid: " . $lastid;
-            echo "<br>";
-            echo "jetzt das mengenarray testen:";
-            echo "<br>";
-            foreach($artikelMengeArray as $menge){
-                echo "menge: " . $menge. "<br>";
-            }
-            echo "jetzt das artikelarray testen:";
-            echo "<br>";
-            foreach($alleArtikel as $a){
-                echo "artikelid: " . $a->getArtikelId(). "<br>";
-                echo "artikelid: " . $_POST[$a->getArtikelId()] . "<br>";
-            }
-            var_dump($artikelMengeArray);
-            echo "<br>";
-            var_dump($alleArtikel);
+//            echo "lieferantenname: " . $_POST['lieferant'];
+//            echo "<br>";
+//            echo "lieferantenid: " . $_POST['lieferantid'];
+//            echo "<br>";
+//            echo "ZMid: " . $_POST['zahlungsbedingungenid'];
+//            echo "<br>";
+//            //echo "ZMid: " . $lastid;
+//            echo "<br>";
+//            echo "jetzt das mengenarray testen:";
+//            echo "<br>";
+//            foreach($artikelMengeArray as $menge){
+//                echo "menge: " . $menge. "<br>";
+//            }
+//            echo "jetzt das artikelarray testen:";
+//            echo "<br>";
+//            foreach($alleArtikel as $a){
+//                echo "artikelid: " . $a->getArtikelId(). "<br>";
+//                echo "artikelid: " . $_POST[$a->getArtikelId()] . "<br>";
+//            }
+//            var_dump($artikelMengeArray);
+//            echo "<br>";
+//            var_dump($alleArtikel);
             $intArrayMenge = array_map(
             function($value) { return (int)$value; },
             $artikelMengeArray);
             echo "<br>";
+            echo "";
             var_dump($intArrayMenge);
             
             $artikelid = array();
+            $cnt=0;
             foreach($intArrayMenge as $a){
-            $artikelid[] = $a;
+            $artikelid[] = $a[$cnt];
+            $cnt++;
+            }
             echo "<br>";
             var_dump($artikelid);
-        }
+        
 
 
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
