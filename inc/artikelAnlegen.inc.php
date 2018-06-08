@@ -119,7 +119,7 @@ if (!empty($_GET['artikelname'])) {
     $db = new DB();
     $array = $db->getUmsatzsteuer();
     foreach ($array as $eintrag) {
-        $value = $eintrag->getId();
+        $value = $eintrag->getUstId();
         echo "<option value='$value'>";
         echo $eintrag->getSteuersatz();
         echo "</option>";
