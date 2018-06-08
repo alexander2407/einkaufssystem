@@ -8,7 +8,7 @@ include './model/Lieferantenbestellung.php';
 include './model/Lieferantenartikel.php';
 include './model/LieferantLiefert.php';
 include './model/Zahlungsmethode.php';
-include './model/Ust.php';
+
 include './model/Zahlungsbedingungen.php';
 include './model/Lieferbedingungen.php';
 include './model/Ort.php';
