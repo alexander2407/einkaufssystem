@@ -91,9 +91,21 @@ class DB {
         $stmt->bind_param("ssiisiii",$name,$telefonnummer,$zahlungsbedingungId,$lieferbedingungsId,$strasse,$hausnummer,$ortId,$aktiv);
         $stmt->execute();
         $id = $this->conn->insert_id;
-        var_dump($stmt);
         $this->conn->close();
         return $id;
+    }
+    
+    function insertLieferantLiefert($lieferantliefert){
+        $this->doConnect();
+        $query = "INSERT INTO lieferantliefert VALUES(?,?);";
+        $stmt = $this->conn->prepare($query);
+        $lieferantid = $lieferantliefert->getLieferantId();
+        $artikelid = $lieferantliefert->getArtikelId();
+        $stmt->bind_param("ii",$lieferantid, $artikelid);
+        $stmt->execute();
+        $errno = $this->conn->insert_id;
+        $this->conn->close();
+        return $errno;
     }
     
     //gibt den ersten Lieferant zu einem Artikel zurück
