@@ -504,7 +504,7 @@ class DB {
         //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
         $this->doConnect(); $abgeschlossen = 1; $artikelid = array();
         
-        $artikelid = array();
+        
         foreach($artikelArray as $a){
             $artikelid[] = $a->getArtikelId();
         }
