@@ -529,7 +529,7 @@ class DB {
             }
             $cnt ++;
         }
-        $this->conn->close();
+        $close = $this->conn->close();
     }
     
     function getLieferantenbestellungsIdLast(){
