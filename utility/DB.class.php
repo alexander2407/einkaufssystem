@@ -478,7 +478,7 @@ class DB {
         //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
         $this->doConnect();
         $artikelid = array();
-        foreach($artikelarray as $a){
+        foreach($artikelArray as $a){
             $artikelid[] = $a->getArtikelId();
         }
          //zuerst insert in lieferbestellung dann in lieferantenartikel (mit foreach)
@@ -488,7 +488,7 @@ class DB {
         $stmt->execute();
         //insert in lieferantenartikel vornehmen, abfragen ob anzahl > 0
         $cnt = 0;
-        foreach($artikelarray as $x){
+        foreach($artikelArray as $x){
             if($artikelMengeArray[$cnt] > 0){
                 $query = "Insert into lieferantenartikel values (?,?,?)";
                 $stmt = $this->conn->prepare($query);
