@@ -1,4 +1,11 @@
 <?php
+if(isset($_POST['lieferantenname']) && isset($_POST['telefonnummer']) && isset($_POST['zahlungsbedingungen']) && isset($_POST['lieferbedingungen']) && isset($_POST['strasse']) && isset($_POST['hausnummer']) && isset($_POST['ort'])){
+    $db=new DB();
+    $lieferantDetail = new LieferantDetail(null, $_POST['lieferantenname'], $_POST['telefonnummer'], $_POST['strasse'], $_POST['hausnummer'], $_POST['ort'], null, null, null, null, null, true, $_POST['zahlungsbedingungen'], null, null, null, $_POST['lieferbedingungen'], null, null, null, null, null, null, null);       
+    $newId = $db->insertLieferant($lieferantDetail);
+    echo "<div class='alert alert-success' role='alert'>Lieferant wurde erfolgreich gespeichert. ID:  " . $newId ." </div>";
+}
+
 if (!empty($_GET['loeschen'])) {
     $db = new DB();
     $db->setLieferantInaktiv($_GET['loeschen']);
@@ -270,62 +277,11 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
         </div>
     </form>
     <?php
-} else {
-    echo "<h3>Neuen Lieferanten anlegen</h3><br>";
-    ?>
-    <form class="form-horizontal" method="POST" action="index.php?lieferantNeu=TRUE">
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
-                <input type="text"  name="name" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Telefonnummer</label>
-            <div class="col-sm-10">
-                <input type="number"  name="telefonnummer" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Strasse</label>
-            <div class="col-sm-10">
-                <input type="text"  name="strasse" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Hausnummer</label>
-            <div class="col-sm-10">
-                <input type="number"  name="hausnummer" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">PLZ</label>
-            <div class="col-sm-10">
-                <input type="number"  name="plz" class="form-control" id="inputEmail3">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Ort (ID eingeben)</label>
-            <div class="col-sm-10">
-                <input type="text"  name="ort" class="form-control" id="inputEmail3">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Land (ID eingeben)</label>
-            <div class="col-sm-10">
-                <input type="text"  name="land" class="form-control" id="inputEmail3">
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Lieferant anlegen</button>
-            </div>
-        </div>
-    </form>
-    <?php
+} else if(isset($_GET['neuerLieferant'])) {
+    include './inc/lieferantAnlegen.inc.php';
 }
+
+
 ?>
 
 

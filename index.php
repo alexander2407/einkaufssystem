@@ -9,6 +9,11 @@ include './model/Lieferantenartikel.php';
 include './model/LieferantLiefert.php';
 include './model/Zahlungsmethode.php';
 include './model/Ust.php';
+include './model/Zahlungsbedingungen.php';
+include './model/Lieferbedingungen.php';
+include './model/Ort.php';
+include './model/Ust.php';
+
 include './utility/DB.class.php';
 
 $active = "";
