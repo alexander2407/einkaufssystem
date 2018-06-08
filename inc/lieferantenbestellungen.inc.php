@@ -264,8 +264,13 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
             </div>
         </div>
         <h4>Artikel der <?php echo $lieferant->getName(); ?>:</h4>
-        <?php
-        //$v_lieferant = $_POST['lieferant'];
+        <?php//hier sonderfall von 0 artikeln von lieferant abfangen
+        if(empty($artikel)){
+            echo "<br>";
+            echo "<h5>Für den Lieferanten ".$lieferant->getName()." sind keine Artikel vorhanden.</h5>";
+            echo "<br>";
+            echo "<button type='submit' href='index.php?neueBestellung=TRUE' class='btn btn-default' >zurück</button>";
+        }
         
         foreach ($artikel as $a) {
             echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
@@ -324,6 +329,12 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
                 $artikelMengeArray[] = $_POST[$alleArtikel[$anzahlArtikel]->getArtikelId()];
                 $anzahlArtikel ++;
             }
+            
+            $intArrayMenge = array_map(
+            function($value) { return (int)$value; },
+            $artikelMengeArray);
+            
+            
             //$lastid = getLieferantenbestellungsIdLast() + 1;
             
             
@@ -349,9 +360,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neueBes
 //            var_dump($artikelMengeArray);
 //            echo "<br>";
 //            var_dump($alleArtikel);
-            $intArrayMenge = array_map(
-            function($value) { return (int)$value; },
-            $artikelMengeArray);
+
             
             
 //            echo "<br>";
