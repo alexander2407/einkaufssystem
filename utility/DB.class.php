@@ -523,7 +523,7 @@ class DB {
             if($artikelMengeArray[$cnt] > 0){
                 $query1 = "Insert into lieferantenartikel (Anzahl, ArtikelID, LieferantenbestellungsID) values (?,?,?);";
                 $stmt1 = $this->conn->prepare($query1);
-                $stmt1->bind_param("iii", $artikelMengeArray[$cnt], 3, $lastId);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
+                $stmt1->bind_param("iii", 55, 3, 10);//$artikelMengeArray[$cnt], $x, $lastId);//wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
                 $stmt1->execute();
             }
             $cnt ++;
