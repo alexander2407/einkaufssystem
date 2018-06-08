@@ -5,7 +5,7 @@ if (!empty($_GET['loeschen'])) {
     $db->deleteArtikel($_GET['loeschen']);
 }
 
-if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerArtikel'])) {
+if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerArtikel']) && !isset($_GET['artikelname'])) {
     //echo "Zeile 9";
     echo "<div><a class='btn btn-default' href='index.php?neuerArtikel=TRUE' role='button'>Artikel anlegen</a></div><br>";
 
@@ -140,7 +140,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
 
     <?php
 }
-else if (isset ($_GET['neuerArtikel'])){
+else if (isset ($_GET['neuerArtikel']) || isset($_GET['artikelname'])){
     include './inc/artikelAnlegen.inc.php';
 }
 ?>
