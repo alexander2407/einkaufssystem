@@ -128,6 +128,17 @@ class DB {
         return $errno;
     }
     
+    function deleteLieferantliefert($lieferantId, $artikelId){
+        $this->doConnect();
+        $query = "DELETE FROM lieferantliefert WHERE lieferantid=? and artikelid=?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii",$lieferantId, $artikelId);
+        $stmt->execute();
+        $errno = $this->conn->errno;
+        $this->conn->close();
+        return $errno;
+    }
+    
     //gibt den ersten Lieferant zu einem Artikel zurück
     function getFirstLieferantIdToArtikel($artikelId){
         $this->doConnect();
@@ -282,6 +293,24 @@ class DB {
         }
         
     }
+    
+    //gibt zurück ob ein Lieferant einen bestimmten Artikel liefert
+    function lieferantHatArtikel($lieferantId, $artikelId){
+        $this->doConnect();
+        $query = "SELECT count(*) "
+                . "FROM lieferantliefert "
+                . "WHERE lieferantid=? and artikelid=?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii",$lieferantId,$artikelId);
+        $stmt->execute();
+        $stmt->bind_result($anzahl);
+        $stmt->fetch();
+        $ergebnis = $anzahl>0;
+        $this->conn->close();
+        return $ergebnis;
+    }
+    
+    
 
     //gibt alle Lieferantenbestellungen zurück
     function getLieferantenbestellungen() {

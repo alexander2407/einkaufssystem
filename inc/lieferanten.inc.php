@@ -24,6 +24,17 @@ if (isset($_POST['submit_aendern']) && isset($_POST['lieferantenname']) && isset
     $kontaktperson = new LieferantenKontaktperson($_POST['kontaktpersonId'], $_POST['vorname'], $_POST['nachname'], $_POST['telefonnummer'], null);
     $db->updateKontaktperson($kontaktperson);
     
+    $artikel = $db->getArtikel();
+    foreach ($artikel as $value) {
+        if(isset($_POST[$value->getArtikelId()])){
+            $lieferantliefert = new LieferantLiefert($_POST['lieferantId'], $value->getArtikelId(), null, null);
+            $db->insertLieferantLiefert($lieferantliefert);
+        }
+        else{
+            $db->deleteLieferantliefert($_POST['lieferantId'], $value->getArtikelId());
+        }
+    }
+    
     if ($_POST['hausnummer'] <= 0) {
         echo "<div class='alert alert-danger' role='alert'> Hausnummer darf nicht kleiner gleich 0 sein. </div>";
         $_SESSION['errno'] = 1;
