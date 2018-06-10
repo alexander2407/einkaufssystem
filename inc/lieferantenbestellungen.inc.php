@@ -1,5 +1,5 @@
 <?php
-$v_lieferant = 0;
+//$v_lieferant = 0; bei bestehenden lieferantenbestellungen nur die artikelanzahl ändern (bei anzahl 0 artikel löschen), eventuell den lieferanten ändern lassen, wenn er die gleichen artikel liefert.
 if (!empty($_GET['loeschen'])) {
     $db = new DB();
     $db->deleteBestellung($_GET['loeschen']); //löschen funktioniert
