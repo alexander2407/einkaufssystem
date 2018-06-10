@@ -1,15 +1,34 @@
 <?php
 $_SESSION['errno'] = 0;
-if (isset($_POST['lieferantenname']) && isset($_POST['telefonnummer']) && isset($_POST['zahlungsbedingungen']) && isset($_POST['lieferbedingungen']) && isset($_POST['strasse']) && isset($_POST['hausnummer']) && isset($_POST['ort'])) {
+if (isset($_POST['submit_anlegen']) && isset($_POST['lieferantenname']) && isset($_POST['telefonnummer']) && isset($_POST['zahlungsbedingungen']) && isset($_POST['lieferbedingungen']) && isset($_POST['strasse']) && isset($_POST['hausnummer']) && isset($_POST['ort']) && isset($_POST['nachname']) && isset($_POST['vorname']) && isset($_POST['telefonnummer'])) {
     $db = new DB();
     $lieferantDetail = new LieferantDetail(null, $_POST['lieferantenname'], $_POST['telefonnummer'], $_POST['strasse'], $_POST['hausnummer'], $_POST['ort'], null, null, null, null, null, true, $_POST['zahlungsbedingungen'], null, null, null, $_POST['lieferbedingungen'], null, null, null, null, null, null, null);
     $newId = $db->insertLieferant($lieferantDetail);
-
+    
+    $kontaktperson = new LieferantenKontaktperson(null, $_POST['vorname'], $_POST['nachname'], $_POST['telefonnummer'], $newId);
+    $db->insertKontaktperson($kontaktperson);
+    
     if ($_POST['hausnummer'] <= 0) {
         echo "<div class='alert alert-danger' role='alert'> Hausnummer darf nicht kleiner gleich 0 sein. </div>";
         $_SESSION['errno'] = 1;
     } else {
         echo "<div class='alert alert-success' role='alert'>Lieferant wurde erfolgreich gespeichert. ID:  " . $newId . " </div>";
+    }
+}
+
+if (isset($_POST['submit_aendern']) && isset($_POST['lieferantenname']) && isset($_POST['telefonnummer']) && isset($_POST['zahlungsbedingungen']) && isset($_POST['lieferbedingungen']) && isset($_POST['strasse']) && isset($_POST['hausnummer']) && isset($_POST['ort']) && isset($_POST['nachname']) && isset($_POST['vorname']) && isset($_POST['telefonnummer'])) {
+    $db = new DB();
+    $lieferantDetail = new LieferantDetail($_POST['lieferantId'], $_POST['lieferantenname'], $_POST['telefonnummer'], $_POST['strasse'], $_POST['hausnummer'], $_POST['ort'], null, null, null, null, null, true, $_POST['zahlungsbedingungen'], null, null, null, $_POST['lieferbedingungen'], null, null, null, null, null, null, null);
+    $newId = $db->updateLieferant($lieferantDetail);
+    
+    $kontaktperson = new LieferantenKontaktperson($_POST['kontaktpersonId'], $_POST['vorname'], $_POST['nachname'], $_POST['telefonnummer'], null);
+    $db->updateKontaktperson($kontaktperson);
+    
+    if ($_POST['hausnummer'] <= 0) {
+        echo "<div class='alert alert-danger' role='alert'> Hausnummer darf nicht kleiner gleich 0 sein. </div>";
+        $_SESSION['errno'] = 1;
+    } else {
+        echo "<div class='alert alert-success' role='alert'>Lieferant wurde erfolgreich geändert.</div>";
     }
 }
 
@@ -236,7 +255,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
     </form>
 
     <?php
-} else if (isset($_GET['aendern'])) {
+} /*else if (isset($_GET['aendern'])) {
     $db = new DB();
     $id = $_GET['aendern'];
     $lieferant = $db->getLieferant($id);
@@ -296,8 +315,10 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
         </div>
     </form>
     <?php
-} else if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] != 0 || isset($_GET['new2'])) {
+}*/ else if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] != 0 || isset($_GET['new2'])) {
     include './inc/lieferantAnlegen.inc.php';
+} else if (isset($_GET['aendern']) || $_SESSION['errno'] != 0) {
+    include './inc/lieferantAendern.inc.php';
 }
 ?>
 

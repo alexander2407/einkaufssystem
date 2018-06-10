@@ -13,6 +13,7 @@ include './model/Zahlungsbedingungen.php';
 include './model/Lieferbedingungen.php';
 include './model/Ort.php';
 include './model/Ust.php';
+include './model/LieferantenKontaktperson.php';
 
 include './utility/DB.class.php';
 

@@ -55,7 +55,7 @@ class DB {
     //gibt einen Lieferanten nach Id zurück
     function getLieferant($lieferantId) {
         $this->doConnect();
-        $query = "SELECT lieferantId, name, lieferant.Telefonnummer, strasse, hausnummer, plz, Ort.bezeichnung, Land.bezeichnung, kennzeichen, aktiv, skonto, rabatt, zahlungszieltage, kosten, typ, transportart, vorname, nachname, LieferantenKontaktperson.telefonnummer "
+        $query = "SELECT lieferantId, name, lieferant.Telefonnummer, strasse, hausnummer, ortId, plz, Ort.bezeichnung, landId, Land.bezeichnung, kennzeichen, aktiv, zahlungsbedingungId, skonto, rabatt, zahlungszieltage, lieferbedingungId, kosten, typ, transportart, kontaktpersonId, vorname, nachname, LieferantenKontaktperson.telefonnummer "
                 . "FROM lieferant "
                 . "JOIN ort USING(ortid) "
                 . "JOIN land USING(landid) "
@@ -68,9 +68,9 @@ class DB {
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $lieferantId);
         $stmt->execute();
-        $stmt->bind_result($lieferantId, $name, $telefonnummer, $strasse, $hausnummer, $plz, $ort, $land, $land_kennzeichen, $aktiv, $skonto, $rabatt, $zahlungsziel, $lieferkosten, $incoterms, $transportart, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
+        $stmt->bind_result($lieferantId, $name, $telefonnummer, $strasse, $hausnummer, $ortId, $plz, $ort, $landId, $land, $land_kennzeichen, $aktiv, $zahlungsbedingungsId, $skonto, $rabatt, $zahlungsziel, $lieferbedingungsId, $lieferkosten, $incoterms, $transportart, $kontaktpersonId, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
         while ($stmt->fetch()) {
-            $lieferant = new LieferantDetail($lieferantId, $name, $telefonnummer, $strasse, $hausnummer, null, $plz, $ort, null, $land, $land_kennzeichen, $aktiv, null, $skonto, $rabatt, $zahlungsziel, null, $lieferkosten, $incoterms, $transportart, null, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
+            $lieferant = new LieferantDetail($lieferantId, $name, $telefonnummer, $strasse, $hausnummer, $ortId, $plz, $ort, $landId, $land, $land_kennzeichen, $aktiv, $zahlungsbedingungsId, $skonto, $rabatt, $zahlungsziel, $lieferbedingungsId, $lieferkosten, $incoterms, $transportart, $kontaktpersonId, $kontakt_vorname, $kontakt_nachname, $kontakt_telefonnummer);
         }
         $this->conn->close();
         return $lieferant;
@@ -93,6 +93,26 @@ class DB {
         $id = $this->conn->insert_id;
         $this->conn->close();
         return $id;
+    }
+    
+    function updateLieferant($lieferantDetail){
+        $this->doConnect();
+        $query = "update lieferant set Name=?, Telefonnummer=?, ZahlungsbedingungId=?, LieferbedingungId=?, Strasse=?, Hausnummer=?, OrtId=?, Aktiv=? where lieferantId=?;";
+        $stmt = $this->conn->prepare($query);
+        $name = $lieferantDetail->getName(); 
+        $telefonnummer = $lieferantDetail->getTelefonnummer(); 
+        $zahlungsbedingungId = $lieferantDetail->getZahlungsbedingungId(); 
+        $lieferbedingungsId = $lieferantDetail->getLieferbedingungsId();
+        $strasse = $lieferantDetail->getStrasse(); 
+        $hausnummer = $lieferantDetail->getHausnummer(); 
+        $ortId = $lieferantDetail->getOrtId(); 
+        $aktiv = $lieferantDetail->getAktiv();
+        $lieferantId = $lieferantDetail->getLieferantId();
+        $stmt->bind_param("ssiisiiii",$name,$telefonnummer,$zahlungsbedingungId,$lieferbedingungsId,$strasse,$hausnummer,$ortId,$aktiv, $lieferantId);
+        $stmt->execute();
+        $err = $this->conn->errno;
+        $this->conn->close();
+        return $err==0;
     }
     
     function insertLieferantLiefert($lieferantliefert){
@@ -624,6 +644,56 @@ class DB {
         $stmt->execute();
         $this->conn->close();
     }
+    
+    function getKontaktperson($id){
+        $this->doConnect();
+        $query = "select kontaktpersonId, vorname, nachname, telefonnummer, lieferantid "
+                . "from kontaktperson "
+                . "where kontaktpersonid = ?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i",$id);
+        $stmt->execute();
+        $stmt->bind_result($kontaktpersonid, $vorname, $nachname, $telefonnummer, $lieferantid);
+        while($stmt->fetch()){
+            $person = new LieferantenKontaktperson($kontaktpersonId, $vorname, $nachname, $telefonnummer, $lieferantId);
+        }
+        $this->conn->close();
+        return $person;
+    }
+    
+    function insertKontaktperson($lieferantenkontaktperson){
+        $this->doConnect();
+        $query = "insert into lieferantenkontaktperson(vorname, nachname, telefonnummer, lieferantid) values(?,?,?,?);";
+        $stmt = $this->conn->prepare($query);
+        $vorname = $lieferantenkontaktperson->getVorname();
+        $nachname = $lieferantenkontaktperson->getNachname();
+        $telefonnummer = $lieferantenkontaktperson->getTelefonnummer();
+        $lieferantId = $lieferantenkontaktperson->getLieferantId();
+        $stmt->bind_param("sssi",$vorname,$nachname,$telefonnummer,$lieferantId);
+        $stmt->execute();
+        $id = $this->conn->insert_id;
+        $this->conn->close();
+        return $id;
+    }
+    
+    function updateKontaktperson($kontaktperson){
+        $this->doConnect();
+        $query = "update lieferantenkontaktperson set vorname=?, nachname=?, telefonnummer=? where kontaktpersonId=?;";
+        $stmt = $this->conn->prepare($query);
+        $vorname = $kontaktperson->getVorname();
+        $nachname = $kontaktperson->getNachname();
+        $telefonnummer = $kontaktperson->getTelefonnummer();
+        $kontaktpersonId = $kontaktperson->getKontaktpersonId();
+        $stmt->bind_param("sssi",$vorname,$nachname,$telefonnummer,$kontaktpersonId);
+        $stmt->execute();
+        $err = $this->conn->errno;
+        $this->conn->close();
+        if($err==0){
+            return true;
+        }
+        return false;
+    }
+    
     
     /* function writeMitarbeiter($mitarbeiter) {
       $this->doConnect();
