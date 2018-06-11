@@ -14,6 +14,17 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
     //echo "Zeile 9";
     echo "<div><a class='btn btn-default' href='index.php?neuerArtikel=TRUE' role='button'>Artikel anlegen</a></div><br>";
 
+    if (!empty($_GET['lieferantid']) && !empty($_GET['artikelid'])) {
+    $db = new DB();
+    if($db->lieferant_liefert_artikel()){
+        echo"Artikel zu Lieferant erfolgreich zugeordnet";
+    }else{
+        echo"Error";
+    }
+    $_SESSION['neuerArtikel'] = FALSE;
+}
+    
+    
     $db = new DB();
     $artikel = $db->getArtikel();
 
