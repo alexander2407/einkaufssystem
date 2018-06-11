@@ -745,6 +745,17 @@ class DB {
         }
         return false;
     }
+    
+    function lieferant_liefert_artikel(){
+        $this->doConnect();
+        $query="INSERT INTO lieferantliefert VALUES (?,?);";
+        $stmt= $this->conn->prepare($query);
+        $lid=$_GET['lieferantid'];
+        $aid=$_GET['artikelid'];
+        $stmt->bind_param("ii",$lid,$aid);
+        $stmt->execute();
+        $this->conn->close();
+    }
 
     /* function writeMitarbeiter($mitarbeiter) {
       $this->doConnect();
