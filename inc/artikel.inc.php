@@ -142,5 +142,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
 }
 else if (isset ($_GET['neuerArtikel']) || isset($_GET['artikelname'])){
     include './inc/artikelAnlegen.inc.php';
+} else if (isset ($_GET['aendern'])) {
+    echo "Hallo ändern";
 }
 ?>
