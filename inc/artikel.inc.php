@@ -154,7 +154,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
     $db = new DB();
     $id = $_GET['aendern'];
     $artikel = $db->getArtikelWithId($id);
-    echo "<h3>Lieferanten bearbeiten</h3>";
+    echo "<h3>Artikel bearbeiten</h3>";
     ?>
     <form class = "form-horizontal" method="POST" action="index.php">
         <div class = "form-group">
@@ -193,7 +193,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         <div class="form-group">
             <label for="umsatzsteuer" class="col-sm-2 control-label">Umsatzsteuer</label>
             <div class="col-sm-10">
-                <input type="text" value="<?php echo $artikel->getSteuersatz() * 100 . " %"; ?>" name="umsatzsteuer" class="form-control" id="umsatzsteuer" readonly="">
+                <input type="text"  name="umsatzsteuer" class="form-control" id="umsatzsteuer" required="">
                     <?php
                     $db = new DB();
                     $array = $db->getUmsatzsteuer();
