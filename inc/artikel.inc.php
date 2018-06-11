@@ -5,6 +5,11 @@ if (!empty($_GET['loeschen'])) {
     $db->deleteArtikel($_GET['loeschen']);
 }
 
+if (isset($_POST['submit_aendern']) && isset($_POST['artikelid']) && isset($_POST['artikelname']) && isset($_POST['einkaufspreis']) && isset($_POST['mindestbestand']) && isset($_POST['lagerort']) && isset($_POST['umsatzsteuer'])) {
+    $db = new DB();
+    $db->updateArtikel();
+}
+
 if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerArtikel']) && !isset($_GET['artikelname'])) {
     //echo "Zeile 9";
     echo "<div><a class='btn btn-default' href='index.php?neuerArtikel=TRUE' role='button'>Artikel anlegen</a></div><br>";
@@ -144,7 +149,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
 } else if (isset($_GET['neuerArtikel']) || isset($_GET['artikelname'])) {
     include './inc/artikelAnlegen.inc.php';
 } else if (isset($_GET['aendern'])) {
-    echo "Hallo ändern";
+    
     $db = new DB();
     $id = $_GET['aendern'];
     $artikel = $db->getArtikelWithId($id);
@@ -164,16 +169,10 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
             </div>
         </div>
         <div class = "form-group">
-            <label for = "artikelname" class = "col-sm-2 control-label">Artikelname</label>
-            <div class = "col-sm-10">
-                <input type = "text" value = "<?php echo $artikel->getArtikelname(); ?>" name = "artikelname" class = "form-control" id = "artikelname" required="">
-            </div>
-        </div>
-        <div class = "form-group">
             <label for = "einkaufspreis" class = "col-sm-2 control-label">Einkaufspreis</label>
             <div class = "col-sm-10">
                 <input type = "text" value = "<?php echo $artikel->getEinkaufspreis() . " €";
-    ?>" name="einkaufspreis" class="form-control" id="einkaufspreis" readonly="">
+    ?>" name="einkaufspreis" class="form-control" id="einkaufspreis" required="">
             </div>
         </div>
 
