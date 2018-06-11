@@ -493,7 +493,7 @@ class DB {
         $lagerort = $_POST['lagerort'];
         $aktiv = 1;
 
-        $sql = "update artikel set Artikelname=?, Einkaufspreis=?, Verkaufspreis=?, Mindestbestand=?, Lagerstand=?, Lagerort=?, UmsatzsteuerId=? where artikelID=?;";
+        $sql = "update artikel set Artikelname=?, Einkaufspreis=?, Verkaufspreis=?, Mindestbestand=?, Lagerort=?, UmsatzsteuerId=? where artikelID=?;";
         $eintrag = $this->conn->prepare($sql);
 
         $eintrag->bind_param("sddisii", $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerort, $umsatzsteuerid, $artikelid);
