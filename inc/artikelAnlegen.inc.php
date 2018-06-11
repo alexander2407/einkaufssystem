@@ -2,7 +2,11 @@
 <?php
 if (!empty($_GET['lieferantid']) && !empty($_GET['artikelid'])) {
     $db = new DB();
-    $db->lieferant_liefert_artikel();
+    if($db->lieferant_liefert_artikel()){
+        echo"Artikel zu Lieferant erfolgreich zugeordnet";
+    }else{
+        echo"Error";
+    }
     $_SESSION['neuerArtikel'] = FALSE;
 }
 
@@ -10,6 +14,7 @@ if (!empty($_GET['artikelname'])) {
     $db = new DB();
     $db->artikelAnlegen();
     echo "<h2> Artikel zu Lieferant zuordnen </h2>";
+    
     ?>
 
     <form class="form-horizontal" method="GET" action="index.php">

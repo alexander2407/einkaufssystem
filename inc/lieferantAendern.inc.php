@@ -30,7 +30,7 @@ if (isset($_GET['aendern']) || $_SESSION['errno'] == 1) {
             <div class="col-sm-10">
                 <?php
                 $zahlungsbedingungen = $db->getZahlungsbedingungen();
-                echo '<select class="form-control" value='.$lieferantDetail->getZahlungsbedingungId().' id="zahlungsbedingungen" name="zahlungsbedingungen">';
+                echo '<select class="form-control" value=' . $lieferantDetail->getZahlungsbedingungId() . ' id="zahlungsbedingungen" name="zahlungsbedingungen">';
                 foreach ($zahlungsbedingungen as $value) {
                     ?>
                     <option value="<?php echo $value->getZahlungsbedingungenId(); ?>">
@@ -61,7 +61,7 @@ if (isset($_GET['aendern']) || $_SESSION['errno'] == 1) {
             <div class="col-sm-10">
                 <?php
                 $lieferbedingungen = $db->getLieferbedingungen();
-                echo '<select class="form-control" value='.$lieferantDetail->getLieferbedingungsId().' id="lieferbedingungen" name="lieferbedingungen">';
+                echo '<select class="form-control" value=' . $lieferantDetail->getLieferbedingungsId() . ' id="lieferbedingungen" name="lieferbedingungen">';
                 foreach ($lieferbedingungen as $value) {
                     ?>
                     <option value="<?php echo $value->getLieferbedingungenId(); ?>">
@@ -96,7 +96,7 @@ if (isset($_GET['aendern']) || $_SESSION['errno'] == 1) {
             <div class="col-sm-10">
                 <?php
                 $orte = $db->getOrt();
-                echo '<select class="form-control" value='.$lieferantDetail->getOrtId().' id="ort" name="ort">';
+                echo '<select class="form-control" value=' . $lieferantDetail->getOrtId() . ' id="ort" name="ort">';
                 foreach ($orte as $value) {
                     ?>
                     <option value="<?php echo $value->getOrtId(); ?>">
@@ -110,6 +110,7 @@ if (isset($_GET['aendern']) || $_SESSION['errno'] == 1) {
                 ?>
             </div>
         </div>
+        <br>
         <h4>Kontaktperson-Daten</h4>
         <div class="form-group">
             <label for="kontaktpersonId" class="col-sm-2 control-label">kontaktpersonId</label>
@@ -135,6 +136,35 @@ if (isset($_GET['aendern']) || $_SESSION['errno'] == 1) {
                 <input type="text" value="<?php echo $lieferantDetail->getKontakt_telefonnummer(); ?>" name="telefonnummer" class="form-control" id="telefonnummer"  required="">
             </div>
         </div>
+
+        <br>
+        <h4>Artikel des Lieferanten</h4>
+        <?php
+        $artikel = $db->getArtikel();
+        foreach ($artikel as $value) {
+            ?>
+            <div class="form-group">
+                <label for="artikel<?php echo $value->getArtikelId(); ?>" class="col-sm-2 control-label"><?php echo $value->getArtikelname(); ?></label>
+                <div class="col-sm-10">
+                    <?php
+                    if ($db->lieferantHatArtikel($lieferantDetail->getLieferantId(), $value->getArtikelId())) {
+                        $var = "checked";
+                    }
+                    else{
+                        $var = "";
+                    }
+                    ?>
+                    <input type="checkbox" 
+                           value="<?php echo $value->getArtikelId(); ?>" 
+                           name="<?php echo $value->getArtikelId(); ?>" 
+                           class="form-control" 
+                           id="artikel<?php echo $value->getArtikelId(); ?>" 
+                           <?php echo $var; ?>>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

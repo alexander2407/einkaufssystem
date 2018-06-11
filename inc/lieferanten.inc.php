@@ -8,6 +8,14 @@ if (isset($_POST['submit_anlegen']) && isset($_POST['lieferantenname']) && isset
     $kontaktperson = new LieferantenKontaktperson(null, $_POST['vorname'], $_POST['nachname'], $_POST['telefonnummer'], $newId);
     $db->insertKontaktperson($kontaktperson);
     
+    $artikel = $db->getArtikel();
+    foreach ($artikel as $value) {
+        if(isset($_POST[$value->getArtikelId()])){
+            $lieferantliefert = new LieferantLiefert($newId, $value->getArtikelId(), null, null);
+            $db->insertLieferantLiefert($lieferantliefert);
+        }
+    }
+    
     if ($_POST['hausnummer'] <= 0) {
         echo "<div class='alert alert-danger' role='alert'> Hausnummer darf nicht kleiner gleich 0 sein. </div>";
         $_SESSION['errno'] = 1;
@@ -23,6 +31,17 @@ if (isset($_POST['submit_aendern']) && isset($_POST['lieferantenname']) && isset
     
     $kontaktperson = new LieferantenKontaktperson($_POST['kontaktpersonId'], $_POST['vorname'], $_POST['nachname'], $_POST['telefonnummer'], null);
     $db->updateKontaktperson($kontaktperson);
+    
+    $artikel = $db->getArtikel();
+    foreach ($artikel as $value) {
+        if(isset($_POST[$value->getArtikelId()])){
+            $lieferantliefert = new LieferantLiefert($_POST['lieferantId'], $value->getArtikelId(), null, null);
+            $db->insertLieferantLiefert($lieferantliefert);
+        }
+        else{
+            $db->deleteLieferantliefert($_POST['lieferantId'], $value->getArtikelId());
+        }
+    }
     
     if ($_POST['hausnummer'] <= 0) {
         echo "<div class='alert alert-danger' role='alert'> Hausnummer darf nicht kleiner gleich 0 sein. </div>";
@@ -315,7 +334,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
         </div>
     </form>
     <?php
-}*/ else if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] != 0 || isset($_GET['new2'])) {
+}*/ else if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] != 0) {
     include './inc/lieferantAnlegen.inc.php';
 } else if (isset($_GET['aendern']) || $_SESSION['errno'] != 0) {
     include './inc/lieferantAendern.inc.php';

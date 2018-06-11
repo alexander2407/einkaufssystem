@@ -1,11 +1,11 @@
 <?php
 $db = new DB();
 
-if (!isset($_GET['new2']) || $_SESSION['errno']==1) {
+if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] == 1) {
     ?>
     <h3>Neuen Lieferanten anlegen</h3>
     <br>
-    <form class="form-horizontal" method="POST" action="index.php?new2=TRUE">
+    <form class="form-horizontal" method="POST" action="index.php">
         <div class="form-group">
             <label for="lieferantenname" class="col-sm-2 control-label">Lieferantenname</label>
             <div class="col-sm-10">
@@ -122,6 +122,25 @@ if (!isset($_GET['new2']) || $_SESSION['errno']==1) {
                 <input type="text"  name="telefonnummer" class="form-control" id="telefonnummer"  required="">
             </div>
         </div>
+        <br>
+        <h4>Artikel des Lieferanten</h4>
+        <?php
+        $artikel = $db->getArtikel();
+        foreach ($artikel as $value) {
+            ?>
+            <div class="form-group">
+                <label for="artikel<?php echo $value->getArtikelId(); ?>" class="col-sm-2 control-label"><?php echo $value->getArtikelname(); ?></label>
+                <div class="col-sm-10">
+                    <input type="checkbox" 
+                           value="<?php echo $value->getArtikelId(); ?>" 
+                           name="<?php echo $value->getArtikelId(); ?>" 
+                           class="form-control" 
+                           id="artikel<?php echo $value->getArtikelId(); ?>">
+                </div>
+            </div>
+            <?php
+        }
+        ?>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default" name="submit_anlegen">Lieferant anlegen</button>
@@ -130,64 +149,7 @@ if (!isset($_GET['new2']) || $_SESSION['errno']==1) {
 
     </form>
     <?php
-} else if (isset($_GET['new2'])) {
-    $db = new DB();
-    echo "<h2> Artikel zu Lieferant zuordnen </h2>";
-    ?>
-
-    <form class="form-horizontal" method="POST" action="index.php">
-        <div class="form-group">
-            <label for="artikel" class="col-sm-2 control-label">Artikel</label>
-            <div class="col-sm-10">
-                <select class="form-control" name="artikelid"  id="artikelid" required="">
-                    <?php
-                    $db = new DB();
-                    $array = $db->getArtikel();
-                    foreach ($array as $eintrag) {
-                        $value = $eintrag->getArtikelId();
-                        echo "<option value='$value'>";
-                        echo $value;
-                        echo "-";
-                        echo $eintrag->getArtikelname();
-                        echo "</option>";
-                    }
-                    ?>
-
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="lieferant" class="col-sm-2 control-label">Lieferant</label>
-            <div class="col-sm-10">
-                <select class="form-control" name="lieferantid"  id="lieferantid" required="">
-                    <?php
-                    $db = new DB();
-                    $array = $db->getLieferanten();
-                    foreach ($array as $eintrag) {
-                        $value = $eintrag->getLieferantId();
-                        echo "<option value='$value'>";
-                        echo $value;
-                        echo "-";
-                        echo $eintrag->getName();
-                        echo "</option>";
-                    }
-                    ?>
-
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Zuordnen</button>
-            </div>
-        </div>
-
-    </form>
-    
-    <?php
-}
-$_SESSION['errno']=0;
+} 
+$_SESSION['errno'] = 0;
 ?>
 
