@@ -500,8 +500,7 @@ class DB {
 
         $eintrag->execute();
         echo "<br>";
-        echo "Artikel erfolgreich aktualisiert";
-
+        echo "<div class='alert alert-success' role='alert'>Artikel wurde erfolgreich geändert.</div>";
         $this->conn->close();
     }
 
