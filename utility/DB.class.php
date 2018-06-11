@@ -765,6 +765,12 @@ class DB {
         $aid=$_GET['artikelid'];
         $stmt->bind_param("ii",$lid,$aid);
         $stmt->execute();
+        $err = $this->conn->errno;
+          if ($err == 0) {
+            return true;
+        }
+        return false;
+    }
         $this->conn->close();
     }
 
