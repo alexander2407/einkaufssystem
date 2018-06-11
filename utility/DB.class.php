@@ -130,10 +130,8 @@ class DB {
     
     function deleteLieferantliefert($lieferantId, $artikelId){
         $this->doConnect();
-        $query = "Delete from lieferantliefert where lieferantId=? and artikelId=?);";
+        $query = "Delete from lieferantliefert where lieferantId=? and artikelId=?;";
         $stmt = $this->conn->prepare($query);
-        $lieferantid = $lieferantId;
-        $artikelid = $artikelId();
         $stmt->bind_param("ii", $lieferantid, $artikelid);
         $stmt->execute();
         $errno = $this->conn->errno;
