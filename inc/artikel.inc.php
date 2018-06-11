@@ -192,7 +192,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         <div class="form-group">
             <label for="umsatzsteuer" class="col-sm-2 control-label">Umsatzsteuer</label>
             <div class="col-sm-10">
-                <select value="<?php echo $artikel->getSteuersatz(); ?>" class="form-control" name="umsatzsteuer"  id="umsatzsteuer" required="">
+                <input type="text" value="<?php echo $artikel->getSteuersatz() * 100 . " %"; ?>" name="umsatzsteuer" class="form-control" id="umsatzsteuer" readonly="">
                     <?php
                     $db = new DB();
                     $array = $db->getUmsatzsteuer();
