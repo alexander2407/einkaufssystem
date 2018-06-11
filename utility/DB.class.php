@@ -496,7 +496,7 @@ class DB {
         $sql = "update artikel set Artikelname=?, Einkaufspreis=?, Verkaufspreis=?, Mindestbestand=?, Lagerstand=?, Lagerort=?, UmsatzsteuerId=? where artikelID=?;";
         $eintrag = $this->conn->prepare($sql);
 
-        $eintrag->bind_param("sddiisii", $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerort, $umsatzsteuerid, $artikelid);
+        $eintrag->bind_param("sddisii", $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $lagerort, $umsatzsteuerid, $artikelid);
 
         $eintrag->execute();
         echo "<br>";
