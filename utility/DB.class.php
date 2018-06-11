@@ -123,7 +123,18 @@ class DB {
         $artikelid = $lieferantliefert->getArtikelId();
         $stmt->bind_param("ii", $lieferantid, $artikelid);
         $stmt->execute();
-        $errno = $this->conn->insert_id;
+        $id = $this->conn->insert_id;
+        $this->conn->close();
+        return $id;
+    }
+    
+    function deleteLieferantliefert($lieferantId, $artikelId){
+        $this->doConnect();
+        $query = "Delete from lieferantliefert where lieferantId=? and artikelId=?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii", $lieferantid, $artikelid);
+        $stmt->execute();
+        $errno = $this->conn->errno;
         $this->conn->close();
         return $errno;
     }
