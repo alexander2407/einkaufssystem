@@ -427,6 +427,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                             <input type="text" value="" name="artikelid" class="form-control" id="artikelid" placeholder="<?php echo $value->getArtikelId() ?>">
                         </div>
                     </div>
+            
             <br>
                     <div class="form-group">
                         <label for="artikelname" class="col-sm-3 control-label">Artikelname</label>
@@ -434,6 +435,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                             <input type="text" value="" name="artikelname" class="form-control" id="artikelname" placeholder="<?php echo $value->getArtikelname() ?>">
                         </div>
                     </div>
+            
             <br>
                     <div class="form-group">
                         <label for="anzahl" class="col-sm-3 control-label">Anzahl</label>
@@ -441,6 +443,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                             <input type="text" value="" name="anzahl" class="form-control" id="anzahl" placeholder="<?php echo $value->getAnzahl() ?>">
                         </div>
                     </div>
+            
             <br>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
