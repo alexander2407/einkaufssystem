@@ -471,7 +471,7 @@ class DB {
         //echo $artikelname.",".$einkaufspreis.",".$verkaufspreis.",".$mindestbestand.",".$aufschlag.",".$lagerstand.",".$lagerort.",".$umsatzsteuerid.",".$aktiv;
         $eintrag = $this->conn->prepare($sql);
 
-        $eintrag->bind_param("sddidisii", $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuerid, $atkiv);
+        $eintrag->bind_param("sddidisii", $artikelname, $einkaufspreis, $verkaufspreis, $mindestbestand, $aufschlag, $lagerstand, $lagerort, $umsatzsteuerid, $aktiv);
         //echo "<br>";
         //var_dump($eintrag);
 
