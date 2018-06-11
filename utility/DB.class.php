@@ -174,6 +174,7 @@ class DB {
         $resultArray = array();
         $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, steuersatz, aktiv "
                 . "FROM artikel JOIN umsatzsteuer using(umsatzsteuerid)"
+                . "WHERE aktiv=1"
                 . "order by artikelId;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -520,6 +521,14 @@ class DB {
         echo "<br>";
         echo "<div class='alert alert-success' role='alert'>Artikel wurde erfolgreich geändert.</div>";
         $this->conn->close();
+    }
+    
+    function artikelLöschen($id){
+        $this->doConnect();
+        $query="UPDATE artikel SET aktiv=0 where artikelid=?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
     }
 
     function getUmsatzsteuer() {
