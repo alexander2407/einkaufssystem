@@ -245,21 +245,17 @@ class DB {
 
     function deleteArtikel($id) {
         $this->doConnect();
-        $query = "DELETE FROM lieferantliefert WHERE artikelid=?;";
+        $query="UPDATE artikel SET aktiv=0 where artikelid=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $query = "DELETE FROM artikel WHERE artikelid=?;";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $this->conn->close();
         if ($stmt) {
             return true;
         } else {
             return false;
         }
-    }
+        $this->conn->close();
+}   
 
     //es muss nur aus der Tabelle lieferantenbestellung gelöscht werden
     function deleteBestellung($id) {
