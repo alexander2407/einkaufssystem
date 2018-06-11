@@ -419,39 +419,38 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             <h4>Lieferantenartikel zu dieser Bestellung</h4>
             <?php
             $lieferantenartikel = $db->getLieferantenartikel($LBbestellung->getLieferantenbestellungsId());
-            //if (count($lieferantenartikel) > 0) {
                 foreach ($lieferantenartikel as $value) {
                     ?>
                     <div class="form-group">
                         <label for="artikelid" class="col-sm-3 control-label">ArtikelId</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="artikelid" class="form-control" id="artikelid" readonly="" placeholder="<?php echo $value->getArtikelId() ?>">
+                            <input type="text" value="" name="artikelid" class="form-control" id="artikelid" placeholder="<?php echo $value->getArtikelId() ?>">
                         </div>
                     </div>
+            <br>
                     <div class="form-group">
                         <label for="artikelname" class="col-sm-3 control-label">Artikelname</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="artikelname" class="form-control" id="artikelname" readonly="" placeholder="<?php echo $value->getArtikelname() ?>">
+                            <input type="text" value="" name="artikelname" class="form-control" id="artikelname" placeholder="<?php echo $value->getArtikelname() ?>">
                         </div>
                     </div>
+            <br>
                     <div class="form-group">
                         <label for="anzahl" class="col-sm-3 control-label">Anzahl</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="anzahl" class="form-control" id="anzahl" readonly="" placeholder="<?php echo $value->getAnzahl() ?>">
+                            <input type="text" value="" name="anzahl" class="form-control" id="anzahl" placeholder="<?php echo $value->getAnzahl() ?>">
                         </div>
                     </div>
+            <br>
                     <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default" name="LBbestellungGeaendert">Lieferantenbestellung ändern</button>
-                    </div>
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default" name="LBbestellungGeaendert">Lieferantenbestellung ändern</button>
+                        </div>
                     </div>
                     <br>
                     
                     <?php
                 }
-//            } else {
-//                echo '<p>Zu dieser Lieferantenbestellung gibt es keine Artikel.</p>';
-//            }
     }
         ?>
 
@@ -460,9 +459,3 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
     <?php
 }
 ?>
-    ?>
-
-
-
-
-
