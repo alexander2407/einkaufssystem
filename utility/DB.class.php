@@ -769,6 +769,7 @@ class DB {
           if ($err == 0) {
             return true;
         }
+        else{
         return false;
     }
         $this->conn->close();
