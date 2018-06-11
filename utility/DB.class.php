@@ -174,7 +174,7 @@ class DB {
         $resultArray = array();
         $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, steuersatz, aktiv "
                 . "FROM artikel JOIN umsatzsteuer using(umsatzsteuerid)"
-                . "WHERE aktiv=1"
+                . "WHERE aktiv=1 "
                 . "order by artikelId;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
