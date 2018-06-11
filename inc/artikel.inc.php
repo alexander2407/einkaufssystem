@@ -31,6 +31,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         echo "<td>" . $art->getAufschlag() * 100 . " %" . "</td>";
         echo "<td>" . $art->getLagerstand() . "</td>";
         echo "<td>" . $art->getLagerort() . "</td>";
+        echo "<td>" . $art->getSteuersatz() . "</td>";
         if ($art->getAktiv() == 1) {
             echo "<td>" . "Ja" . "</td>";
         } else {
@@ -196,6 +197,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
                     <?php
                     $db = new DB();
                     $array = $db->getUmsatzsteuer();
+                    
                     foreach ($array as $eintrag) {
                         $value = $eintrag->getUstId();
                         echo "<option value='$value'>";
