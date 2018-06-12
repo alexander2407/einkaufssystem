@@ -5,7 +5,7 @@ if (!empty($_GET['loeschen'])) {
     $db->deleteBestellung($_GET['loeschen']); //löschen funktioniert
 }
 
-if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['artikelHinzufügen']) && !isset($_GET['offeneBestellungen']) && !isset($_GET['bestellungAnlegen'])) {
+if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['artikelHinzufügen']) && !isset($_GET['offeneBestellungen']) && !isset($_GET['bestellungAnlegen']) && !isset($_GET['LBbestellungGeaendert'])) {
 
     echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a> &ensp;"
     . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Lieferantenbestellungen anzeigen</a></div><br>";
@@ -416,7 +416,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         ?>
         <h3>Lieferantenbestellung <?php echo $_GET['LBaendern']?> bearbeiten</h3>
         <br>
-        <form class="form-horizontal" method="POST" action="index.php?menu=bestellungen">
+        <form class="form-horizontal" method="POST" action="index.php?LBbestellungGeaendert=TRUE">
             <br>
                 <div class="form-group">
                     <label for="lieferantenbestellungsid" class="col-sm-3 control-label">LieferantenBestelungsID</label>
@@ -463,7 +463,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                     <div class="form-group">
                         <label for="artikelid" class="col-sm-3 control-label">ArtikelId</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="artikelid" class="form-control" id="artikelid" placeholder="<?php echo $value->getArtikelId() ?>" readonly="">
+                            <input type="text" value="<?php echo $value->getArtikelId() ?>" name="artikelid" class="form-control" id="artikelid" placeholder="" readonly="">
                         </div>
                     </div>
             
@@ -471,7 +471,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                     <div class="form-group">
                         <label for="artikelname" class="col-sm-3 control-label">Artikelname</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="artikelname" class="form-control" id="artikelname" placeholder="<?php echo $value->getArtikelname() ?>" readonly="">
+                            <input type="text" value="<?php echo $value->getArtikelname() ?>" name="artikelname" class="form-control" id="artikelname" placeholder="" readonly="">
                         </div>
                     </div>
             
@@ -506,5 +506,11 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
 
     </form>
     <?php
+}else if(isset($_GET['LBbestellungGeaendert'])){
+    $db = new DB();
+    echo $_POST['anzahlNeu'];
+    echo "<br>";
+    echo "die neue zahlungsmethode: ".$_POST['zahlungsmethodeNeu'];
+    echo "<br>";
 }
 ?>
