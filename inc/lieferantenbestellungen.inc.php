@@ -415,10 +415,11 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         ?>
         <h3>Lieferantenbestellung <?php echo $_GET['LBaendern']?> bearbeiten</h3>
         <br>
-
+        <form>
             <h4>Lieferantenartikel zu dieser Bestellung</h4>
             <?php
             $lieferantenartikel = $db->getLieferantenartikel($LBbestellung->getLieferantenbestellungsId());
+            
                 foreach ($lieferantenartikel as $value) {
                     ?>
                     <div class="form-group">
