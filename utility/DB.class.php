@@ -268,7 +268,6 @@ class DB {
         $this->conn->close();
 }   
 
-    //es muss nur aus der Tabelle lieferantenbestellung gelöscht werden
     function deleteBestellung($id) {
         $this->doConnect();
         $query = "DELETE FROM lieferantenbestellung WHERE lieferantenbestellungsid=?;";
