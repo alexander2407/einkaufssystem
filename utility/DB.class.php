@@ -644,9 +644,9 @@ class DB {
         
         if($mengenCnt == 0){
             $this->doConnect();
-                $query3 = "Insert into testtab values (?);";
+                $query3 = "Delete From lieferantenbestellung where lieferantenbestellungsID = ?;";
                 $stmt3 = $this->conn->prepare($query3);
-                $stmt3->bind_param("i", $mengenCnt);
+                $stmt3->bind_param("i", $lastId);
                 $stmt3->execute();
                 $this->conn->close();
         }
