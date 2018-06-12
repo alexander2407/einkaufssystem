@@ -415,7 +415,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         ?>
         <h3>Lieferantenbestellung <?php echo $_GET['LBaendern']?> bearbeiten</h3>
         <br>
-        <form>
+        <form class="form-horizontal" method="POST" action="index.php?menu=bestellungen">
             <h4>Lieferantenartikel zu dieser Bestellung</h4>
             <?php
             $lieferantenartikel = $db->getLieferantenartikel($LBbestellung->getLieferantenbestellungsId());
