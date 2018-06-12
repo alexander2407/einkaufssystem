@@ -604,6 +604,7 @@ class DB {
     function lieferantenbestellungErfassen($lieferantenid, $artikelArray, $artikelMengeArray, $zahlungsmethodeid) {
         //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
         $this->doConnect();
+        //neu erfasste Bestellungen sind automatisch nicht abgeschlossen.
         $abgeschlossen = 0;
         $artikelid = array();
 
@@ -622,6 +623,13 @@ class DB {
         //insert in lieferantenartikel vornehmen, abfragen ob anzahl > 0
         $cnt = 0;
         $lastId = $this->getLieferantenbestellungsIdLast();
+        
+        //kontrollieren ob mengen gleich 0 sind
+        $mengenCnt=0;
+        foreach($artikelMengeArray as $AMA){
+            $mengenCnt = $mengenCnt + $AMA;
+        }
+        
         foreach ($intArtikelArray as $x) {
             if ($artikelMengeArray[$cnt] > 0) {
                 $this->doConnect();
@@ -632,6 +640,15 @@ class DB {
                 $this->conn->close();
             }
             $cnt ++;
+        }
+        
+        if($mengenCnt == 0){
+            $this->doConnect();
+                $query3 = "Insert into testtab values (?);";
+                $stmt3 = $this->conn->prepare($query3);
+                $stmt3->bind_param("i", $mengenCnt);
+                $stmt3->execute();
+                $this->conn->close();
         }
         //$this->conn->close();
     }
@@ -798,21 +815,21 @@ class DB {
                 $this->doConnect();
                 $query1 = "UPDATE lieferantenartikel SET Anzahl = ? where ArtikelID = ? and lieferantenbestellungsid = ?;";
                 $stmt1 = $this->conn->prepare($query1);
-                $stmt1->bind_param("iii", $MengenArray[$cnt], $x, $LB); //wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
+                $stmt1->bind_param("iii", $MengenArray[$cnt], $x, $LB);
                 $stmt1->execute();
                 $this->conn->close();
             }else{
                 $this->doConnect();
                 $query2 = "DELETE From lieferantenartikel where ArtikelID = ? and lieferantenbestellungsid = ?;";
                 $stmt2 = $this->conn->prepare($query2);
-                $stmt2->bind_param("ii", $x, $LB); //wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
+                $stmt2->bind_param("ii", $x, $LB);
                 $stmt2->execute();
                 $this->conn->close();
             }
             $cnt ++;
         }
         
-        //$this->conn->close();
+        
     }
     
     
