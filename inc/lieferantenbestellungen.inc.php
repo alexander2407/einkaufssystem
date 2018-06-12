@@ -486,9 +486,12 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                     <div class="form-group">
                         <label for="anzahl" class="col-sm-3 control-label">Anzahl neu</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="anzahlNeu" class="form-control" id="anzahl" placeholder="" required="">
+                            <input type="text" value="" name="<?php echo $value->getArtikelId() ?>" class="form-control" id="anzahl" placeholder="" required="">
                         </div>
                     </div>
+            <?php
+                }
+            ?>
             <br>
             
                     <div class="form-group">
@@ -499,7 +502,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                     
                     
                     <?php
-                }
+                //}
     }
         ?>
 
@@ -508,9 +511,34 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
     <?php
 }else if(isset($_GET['LBbestellungGeaendert'])){
     $db = new DB();
-    echo $_POST['anzahlNeu'];
+    $alleArtikel = $db->getLieferantenartikel($_POST['lieferantenbestellungsid']);//alle artikelIDs einer lieferantenbestellung
+    
+    $MengenArray = array();
+            
+            $anzahlArtikel = 0;
+            foreach($alleArtikel as $arti){
+                
+                $MengenArray[] = $_POST[$alleArtikel[$anzahlArtikel]->getArtikelId()];
+                $anzahlArtikel ++;
+            }
+            
+            $intMengenArray = array_map(
+            function($value) { return (int)$value; },
+            $MengenArray);
+            
+    $db->updateLieferantenbestellung($_POST['zahlungsmethodeNeu'], $_POST['lieferantenbestellungsid'], $alleArtikel, $intMengenArray);
+            
+            
+    echo "neue anzahl: ".$_POST['anzahlNeu'];
     echo "<br>";
     echo "die neue zahlungsmethode: ".$_POST['zahlungsmethodeNeu'];
     echo "<br>";
+    
+    
+    echo "<div class='alert alert-success' role='alert'>Bestellung ". $_POST['lieferantenbestellungsid']." bearbeitet!</div>";
+    echo "<br>";
+    echo "<div class='col-sm-offset-2 col-sm-10'>
+          <a href='index.php?menu=bestellungen' class='btn btn-default'>zurück</a>
+          </div>";
 }
 ?>

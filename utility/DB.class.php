@@ -604,7 +604,7 @@ class DB {
     function lieferantenbestellungErfassen($lieferantenid, $artikelArray, $artikelMengeArray, $zahlungsmethodeid) {
         //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
         $this->doConnect();
-        $abgeschlossen = 1;
+        $abgeschlossen = 0;
         $artikelid = array();
 
         foreach ($artikelArray as $a) {
@@ -774,6 +774,48 @@ class DB {
     }
         $this->conn->close();
     }
+    
+    function updateLieferantenbestellung($ZM, $LB, $artikelArray, $MengenArray){
+        $this->doConnect();
+        $query = "UPDATE lieferantenbestellung SET zahlungsmethodeid = ? where lieferantenbestellungsid = ?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii", $ZM, $LB);
+        $stmt->execute();
+        
+        //artikelIdArray in ein array aus int umwandeln
+        $artikelid = array();
+        foreach ($artikelArray as $a) {
+            $artikelid[] = $a->getArtikelId();
+        }
+        $intArtikelArray = array_map(
+                function($value) {
+            return (int) $value;
+        }, $artikelid);
+        
+        $cnt=0;
+        foreach ($intArtikelArray as $x) {
+            if ($MengenArray[$cnt] > 0) {
+                $this->doConnect();
+                $query1 = "UPDATE lieferantenartikel SET Anzahl = ? where ArtikelID = ? and lieferantenbestellungsid = ?;";
+                $stmt1 = $this->conn->prepare($query1);
+                $stmt1->bind_param("iii", $MengenArray[$cnt], $x, $LB); //wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
+                $stmt1->execute();
+                $this->conn->close();
+            }else{
+                $this->doConnect();
+                $query2 = "DELETE From lieferantenartikel where ArtikelID = ? and lieferantenbestellungsid = ?;";
+                $stmt2 = $this->conn->prepare($query1);
+                $stmt2->bind_param("ii", $x, $LB); //wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
+                $stmt2->execute();
+                $this->conn->close();
+            }
+            $cnt ++;
+        }
+        
+        //$this->conn->close();
+    }
+    
+    
 
     /* function writeMitarbeiter($mitarbeiter) {
       $this->doConnect();
