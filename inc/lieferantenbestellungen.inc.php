@@ -530,10 +530,10 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
     $db->updateLieferantenbestellung($_POST['zahlungsmethodeNeu'], $_POST['lieferantenbestellungsid'], $alleArtikel, $intMengenArray);
             
             
-    echo "neue anzahl: ".$_POST['anzahlNeu'];
-    echo "<br>";
-    echo "die neue zahlungsmethode: ".$_POST['zahlungsmethodeNeu'];
-    echo "<br>";
+//    echo "neue anzahl: ".$_POST['anzahlNeu'];
+//    echo "<br>";
+//    echo "die neue zahlungsmethode: ".$_POST['zahlungsmethodeNeu'];
+//    echo "<br>";
     
     
     echo "<div class='alert alert-success' role='alert'>Bestellung ". $_POST['lieferantenbestellungsid']." bearbeitet!</div>";
