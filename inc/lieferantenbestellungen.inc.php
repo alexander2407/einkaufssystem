@@ -400,8 +400,6 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
     <div class="alert alert-success" role="alert">Bestellung angelegt!</div>
     <?php
     echo "<br>";
-            echo "<div class='alert alert-danger' role='alert'>Die Lieferantenbestellung ".$LBbestellung->getLieferantenbestellungsId()." ist bereits abgeschlossen.</div>";
-            echo "<br>";
             echo "<div class='col-sm-offset-2 col-sm-10'>
                     <a href='index.php?neueBestellung=TRUE' class='btn btn-default'>zurück</a>
                   </div>";
