@@ -642,6 +642,8 @@ class DB {
             $cnt ++;
         }
         
+        //sollte bei den bestellten artikeln überall die menge 0 eingegeben werden, wird die bestellung in dieser function gleich wieder gelöscht. jedoch setzt das autoincrement
+        //in der tabelle weiter fort (lücken entstehen)
         if($mengenCnt == 0){
             $this->doConnect();
                 $query3 = "Delete From lieferantenbestellung where lieferantenbestellungsID = ?;";
@@ -809,6 +811,12 @@ class DB {
             return (int) $value;
         }, $artikelid);
         
+        //kontrolle falls überall 0 als Menge eingegen wurde
+        $mengenCnt=0;
+        foreach($MengenArray as $AMA){
+            $mengenCnt = $mengenCnt + $AMA;
+        }
+        
         $cnt=0;
         foreach ($intArtikelArray as $x) {
             if ($MengenArray[$cnt] > 0) {
@@ -827,6 +835,15 @@ class DB {
                 $this->conn->close();
             }
             $cnt ++;
+        }
+        
+        if($mengenCnt == 0){
+            $this->doConnect();
+                $query3 = "Delete From lieferantenbestellung where lieferantenbestellungsID = ?;";
+                $stmt3 = $this->conn->prepare($query3);
+                $stmt3->bind_param("i", $LB);
+                $stmt3->execute();
+                $this->conn->close();
         }
         
         
