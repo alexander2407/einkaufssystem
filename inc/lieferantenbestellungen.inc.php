@@ -403,6 +403,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
     }else if (isset($_GET['LBaendern'])) {
         $db = new DB();
         $LBbestellung = $db->getLieferantenbestellung($_GET['LBaendern']);
+        $zahlungsmethoden = $db->getZahlungsmethode();
         
     if($LBbestellung->getAbgeschlossen() == 1){
         echo "<br>";
@@ -416,7 +417,6 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         <h3>Lieferantenbestellung <?php echo $_GET['LBaendern']?> bearbeiten</h3>
         <br>
         <form class="form-horizontal" method="POST" action="index.php?menu=bestellungen">
-            <h4>Lieferantenartikel zu dieser Bestellung</h4>
             <br>
                 <div class="form-group">
                     <label for="lieferantenbestellungsid" class="col-sm-3 control-label">LieferantenBestelungsID</label>
@@ -431,14 +431,28 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                         <input type="text" value="<?php echo $LBbestellung->getLieferantName(); ?>" name="lieferantname" class="form-control" id="lieferantname" readonly="">
                     </div>
                 </div>
-
+            
                 <div class="form-group">
-                    <label for="zahlungsmethode" class="col-sm-3 control-label">Zahlungsmethode</label>
+                    <label for="zahlungsmethode" class="col-sm-3 control-label">Zahlungsmethode alt</label>
                     <div class="col-sm-7">
-                        <input type="text" value="<?php echo $LBbestellung->getZahlungsmethode(); ?>" name="zahlungsmethode" class="form-control" id="zahlungsmethode" >
+                        <input type="text" value="<?php echo $LBbestellung->getZahlungsmethode(); ?>" name="zahlungsmethodeAlt" class="form-control" id="zahlungsmethode" readonly="">
                     </div>
                 </div>
-            <br>
+            
+                <div class="form-group">
+                <label for="zahlungsmethode" class="col-sm-2 control-label">Zahlungsmethode neu</label>
+                <div class="col-sm-10">
+                    <select name="zahlungsmethodeNeu" class="form-control" id="zahlungsmethode">
+                        <?php
+                        //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
+                        foreach ($zahlungsmethoden as $zahlungsmethode) {
+                            echo "<option value=" . $zahlungsmethode->getZahlungsmethodeid() . ">" . $zahlungsmethode->getZahlungsmethodename() . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                </div>
+            
             <h4>Bestellte Artikel</h4>
             <br>
             <?php
@@ -449,7 +463,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                     <div class="form-group">
                         <label for="artikelid" class="col-sm-3 control-label">ArtikelId</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="artikelid" class="form-control" id="artikelid" placeholder="<?php echo $value->getArtikelId() ?>">
+                            <input type="text" value="" name="artikelid" class="form-control" id="artikelid" placeholder="<?php echo $value->getArtikelId() ?>" readonly="">
                         </div>
                     </div>
             
@@ -457,25 +471,32 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                     <div class="form-group">
                         <label for="artikelname" class="col-sm-3 control-label">Artikelname</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="artikelname" class="form-control" id="artikelname" placeholder="<?php echo $value->getArtikelname() ?>">
+                            <input type="text" value="" name="artikelname" class="form-control" id="artikelname" placeholder="<?php echo $value->getArtikelname() ?>" readonly="">
                         </div>
                     </div>
             
             
                     <div class="form-group">
-                        <label for="anzahl" class="col-sm-3 control-label">Anzahl</label>
+                        <label for="anzahl" class="col-sm-3 control-label">Anzahl alt</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="anzahl" class="form-control" id="anzahl" placeholder="<?php echo $value->getAnzahl() ?>">
+                            <input type="text" value="<?php echo $value->getAnzahl() ?>" name="anzahlAlt" class="form-control" id="anzahl" value="" readonly="">
                         </div>
                     </div>
             
+                    <div class="form-group">
+                        <label for="anzahl" class="col-sm-3 control-label">Anzahl neu</label>
+                        <div class="col-sm-7">
+                            <input type="text" value="" name="anzahlNeu" class="form-control" id="anzahl" placeholder="" required="">
+                        </div>
+                    </div>
+            <br>
             
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-default" name="LBbestellungGeaendert">Lieferantenbestellung ändern</button>
                         </div>
                     </div>
-                    <br>
+                    
                     
                     <?php
                 }
