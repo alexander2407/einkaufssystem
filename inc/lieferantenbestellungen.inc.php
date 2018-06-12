@@ -489,6 +489,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                             <input type="text" value="" name="<?php echo $value->getArtikelId() ?>" class="form-control" id="anzahl" placeholder="" required="">
                         </div>
                     </div>
+            <br>
             <?php
                 }
             ?>

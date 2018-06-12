@@ -804,7 +804,7 @@ class DB {
             }else{
                 $this->doConnect();
                 $query2 = "DELETE From lieferantenartikel where ArtikelID = ? and lieferantenbestellungsid = ?;";
-                $stmt2 = $this->conn->prepare($query1);
+                $stmt2 = $this->conn->prepare($query2);
                 $stmt2->bind_param("ii", $x, $LB); //wie krieg ich die lieferantenbestellungsid? kompliziert und fehleranfällig gelöst
                 $stmt2->execute();
                 $this->conn->close();
