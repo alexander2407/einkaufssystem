@@ -144,7 +144,7 @@ class DB {
         $this->doConnect();
         $query = "SELECT lieferantId "
                 . "FROM lieferantliefert "
-                . "WHERE artikelid=? "
+                . "WHERE artikelid=? and aktiv=1 "
                 . "LIMIT 1;";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $artikelId);
@@ -204,7 +204,7 @@ class DB {
         $resultArray = array();
         $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, steuersatz, aktiv "
                 . "FROM artikel join umsatzsteuer using(umsatzsteuerid) "
-                . "WHERE mindestbestand > lagerstand "
+                . "WHERE mindestbestand > lagerstand AND aktiv=1 "
                 . "ORDER BY artikelId;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
