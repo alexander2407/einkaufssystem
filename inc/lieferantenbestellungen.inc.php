@@ -441,7 +441,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             
                 <div class="form-group">
                 <label for="zahlungsmethode" class="col-sm-2 control-label">Zahlungsmethode neu</label>
-                <div class="col-sm-10">
+                <div>
                     <select name="zahlungsmethodeNeu" class="form-control" id="zahlungsmethode">
                         <?php
                         //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
