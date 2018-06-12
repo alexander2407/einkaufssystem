@@ -417,6 +417,30 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         <br>
         <form class="form-horizontal" method="POST" action="index.php?menu=bestellungen">
             <h4>Lieferantenartikel zu dieser Bestellung</h4>
+            <br>
+                <div class="form-group">
+                    <label for="lieferantenbestellungsid" class="col-sm-3 control-label">LieferantenBestelungsID</label>
+                    <div class="col-sm-7">
+                        <input type="text" value="<?php echo $LBbestellung->getLieferantenbestellungsId(); ?>" name="lieferantenbestellungsid" class="form-control" id="lieferantenbestellungsid" readonly="">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lieferantname" class="col-sm-3 control-label">Name</label>
+                    <div class="col-sm-7">
+                        <input type="text" value="<?php echo $LBbestellung->getLieferantName(); ?>" name="lieferantname" class="form-control" id="lieferantname" readonly="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="zahlungsmethode" class="col-sm-3 control-label">Zahlungsmethode</label>
+                    <div class="col-sm-7">
+                        <input type="text" value="<?php echo $LBbestellung->getZahlungsmethode(); ?>" name="zahlungsmethode" class="form-control" id="zahlungsmethode" >
+                    </div>
+                </div>
+            <br>
+            <h4>Bestellte Artikel</h4>
+            <br>
             <?php
             $lieferantenartikel = $db->getLieferantenartikel($LBbestellung->getLieferantenbestellungsId());
             
@@ -429,7 +453,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                         </div>
                     </div>
             
-            <br>
+            
                     <div class="form-group">
                         <label for="artikelname" class="col-sm-3 control-label">Artikelname</label>
                         <div class="col-sm-7">
@@ -437,7 +461,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                         </div>
                     </div>
             
-            <br>
+            
                     <div class="form-group">
                         <label for="anzahl" class="col-sm-3 control-label">Anzahl</label>
                         <div class="col-sm-7">
@@ -445,7 +469,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                         </div>
                     </div>
             
-            <br>
+            
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-default" name="LBbestellungGeaendert">Lieferantenbestellung ändern</button>
