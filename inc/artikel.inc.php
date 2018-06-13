@@ -183,8 +183,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         <div class = "form-group">
             <label for = "einkaufspreis" class = "col-sm-2 control-label">Einkaufspreis</label>
             <div class = "col-sm-10">
-                <input type = "text" value = "<?php echo $artikel->getEinkaufspreis() . " €";
-    ?>" name="einkaufspreis" class="form-control" id="einkaufspreis" required="">
+                <input type = "text" value = "<?php echo $artikel->getEinkaufspreis();?>" name="einkaufspreis" class="form-control" id="einkaufspreis" required="">
             </div>
         </div>
 
