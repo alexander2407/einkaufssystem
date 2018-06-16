@@ -4,23 +4,28 @@ if (isset($_POST['submit_anlegen']) && isset($_POST['lieferantenname']) && isset
     $db = new DB();
     $lieferantDetail = new LieferantDetail(null, $_POST['lieferantenname'], $_POST['telefonnummer'], $_POST['strasse'], $_POST['hausnummer'], $_POST['ort'], null, null, null, null, null, true, $_POST['zahlungsbedingungen'], null, null, null, $_POST['lieferbedingungen'], null, null, null, null, null, null, null);
     $newId = $db->insertLieferant($lieferantDetail);
-    
+
     $kontaktperson = new LieferantenKontaktperson(null, $_POST['vorname'], $_POST['nachname'], $_POST['telefonnummer'], $newId);
     $db->insertKontaktperson($kontaktperson);
-    
+
     $artikel = $db->getArtikel();
     foreach ($artikel as $value) {
-        if(isset($_POST[$value->getArtikelId()])){
+        if (isset($_POST[$value->getArtikelId()])) {
             $lieferantliefert = new LieferantLiefert($newId, $value->getArtikelId(), null, null);
             $db->insertLieferantLiefert($lieferantliefert);
         }
     }
-    
-    if ($_POST['hausnummer'] <= 0) {
-        echo "<div class='alert alert-danger' role='alert'> Hausnummer darf nicht kleiner gleich 0 sein. </div>";
-        $_SESSION['errno'] = 1;
-    } else {
-        echo "<div class='alert alert-success' role='alert'>Lieferant wurde erfolgreich gespeichert. ID:  " . $newId . " </div>";
+
+    if (is_numeric($_POST['hausnummer'])) {
+        if ($_POST['hausnummer'] <= 0) {
+            echo "<div class='alert alert-danger' role='alert'> Hausnummer darf nicht kleiner gleich 0 sein. </div>";
+            $_SESSION['errno'] = 1;
+        } else {
+            echo "<div class='alert alert-success' role='alert'>Lieferant wurde erfolgreich gespeichert. ID:  " . $newId . " </div>";
+        }
+    }
+    else{
+        echo "<div class='alert alert-danger' role='alert'> Hausnummer muss eine Nummer sein. </div>";  
     }
 }
 
@@ -28,21 +33,20 @@ if (isset($_POST['submit_aendern']) && isset($_POST['lieferantenname']) && isset
     $db = new DB();
     $lieferantDetail = new LieferantDetail($_POST['lieferantId'], $_POST['lieferantenname'], $_POST['telefonnummer'], $_POST['strasse'], $_POST['hausnummer'], $_POST['ort'], null, null, null, null, null, true, $_POST['zahlungsbedingungen'], null, null, null, $_POST['lieferbedingungen'], null, null, null, null, null, null, null);
     $newId = $db->updateLieferant($lieferantDetail);
-    
+
     $kontaktperson = new LieferantenKontaktperson($_POST['kontaktpersonId'], $_POST['vorname'], $_POST['nachname'], $_POST['telefonnummer'], null);
     $db->updateKontaktperson($kontaktperson);
-    
+
     $artikel = $db->getArtikel();
     foreach ($artikel as $value) {
-        if(isset($_POST[$value->getArtikelId()])){
+        if (isset($_POST[$value->getArtikelId()])) {
             $lieferantliefert = new LieferantLiefert($_POST['lieferantId'], $value->getArtikelId(), null, null);
             $db->insertLieferantLiefert($lieferantliefert);
-        }
-        else{
+        } else {
             $db->deleteLieferantliefert($_POST['lieferantId'], $value->getArtikelId());
         }
     }
-    
+
     if ($_POST['hausnummer'] <= 0) {
         echo "<div class='alert alert-danger' role='alert'> Hausnummer darf nicht kleiner gleich 0 sein. </div>";
         $_SESSION['errno'] = 1;
@@ -55,10 +59,9 @@ if (isset($_POST['lieferantid']) && isset($_POST['artikelid'])) {
     $db = new DB();
     $lieferantliefert = new LieferantLiefert($_POST['lieferantid'], $_POST['artikelid'], null, null);
     $errno = $db->insertLieferantLiefert($lieferantliefert);
-    if($errno==0){
+    if ($errno == 0) {
         echo "<div class='alert alert-success' role='alert'>LieferantLiefert erfolgreich gespeichert.</div>";
-    }
-    else {
+    } else {
         echo "<div class='alert alert-danger' role='alert'>LieferantLiefert konnte nicht gespeichert werden.</div>";
     }
 }
@@ -274,67 +277,67 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
     </form>
 
     <?php
-} /*else if (isset($_GET['aendern'])) {
-    $db = new DB();
-    $id = $_GET['aendern'];
-    $lieferant = $db->getLieferant($id);
-    ?>
-    <h3>Lieferanten ändern</h3>
-    <br>
+} /* else if (isset($_GET['aendern'])) {
+  $db = new DB();
+  $id = $_GET['aendern'];
+  $lieferant = $db->getLieferant($id);
+  ?>
+  <h3>Lieferanten ändern</h3>
+  <br>
 
-    <form class="form-horizontal" method="POST" action="index.php?lieferantAendern=TRUE">
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
-                <input type="text" value="<?php echo $lieferant->getName(); ?>" name="name" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Telefonnummer</label>
-            <div class="col-sm-10">
-                <input type="number" value="<?php echo $lieferant->getTelefonnummer(); ?>" name="telefonnummer" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Strasse</label>
-            <div class="col-sm-10">
-                <input type="text" value="<?php echo $lieferant->getStrasse(); ?>" name="strasse" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Hausnummer</label>
-            <div class="col-sm-10">
-                <input type="number" value="<?php echo $lieferant->getHausnummer(); ?>" name="hausnummer" class="form-control" id="inputEmail3" >
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">PLZ</label>
-            <div class="col-sm-10">
-                <input type="number" value="<?php echo $lieferant->getPlz(); ?>" name="plz" class="form-control" id="inputEmail3">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Ort (ID eingeben)</label>
-            <div class="col-sm-10">
-                <input type="text" value="<?php echo $lieferant->getOrtId(); ?>" name="ort" class="form-control" id="inputEmail3">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Land (ID eingeben)</label>
-            <div class="col-sm-10">
-                <input type="text" value="<?php echo $lieferant->getLandId(); ?>" name="land" class="form-control" id="inputEmail3">
-            </div>
-        </div>
+  <form class="form-horizontal" method="POST" action="index.php?lieferantAendern=TRUE">
+  <div class="form-group">
+  <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+  <div class="col-sm-10">
+  <input type="text" value="<?php echo $lieferant->getName(); ?>" name="name" class="form-control" id="inputEmail3" >
+  </div>
+  </div>
+  <div class="form-group">
+  <label for="inputEmail3" class="col-sm-2 control-label">Telefonnummer</label>
+  <div class="col-sm-10">
+  <input type="number" value="<?php echo $lieferant->getTelefonnummer(); ?>" name="telefonnummer" class="form-control" id="inputEmail3" >
+  </div>
+  </div>
+  <div class="form-group">
+  <label for="inputEmail3" class="col-sm-2 control-label">Strasse</label>
+  <div class="col-sm-10">
+  <input type="text" value="<?php echo $lieferant->getStrasse(); ?>" name="strasse" class="form-control" id="inputEmail3" >
+  </div>
+  </div>
+  <div class="form-group">
+  <label for="inputEmail3" class="col-sm-2 control-label">Hausnummer</label>
+  <div class="col-sm-10">
+  <input type="number" value="<?php echo $lieferant->getHausnummer(); ?>" name="hausnummer" class="form-control" id="inputEmail3" >
+  </div>
+  </div>
+  <div class="form-group">
+  <label for="inputEmail3" class="col-sm-2 control-label">PLZ</label>
+  <div class="col-sm-10">
+  <input type="number" value="<?php echo $lieferant->getPlz(); ?>" name="plz" class="form-control" id="inputEmail3">
+  </div>
+  </div>
+  <div class="form-group">
+  <label for="inputEmail3" class="col-sm-2 control-label">Ort (ID eingeben)</label>
+  <div class="col-sm-10">
+  <input type="text" value="<?php echo $lieferant->getOrtId(); ?>" name="ort" class="form-control" id="inputEmail3">
+  </div>
+  </div>
+  <div class="form-group">
+  <label for="inputEmail3" class="col-sm-2 control-label">Land (ID eingeben)</label>
+  <div class="col-sm-10">
+  <input type="text" value="<?php echo $lieferant->getLandId(); ?>" name="land" class="form-control" id="inputEmail3">
+  </div>
+  </div>
 
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Änderungen übernehmen</button>
-            </div>
-        </div>
-    </form>
-    <?php
-}*/ else if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] != 0) {
+  <div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+  <button type="submit" class="btn btn-default">Änderungen übernehmen</button>
+  </div>
+  </div>
+  </form>
+  <?php
+  } */ else if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] != 0) {
     include './inc/lieferantAnlegen.inc.php';
 } else if (isset($_GET['aendern']) || $_SESSION['errno'] != 0) {
     include './inc/lieferantAendern.inc.php';

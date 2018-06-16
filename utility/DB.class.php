@@ -144,9 +144,10 @@ class DB {
         $this->doConnect();
         $query = "SELECT lieferantId "
                 . "FROM lieferantliefert "
+                . "JOIN lieferant USING(lieferantId) "
                 . "WHERE artikelid=? and aktiv=1 "
                 . "LIMIT 1;";
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($query); 
         $stmt->bind_param("i", $artikelId);
         $stmt->execute();
         $stmt->bind_result($lieferantId);
