@@ -89,7 +89,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             <label for="abgeschlossen" class="col-sm-3 control-label">Abgeschlossen</label>
             <div class="col-sm-7">
                 <input type="text" value="<?php if($bestellung->getAbgeschlossen() == 1){echo "Ja";}else{echo "Nein";}?>" name="abgeschlossen" class="form-control" id="abgeschlossen" readonly="">
-                }
+                
             </div>
         </div>
         <br>
