@@ -830,7 +830,7 @@ class DB {
         $cnt=0;
         foreach ($intArtikelArray as $x) {
             if ($MengenArray[$cnt] > 0) {
-                
+                $this->doConnect();
                 //zuerst allte einträge löschen und dann einfach neue dazu.
                 $queryINS = "Insert into Lieferantenartikel values (?,?,?);";
                 $stmt1 = $this->conn->prepare($queryINS);
