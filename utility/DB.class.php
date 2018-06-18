@@ -817,12 +817,23 @@ class DB {
             $mengenCnt = $mengenCnt + $AMA;
         }
         
+        
+        foreach($intArtikelArray as $x){
+            $this->doConnect();
+                $queryDEL = "Delete from lieferantenartikel where ArtikelID = ? and lieferantenbestellungsid = ?;";
+                $stmt1 = $this->conn->prepare($queryDEL);
+                $stmt1->bind_param("ii", $x, $LB);
+                $stmt1->execute();
+                $this->conn->close();
+        }
+        
         $cnt=0;
         foreach ($intArtikelArray as $x) {
             if ($MengenArray[$cnt] > 0) {
-                $this->doConnect();
-                $query1 = "UPDATE lieferantenartikel SET Anzahl = ? where ArtikelID = ? and lieferantenbestellungsid = ?;";
-                $stmt1 = $this->conn->prepare($query1);
+                
+                //zuerst allte einträge löschen und dann einfach neue dazu.
+                $queryINS = "Insert into Lieferantenartikel values (?,?,?);";
+                $stmt1 = $this->conn->prepare($queryINS);
                 $stmt1->bind_param("iii", $MengenArray[$cnt], $x, $LB);
                 $stmt1->execute();
                 $this->conn->close();

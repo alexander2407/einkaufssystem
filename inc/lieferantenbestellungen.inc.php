@@ -458,19 +458,15 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             <?php
             $lieferantenartikel = $db->getLieferantenartikel($LBbestellung->getLieferantenbestellungsId());
             $Bestellung = $db->getLieferantenbestellung($_GET['LBaendern']);
-            $
+            $Artikel = $db->getArtikelByLieferant($Bestellung->getLieferantId());
             
-            $artikel = $db->getArtikelByLieferant($_POST['lieferant']);
-            $lieferant = $db->getLieferant($_POST['lieferant']);
-            $zahlungsmethode = $db->getZahlungsmethodeById($_POST['zahlungsmethode']);
-            $v_lieferant = $_POST['lieferant'];
             
-                foreach ($lieferantenartikel as $value) {
+                foreach ($Artikel as $value) {
                     ?>
                     <div class="form-group">
                         <label for="artikelid" class="col-sm-3 control-label">ArtikelId</label>
                         <div class="col-sm-7">
-                            <input type="text" value="<?php echo $value->getArtikelId() ?>" name="artikelid" class="form-control" id="artikelid" placeholder="" readonly="">
+                            <input type="text" value="<?php echo $value->getArtikelId() ?>" name="<?php echo $value->getArtikelId() ?>" class="form-control" id="artikelid" placeholder="" readonly="">
                         </div>
                     </div>
             
@@ -484,16 +480,9 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             
             
                     <div class="form-group">
-                        <label for="anzahl" class="col-sm-3 control-label">Anzahl alt</label>
+                        <label for="anzahl" class="col-sm-3 control-label">Anzahl</label>
                         <div class="col-sm-7">
-                            <input type="text" value="<?php echo $value->getAnzahl() ?>" name="anzahlAlt" class="form-control" id="anzahl" value="" readonly="">
-                        </div>
-                    </div>
-            
-                    <div class="form-group">
-                        <label for="anzahl" class="col-sm-3 control-label">Anzahl neu</label>
-                        <div class="col-sm-7">
-                            <input type="text" value="" name="<?php echo $value->getArtikelId() ?>" class="form-control" id="anzahl" placeholder="" required="">
+                            <input type="text" value="" name="<?php echo $value->getArtikelId() ?>" class="form-control" id="anzahl" value="" required="">
                         </div>
                     </div>
             <br>
@@ -519,14 +508,16 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
     <?php
 }else if(isset($_GET['LBbestellungGeaendert'])){
     $db = new DB();
-    $alleArtikel = $db->getLieferantenartikel($_POST['lieferantenbestellungsid']);//alle artikelIDs einer lieferantenbestellung
+    $lieferantenBestellungsId = $db->getLieferantenbestellung($_POST['lieferantenbestellungsid']);
+    $LieferantID = $lieferantenBestellungsId->getLieferantId();
+    $alleArtikel = $db->getArtikelByLieferant($LieferantID);//alle artikelIDs einer lieferantenbestellung
     
     $MengenArray = array();
             
             $anzahlArtikel = 0;
             foreach($alleArtikel as $arti){
                 
-                $MengenArray[] = $_POST[$alleArtikel[$anzahlArtikel]->getArtikelId()];
+                $MengenArray[] = $_POST[$alleArtikel[$anzahlArtikel]->getArtikelId()];//die anzahl wird aus dem formular in ein array gespeichert.
                 $anzahlArtikel ++;
             }
             
