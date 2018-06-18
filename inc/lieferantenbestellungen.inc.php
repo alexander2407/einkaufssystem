@@ -440,14 +440,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                 </div>
             
                 <div class="form-group">
-                    <label for="zahlungsmethode" class="col-sm-3 control-label">Zahlungsmethode alt</label>
-                    <div class="col-sm-7">
-                        <input type="text" value="<?php echo $LBbestellung->getZahlungsmethode(); ?>" name="zahlungsmethodeAlt" class="form-control" id="zahlungsmethode" readonly="">
-                    </div>
-                </div>
-            
-                <div class="form-group">
-                <label for="zahlungsmethode" class="col-sm-3 control-label">Zahlungsmethode neu</label>
+                <label for="zahlungsmethode" class="col-sm-3 control-label">Zahlungsmethode</label>
                 <div class="col-sm-7">
                     <select name="zahlungsmethodeNeu" class="form-control" id="zahlungsmethode">
                         <?php
@@ -460,10 +453,17 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                 </div>
                 </div>
             
-            <h4>Bestellte Artikel</h4>
+            <h4>Artikel</h4>
             <br>
             <?php
             $lieferantenartikel = $db->getLieferantenartikel($LBbestellung->getLieferantenbestellungsId());
+            $Bestellung = $db->getLieferantenbestellung($_GET['LBaendern']);
+            $
+            
+            $artikel = $db->getArtikelByLieferant($_POST['lieferant']);
+            $lieferant = $db->getLieferant($_POST['lieferant']);
+            $zahlungsmethode = $db->getZahlungsmethodeById($_POST['zahlungsmethode']);
+            $v_lieferant = $_POST['lieferant'];
             
                 foreach ($lieferantenartikel as $value) {
                     ?>
