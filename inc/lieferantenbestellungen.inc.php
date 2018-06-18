@@ -266,6 +266,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             </div>
         </div>
         <h3>Artikel der <?php echo $lieferant->getName(); ?>:</h3>
+        <br>
         <?php
         //$v_lieferant = $_POST['lieferant'];
         if(empty($artikel)){
@@ -279,7 +280,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         }else{
         //hier eventuell mit else und zusätzlichem button erweitern
         foreach ($artikel as $a) {
-            echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
+            echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' pattern='^[1-9][0-9]?$|^100$' title='Bitte wählen Sie eine andere Menge.'></div></div>";
         }
         ?>
 
@@ -482,7 +483,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
                     <div class="form-group">
                         <label for="anzahl" class="col-sm-3 control-label">Anzahl</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="<?php echo $value->getArtikelId() ?>" class="form-control" id="anzahl" value="" required="">
+                            <input type="text" value="" name="<?php echo $value->getArtikelId() ?>" class="form-control" id="anzahl" value="" required="" pattern="^[1-9][0-9]?$|^100$" title="Bitte wählen Sie eine andere Menge.">
                         </div>
                     </div>
             <br>

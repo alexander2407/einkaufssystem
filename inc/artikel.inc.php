@@ -91,7 +91,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         <div class="form-group">
             <label for="mindestbestand" class="col-sm-2 control-label">Mindestbestand</label>
             <div class="col-sm-10">
-                <input type="text" value="<?php echo $artikel->getMindestbestand(); ?>" name="mindestbestand" class="form-control" id="mindestbestand" readonly="">
+                <input type="text" value="<?php echo $artikel->getMindestbestand(); ?>" name="mindestbestand" class="form-control" id="mindestbestand" readonly="" pattern="^[1-9][0-9]?$|^100$" title="Bitte wählen Sie eine andere Menge.">
             </div>
         </div>
         <div class="form-group">
@@ -103,7 +103,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         <div class="form-group">
             <label for="lagerstand" class="col-sm-2 control-label">Lagerstand</label>
             <div class="col-sm-10">
-                <input type="text" value="<?php echo $artikel->getLagerstand(); ?>" name="lagerstand" class="form-control" id="lagerstand" readonly="">
+                <input type="text" value="<?php echo $artikel->getLagerstand(); ?>" name="lagerstand" class="form-control" id="lagerstand" readonly="" pattern="^[1-9][0-9]?$|^500$" title="Bitte wählen Sie eine andere Menge.">
             </div>
         </div>
         <div class="form-group">
@@ -190,7 +190,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         <div class="form-group">
             <label for="mindestbestand" class="col-sm-2 control-label">Mindestbestand</label>
             <div class="col-sm-10">
-                <input type="text" value="<?php echo $artikel->getMindestbestand(); ?>" name="mindestbestand" class="form-control" id="mindestbestand" required="">
+                <input type="text" value="<?php echo $artikel->getMindestbestand(); ?>" name="mindestbestand" class="form-control" id="mindestbestand" required="" pattern="^[1-9][0-9]?$|^100$" title="Bitte wählen Sie eine andere Menge.">
             </div>
         </div>
 
