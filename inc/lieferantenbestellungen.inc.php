@@ -286,7 +286,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         }else{
         //hier eventuell mit else und zusätzlichem button erweitern
         foreach ($artikel as $a) {
-            echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  min='1' title='Bitte wählen Sie eine andere Menge.'></div></div>";
+            echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  min='0' title='Bitte wählen Sie eine andere Menge.'></div></div>";
         }
         ?>
 
