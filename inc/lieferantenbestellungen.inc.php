@@ -350,13 +350,16 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             
 
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
-            
+            $angelegtBoolean = FALSE;
             if($anzahlArtikel > 0){
                 $angelegtBoolean = $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $intArrayMenge, $_POST['zahlungsbedingungenid']);
-                echo '<div class="alert alert-success" role="alert">Lieferantenbestellung angelegt!</div>';
+                //echo '<div class="alert alert-success" role="alert">Lieferantenbestellung angelegt!</div>';
                 
             }
-            else{
+            
+            if($angelegtBoolean == TRUE){
+                echo '<div class="alert alert-success" role="alert">Lieferantenbestellung angelegt!</div>';
+            }else{
                 echo '<div class="alert alert-danger" role="alert">Lieferantenbestellung wurde nicht angelegt!</div>';
             }
             
