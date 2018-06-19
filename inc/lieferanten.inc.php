@@ -1,5 +1,4 @@
 <?php
-$_SESSION['errno'] = 0;
 if (isset($_POST['submit_anlegen']) && isset($_POST['lieferantenname']) && isset($_POST['telefonnummer']) && isset($_POST['zahlungsbedingungen']) && isset($_POST['lieferbedingungen']) && isset($_POST['strasse']) && isset($_POST['hausnummer']) && isset($_POST['ort']) && isset($_POST['nachname']) && isset($_POST['vorname']) && isset($_POST['telefonnummer'])) {
     $db = new DB();
     $lieferantDetail = new LieferantDetail(null, $_POST['lieferantenname'], $_POST['telefonnummer'], $_POST['strasse'], $_POST['hausnummer'], $_POST['ort'], null, null, null, null, null, true, $_POST['zahlungsbedingungen'], null, null, null, $_POST['lieferbedingungen'], null, null, null, null, null, null, null);
@@ -15,18 +14,7 @@ if (isset($_POST['submit_anlegen']) && isset($_POST['lieferantenname']) && isset
             $db->insertLieferantLiefert($lieferantliefert);
         }
     }
-
-    if (is_numeric($_POST['hausnummer'])) {
-        if ($_POST['hausnummer'] <= 0) {
-            echo "<div class='alert alert-danger' role='alert'> Hausnummer darf nicht kleiner gleich 0 sein. </div>";
-            $_SESSION['errno'] = 1;
-        } else {
-            echo "<div class='alert alert-success' role='alert'>Lieferant wurde erfolgreich gespeichert. ID:  " . $newId . " </div>";
-        }
-    }
-    else{
-        echo "<div class='alert alert-danger' role='alert'> Hausnummer muss eine Nummer sein. </div>";  
-    }
+    echo "<div class='alert alert-success' role='alert'>Lieferant wurde erfolgreich angelegt.</div>";
 }
 
 if (isset($_POST['submit_aendern']) && isset($_POST['lieferantenname']) && isset($_POST['telefonnummer']) && isset($_POST['zahlungsbedingungen']) && isset($_POST['lieferbedingungen']) && isset($_POST['strasse']) && isset($_POST['hausnummer']) && isset($_POST['ort']) && isset($_POST['nachname']) && isset($_POST['vorname']) && isset($_POST['telefonnummer'])) {
@@ -46,13 +34,7 @@ if (isset($_POST['submit_aendern']) && isset($_POST['lieferantenname']) && isset
             $db->deleteLieferantliefert($_POST['lieferantId'], $value->getArtikelId());
         }
     }
-
-    if ($_POST['hausnummer'] <= 0) {
-        echo "<div class='alert alert-danger' role='alert'> Hausnummer darf nicht kleiner gleich 0 sein. </div>";
-        $_SESSION['errno'] = 1;
-    } else {
-        echo "<div class='alert alert-success' role='alert'>Lieferant wurde erfolgreich geändert.</div>";
-    }
+    echo "<div class='alert alert-success' role='alert'>Lieferant wurde erfolgreich geändert.</div>";
 }
 
 if (isset($_POST['lieferantid']) && isset($_POST['artikelid'])) {
@@ -76,7 +58,7 @@ if (!empty($_GET['aktivieren'])) {
     $db->setLieferantAktiv($_GET['aktivieren']);
 }
 
-if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLieferant']) && !isset($_GET['new2']) && $_SESSION['errno'] == 0) {
+if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLieferant']) && !isset($_GET['new2'])) {
 
     echo "<div><a class='btn btn-default' href='index.php?neuerLieferant=TRUE' role='button'>Lieferanten anlegen</a></div><br>";
 
@@ -251,10 +233,10 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
         </div>
         <br>
         <h4>Angebotene Artikel</h4>
-    <?php
-    if (count($artikelliste) > 0) {
-        foreach ($artikelliste as $value) {
-            ?>
+        <?php
+        if (count($artikelliste) > 0) {
+            foreach ($artikelliste as $value) {
+                ?>
                 <div class="form-group">
                     <label for="artikelid" class="col-sm-2 control-label">ArtikelID</label>
                     <div class="col-sm-10">
@@ -268,12 +250,12 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
                     </div>
                 </div>
                 <br>
-            <?php
+                <?php
+            }
+        } else {
+            echo '<p>Zu diesem Lieferanten gibt es keine Artikel.</p>';
         }
-    } else {
-        echo '<p>Zu diesem Lieferanten gibt es keine Artikel.</p>';
-    }
-    ?>
+        ?>
     </form>
 
     <?php
@@ -337,7 +319,7 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerLi
   </div>
   </form>
   <?php
-  } */ else if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] != 0) {
+  } */ else if (isset($_GET['neuerLieferant'])) {
     include './inc/lieferantAnlegen.inc.php';
 } else if (isset($_GET['aendern']) || $_SESSION['errno'] != 0) {
     include './inc/lieferantAendern.inc.php';

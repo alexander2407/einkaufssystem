@@ -286,7 +286,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         }else{
         //hier eventuell mit else und zusätzlichem button erweitern
         foreach ($artikel as $a) {
-            echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' pattern='^[0-9][0-9]?$|^100$' title='Bitte wählen Sie eine andere Menge.'></div></div>";
+            echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  min='1' title='Bitte wählen Sie eine andere Menge.'></div></div>";
         }
         ?>
 
@@ -395,7 +395,13 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             
             if($anzahlArtikel > 0){
                 $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $intArrayMenge, $_POST['zahlungsbedingungenid']);
+                echo '<div class="alert alert-success" role="alert">Bestellung angelegt!</div>';
+                
             }
+            else{
+                echo '<div class="alert alert-danger" role="alert">Eine Bestellung muss Artikel beinhalten!</div>';
+            }
+            
             
             
             
@@ -404,7 +410,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
 
     ?>
     
-    <div class="alert alert-success" role="alert">Bestellung angelegt!</div>
+    
     <?php
     echo "<br>";
             echo "<div class='col-sm-offset-2 col-sm-10'>
