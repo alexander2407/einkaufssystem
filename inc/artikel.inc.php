@@ -17,9 +17,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
     if (!empty($_GET['lieferantid']) && !empty($_GET['artikelid'])) {
     $db = new DB();
     if($db->lieferant_liefert_artikel()){
-        echo"Artikel zu Lieferant erfolgreich zugeordnet";
+        echo"<div class='alert alert-success' role='alert'>Artikel zu Lieferant erfolgreich zugeordnet</div>";
     }else{
-        echo"Error";
+        echo"<div class='alert alert-danger' role='alert'>Artikel konnte nicht zu Lieferant zugeordnet werden.</div>";
     }
     $_SESSION['neuerArtikel'] = FALSE;
 }
@@ -29,8 +29,9 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
     $artikel = $db->getArtikel();
 
     echo "<div>";
+    echo "<h4>Aufschlag: ".$artikel[0]->getAufschlag()*100 ." %</h4>";
     echo '<table class="table table-striped">';
-    echo "<tr><th>ArtikelID</th><th>Artikelname</th><th>Einkaufspreis</th><th>Verkaufspreis</th><th>Mindestbestand</th><th>Aufschlag</th><th>Lagerstand</th><th>Lagerort</th><th>Umsatzsteuer</th><th>Aktiv</th></tr>";
+    echo "<tr><th>ArtikelID</th><th>Artikelname</th><th>Einkaufspreis</th><th>Verkaufspreis</th><th>Mindestbestand</th><th>Lagerstand</th><th>Lagerort</th><th>Aktiv</th></tr>";
 
     foreach ($artikel as $art) {
         echo "<tr>";
@@ -39,10 +40,8 @@ if (!isset($_GET['detail']) && !isset($_GET['aendern']) && !isset($_GET['neuerAr
         echo "<td>" . $art->getEinkaufspreis() . "</td>";
         echo "<td>" . $art->getVerkaufspreis() . "</td>";
         echo "<td>" . $art->getMindestbestand() . "</td>";
-        echo "<td>" . $art->getAufschlag() * 100 . " %" . "</td>";
         echo "<td>" . $art->getLagerstand() . "</td>";
         echo "<td>" . $art->getLagerort() . "</td>";
-        echo "<td>" . $art->getSteuersatz() . "</td>";
         if ($art->getAktiv() == 1) {
             echo "<td>" . "Ja" . "</td>";
         } else {
