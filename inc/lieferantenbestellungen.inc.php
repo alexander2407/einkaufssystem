@@ -509,13 +509,13 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
 //    echo "<br>";
     
     if($angelegtBoolean == TRUE){
-        echo "<div class='alert alert-success' role='alert'>Bestellung ". $_POST['lieferantenbestellungsid']." bearbeitet!</div>";
+        echo "<div class='alert alert-success' role='alert'>Lieferantenbestellung ". $_POST['lieferantenbestellungsid']." bearbeitet!</div>";
         echo "<br>";
         echo "<div class='col-sm-offset-2 col-sm-10'>
               <a href='index.php?menu=bestellungen' class='btn btn-default'>zurück</a>
               </div>";
     }else{
-        echo "<div class='alert alert-info' role='alert'>Bestellung ". $_POST['lieferantenbestellungsid']." wurde nicht geändert!</div>";
+        echo "<div class='alert alert-info' role='alert'>Lieferantenbestellung ". $_POST['lieferantenbestellungsid']." wurde gelöscht!</div>";
         echo "<br>";
         echo "<div class='col-sm-offset-2 col-sm-10'>
               <a href='index.php?menu=bestellungen' class='btn btn-default'>zurück</a>
