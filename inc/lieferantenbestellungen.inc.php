@@ -348,58 +348,16 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             $artikelMengeArray);
             //$lastid = getLieferantenbestellungsIdLast() + 1;
             
-            
-//            echo "lieferantenname: " . $_POST['lieferant'];
-//            echo "<br>";
-//            echo "lieferantenid: " . $_POST['lieferantid'];
-//            echo "<br>";
-//            echo "ZMid: " . $_POST['zahlungsbedingungenid'];
-//            echo "<br>";
-//            //echo "ZMid: " . $lastid;
-//            echo "<br>";
-//            echo "jetzt das mengenarray testen:";
-//            echo "<br>";
-//            foreach($artikelMengeArray as $menge){
-//                echo "menge: " . $menge. "<br>";
-//            }
-//            echo "jetzt das artikelarray testen:";
-//            echo "<br>";
-//            foreach($alleArtikel as $a){
-//                echo "artikelid: " . $a->getArtikelId(). "<br>";
-//                echo "artikelid: " . $_POST[$a->getArtikelId()] . "<br>";
-//            }
-//            var_dump($artikelMengeArray);
-//            echo "<br>";
-//            var_dump($alleArtikel);
-
-            
-            
-//            echo "<br>";
-//            echo "";
-//            var_dump($intArrayMenge);
-//            
-//            $artikelid = array();
-//            $cnt=0;
-//            foreach($intArrayMenge as $a){
-//            $artikelid[] = $a;
-//            $cnt++;
-//            }
-//            echo "<br>";
-//            var_dump($artikelid);
-//            echo "<br>anzahl erster artikel: ";
-//            echo $intArrayMenge[0];
-        
-
 
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
             
             if($anzahlArtikel > 0){
-                $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $intArrayMenge, $_POST['zahlungsbedingungenid']);
+                $angelegtBoolean = $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $intArrayMenge, $_POST['zahlungsbedingungenid']);
                 echo '<div class="alert alert-success" role="alert">Lieferantenbestellung angelegt!</div>';
                 
             }
             else{
-                echo '<div class="alert alert-danger" role="alert">Eine Lieferantenbestellung muss Artikel beinhalten!</div>';
+                echo '<div class="alert alert-danger" role="alert">Lieferantenbestellung wurde nicht angelegt!</div>';
             }
             
             
@@ -525,6 +483,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
     $LieferantID = $lieferantenBestellungsId->getLieferantId();
     $alleArtikel = $db->getArtikelByLieferant($LieferantID);//alle artikelIDs einer lieferantenbestellung
     
+    
     $MengenArray = array();
             
             $anzahlArtikel = 0;
@@ -538,7 +497,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             function($value) { return (int)$value; },
             $MengenArray);
             
-    $db->updateLieferantenbestellung($_POST['zahlungsmethodeNeu'], $_POST['lieferantenbestellungsid'], $alleArtikel, $intMengenArray);
+    $angelegtBoolean = $db->updateLieferantenbestellung($_POST['zahlungsmethodeNeu'], $_POST['lieferantenbestellungsid'], $alleArtikel, $intMengenArray);
             
             
 //    echo "neue anzahl: ".$_POST['anzahlNeu'];
@@ -546,11 +505,18 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
 //    echo "die neue zahlungsmethode: ".$_POST['zahlungsmethodeNeu'];
 //    echo "<br>";
     
-    
-    echo "<div class='alert alert-success' role='alert'>Bestellung ". $_POST['lieferantenbestellungsid']." bearbeitet!</div>";
-    echo "<br>";
-    echo "<div class='col-sm-offset-2 col-sm-10'>
-          <a href='index.php?menu=bestellungen' class='btn btn-default'>zurück</a>
-          </div>";
+    if($angelegtBoolean == TRUE){
+        echo "<div class='alert alert-success' role='alert'>Bestellung ". $_POST['lieferantenbestellungsid']." bearbeitet!</div>";
+        echo "<br>";
+        echo "<div class='col-sm-offset-2 col-sm-10'>
+              <a href='index.php?menu=bestellungen' class='btn btn-default'>zurück</a>
+              </div>";
+    }else{
+        echo "<div class='alert alert-info' role='alert'>Bestellung ". $_POST['lieferantenbestellungsid']." wurde nicht geändert!</div>";
+        echo "<br>";
+        echo "<div class='col-sm-offset-2 col-sm-10'>
+              <a href='index.php?menu=bestellungen' class='btn btn-default'>zurück</a>
+              </div>";
+    }
 }
 ?>

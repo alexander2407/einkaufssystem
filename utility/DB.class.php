@@ -651,7 +651,8 @@ class DB {
                 $stmt3->bind_param("i", $lastId);
                 $stmt3->execute();
                 $this->conn->close();
-        }
+                return false;
+        }else{return true;}
         //$this->conn->close();
     }
 
@@ -855,7 +856,8 @@ class DB {
                 $stmt3->bind_param("i", $LB);
                 $stmt3->execute();
                 $this->conn->close();
-        }
+                return false;
+        }else{return true;}
         
         
     }
