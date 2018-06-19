@@ -12,7 +12,7 @@ if (!empty($_GET['loeschen'])) {
 
 if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['artikelHinzufügen']) && !isset($_GET['offeneBestellungen']) && !isset($_GET['bestellungAnlegen']) && !isset($_GET['LBbestellungGeaendert'])) {
 
-    echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a> &ensp;"
+    echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Lieferantenbestellung anlegen</a> &ensp;"
     . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Lieferantenbestellungen anzeigen</a></div><br>";
 
     $db = new DB();
@@ -395,11 +395,11 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             
             if($anzahlArtikel > 0){
                 $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $intArrayMenge, $_POST['zahlungsbedingungenid']);
-                echo '<div class="alert alert-success" role="alert">Bestellung angelegt!</div>';
+                echo '<div class="alert alert-success" role="alert">Lieferantenbestellung angelegt!</div>';
                 
             }
             else{
-                echo '<div class="alert alert-danger" role="alert">Eine Bestellung muss Artikel beinhalten!</div>';
+                echo '<div class="alert alert-danger" role="alert">Eine Lieferantenbestellung muss Artikel beinhalten!</div>';
             }
             
             
