@@ -144,9 +144,10 @@ class DB {
         $this->doConnect();
         $query = "SELECT lieferantId "
                 . "FROM lieferantliefert "
-                . "WHERE artikelid=? "
+                . "JOIN lieferant USING(lieferantId) "
+                . "WHERE artikelid=? and aktiv=1 "
                 . "LIMIT 1;";
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($query); 
         $stmt->bind_param("i", $artikelId);
         $stmt->execute();
         $stmt->bind_result($lieferantId);
@@ -204,7 +205,7 @@ class DB {
         $resultArray = array();
         $query = "SELECT artikelId, artikelname, einkaufspreis, verkaufspreis, mindestbestand, aufschlag, lagerstand, lagerort, steuersatz, aktiv "
                 . "FROM artikel join umsatzsteuer using(umsatzsteuerid) "
-                . "WHERE mindestbestand > lagerstand "
+                . "WHERE mindestbestand > lagerstand AND aktiv=1 "
                 . "ORDER BY artikelId;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -268,7 +269,6 @@ class DB {
         $this->conn->close();
 }   
 
-    //es muss nur aus der Tabelle lieferantenbestellung gelöscht werden
     function deleteBestellung($id) {
         $this->doConnect();
         $query = "DELETE FROM lieferantenbestellung WHERE lieferantenbestellungsid=?;";
@@ -604,7 +604,8 @@ class DB {
     function lieferantenbestellungErfassen($lieferantenid, $artikelArray, $artikelMengeArray, $zahlungsmethodeid) {
         //im artikelarray sind lieferantId, name, artikelId, artikelname, man darf aber nur artikelid verwenden!
         $this->doConnect();
-        $abgeschlossen = 1;
+        //neu erfasste Bestellungen sind automatisch nicht abgeschlossen.
+        $abgeschlossen = 0;
         $artikelid = array();
 
         foreach ($artikelArray as $a) {
@@ -622,6 +623,13 @@ class DB {
         //insert in lieferantenartikel vornehmen, abfragen ob anzahl > 0
         $cnt = 0;
         $lastId = $this->getLieferantenbestellungsIdLast();
+        
+        //kontrollieren ob mengen gleich 0 sind
+        $mengenCnt=0;
+        foreach($artikelMengeArray as $AMA){
+            $mengenCnt = $mengenCnt + $AMA;
+        }
+        
         foreach ($intArtikelArray as $x) {
             if ($artikelMengeArray[$cnt] > 0) {
                 $this->doConnect();
@@ -633,6 +641,18 @@ class DB {
             }
             $cnt ++;
         }
+        
+        //sollte bei den bestellten artikeln überall die menge 0 eingegeben werden, wird die bestellung in dieser function gleich wieder gelöscht. jedoch setzt das autoincrement
+        //in der tabelle weiter fort (lücken entstehen)
+        if($mengenCnt == 0){
+            $this->doConnect();
+                $query3 = "Delete From lieferantenbestellung where lieferantenbestellungsID = ?;";
+                $stmt3 = $this->conn->prepare($query3);
+                $stmt3->bind_param("i", $lastId);
+                $stmt3->execute();
+                $this->conn->close();
+                return false;
+        }else{return true;}
         //$this->conn->close();
     }
 
@@ -774,6 +794,75 @@ class DB {
     }
         $this->conn->close();
     }
+    
+    function updateLieferantenbestellung($ZM, $LB, $artikelArray, $MengenArray){
+        $this->doConnect();
+        $query = "UPDATE lieferantenbestellung SET zahlungsmethodeid = ? where lieferantenbestellungsid = ?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii", $ZM, $LB);
+        $stmt->execute();
+        
+        //artikelIdArray in ein array aus int umwandeln
+        $artikelid = array();
+        foreach ($artikelArray as $a) {
+            $artikelid[] = $a->getArtikelId();
+        }
+        $intArtikelArray = array_map(
+                function($value) {
+            return (int) $value;
+        }, $artikelid);
+        
+        //kontrolle falls überall 0 als Menge eingegen wurde
+        $mengenCnt=0;
+        foreach($MengenArray as $AMA){
+            $mengenCnt = $mengenCnt + $AMA;
+        }
+        
+        
+        foreach($intArtikelArray as $x){
+            $this->doConnect();
+                $queryDEL = "Delete from lieferantenartikel where ArtikelID = ? and lieferantenbestellungsid = ?;";
+                $stmt1 = $this->conn->prepare($queryDEL);
+                $stmt1->bind_param("ii", $x, $LB);
+                $stmt1->execute();
+                $this->conn->close();
+        }
+        
+        $cnt=0;
+        foreach ($intArtikelArray as $x) {
+            if ($MengenArray[$cnt] > 0) {
+                $this->doConnect();
+                //zuerst allte einträge löschen und dann einfach neue dazu.
+                $queryINS = "Insert into Lieferantenartikel values (?,?,?);";
+                $stmt1 = $this->conn->prepare($queryINS);
+                $stmt1->bind_param("iii", $MengenArray[$cnt], $x, $LB);
+                $stmt1->execute();
+                $this->conn->close();
+            }else{
+                $this->doConnect();
+                $query2 = "DELETE From lieferantenartikel where ArtikelID = ? and lieferantenbestellungsid = ?;";
+                $stmt2 = $this->conn->prepare($query2);
+                $stmt2->bind_param("ii", $x, $LB);
+                $stmt2->execute();
+                $this->conn->close();
+            }
+            $cnt ++;
+        }
+        
+        if($mengenCnt == 0){
+            $this->doConnect();
+                $query3 = "Delete From lieferantenbestellung where lieferantenbestellungsID = ?;";
+                $stmt3 = $this->conn->prepare($query3);
+                $stmt3->bind_param("i", $LB);
+                $stmt3->execute();
+                $this->conn->close();
+                return false;
+        }else{return true;}
+        
+        
+    }
+    
+    
 
     /* function writeMitarbeiter($mitarbeiter) {
       $this->doConnect();

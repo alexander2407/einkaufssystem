@@ -83,7 +83,7 @@ if (!empty($_GET['artikelname'])) {
         <div class="form-group">
             <label for="einkaufspreis" class="col-sm-2 control-label">Einkaufspreis</label>
             <div class="col-sm-10">
-                <input type="text"  name="einkaufspreis" class="form-control" id="einkaufspreis"  required="">
+                <input type="text"  name="einkaufspreis" class="form-control" id="einkaufspreis"  required="" pattern="^[1-9][0-9]?$|^100$" title="Bitte eine gültige Zahl eingeben.">
             </div>
         </div>
         <!--<div class="form-group">
@@ -95,7 +95,7 @@ if (!empty($_GET['artikelname'])) {
         <div class="form-group">
             <label for="mindestbestand" class="col-sm-2 control-label">Mindestbestand</label>
             <div class="col-sm-10">
-                <input type="text" name="mindestbestand" class="form-control" id="mindestbestand"  required="">
+                <input type="text" name="mindestbestand" class="form-control" id="mindestbestand"  required="" pattern="^[1-9][0-9]?$|^100$" title="Bitte wählen Sie eine andere Menge.">
             </div>
         </div>
         <!--<div class="form-group">

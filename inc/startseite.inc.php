@@ -14,10 +14,10 @@ if (isset($_GET['artikel']) && isset($_GET['menge'])) {
         $lieferantenartikel = new Lieferantenartikel($lieferantenbestellungsId, null, $artikelId, null, $lieferantId, null, $menge);
         $val = $db->insertLieferantenartikel($lieferantenartikel);
         if ($val) {
-            echo "<div class='alert alert-success' role='alert'>Bestellung für Artikel " . $artikel->getArtikelname() . " mit ID " . $artikel->getArtikelId() . " wurde erfolgreich angelegt. Nachbestellte Menge:" . $menge . "</div>";
+            echo "<div class='alert alert-success' role='alert'>Lieferantenbestellung für Artikel " . $artikel->getArtikelname() . " mit ID " . $artikel->getArtikelId() . " wurde erfolgreich angelegt. Nachbestellte Menge:" . $menge . "</div>";
         }
     } else {
-        echo "<div class='alert alert-danger' role='alert'>Bestellung für Artikel " . $artikel->getArtikelname() . " mit ID " . $artikel->getArtikelId() . " konnte nicht angelegt werden. Es gibt keinen Lieferanten für diesen Artikel</div>";
+        echo "<div class='alert alert-danger' role='alert'>Lieferantenbestellung für Artikel " . $artikel->getArtikelname() . " mit ID " . $artikel->getArtikelId() . " konnte nicht angelegt werden. Es gibt keinen Lieferanten für diesen Artikel</div>";
     }
 }
 
@@ -30,7 +30,7 @@ if (count($artikelUnterBestand) > 0) {
             echo "<div class='alert alert-danger' role='alert'><b>Artikel " . $artikel->getArtikelname() . " mit ID " . $artikel->getArtikelId() . "</b> hat Mindestbestand unterschritten! Nachzubestellende Menge:" . $menge . "<br><a href='index.php?artikel=" . $artikel->getArtikelId() . "&menge=$menge'>Lieferantenbestellung erzeugen</a></div>";
         }
         else{
-            echo "<div class='alert alert-warning' role='alert'><b>Artikel " . $artikel->getArtikelname() . " mit ID " . $artikel->getArtikelId() . "</b> hat Mindestbestand unterschritten! Es liegt eine offene Bestellung zu diesem Artikel vor.</div>";
+            echo "<div class='alert alert-warning' role='alert'><b>Artikel " . $artikel->getArtikelname() . " mit ID " . $artikel->getArtikelId() . "</b> hat Mindestbestand unterschritten! Es liegt eine offene Lieferantenbestellung zu diesem Artikel vor.</div>";
         }
     }
 } else {

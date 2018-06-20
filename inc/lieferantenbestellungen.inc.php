@@ -1,13 +1,18 @@
+<!--Hier ein Beispiel zur Validierung mit HTML:-->
+<!--<input type="text" value="" name="test" class="form-control" id="anzahl" value="" required="" pattern="^[0-9][0-9]?$|^100$" title="Bitte wählen Sie eine andere Menge.">-->
+<!--Unter den Link sind Beispiele zur Anwendung: https://www.w3schools.com/tags/att_input_pattern.asp
+Unter dem Link könnt ihr eure Regex testen: https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_input_pattern-->
+
 <?php
 //$v_lieferant = 0; bei bestehenden lieferantenbestellungen nur die artikelanzahl ändern (bei anzahl 0 artikel löschen), eventuell den lieferanten ändern lassen, wenn er die gleichen artikel liefert.
 if (!empty($_GET['loeschen'])) {
     $db = new DB();
-    $db->deleteBestellung($_GET['loeschen']); //löschen funktioniert
+    $db->deleteBestellung($_GET['loeschen']);
 }
 
-if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['artikelHinzufügen']) && !isset($_GET['offeneBestellungen']) && !isset($_GET['bestellungAnlegen'])) {
+if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueBestellung']) && !isset($_GET['artikelHinzufügen']) && !isset($_GET['offeneBestellungen']) && !isset($_GET['bestellungAnlegen']) && !isset($_GET['LBbestellungGeaendert'])) {
 
-    echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Bestellung anlegen</a> &ensp;"
+    echo "<div><a class='btn btn-default' href='index.php?neueBestellung=TRUE' role='button'>Lieferantenbestellung anlegen</a> &ensp;"
     . "<a class='btn btn-default' href='index.php?offeneBestellungen=TRUE' role='button'>offene Lieferantenbestellungen anzeigen</a></div><br>";
 
     $db = new DB();
@@ -83,7 +88,8 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         <div class="form-group">
             <label for="abgeschlossen" class="col-sm-3 control-label">Abgeschlossen</label>
             <div class="col-sm-7">
-                <input type="text" value="<?php echo $bestellung->getAbgeschlossen(); ?>" name="abgeschlossen" class="form-control" id="abgeschlossen" readonly="">
+                <input type="text" value="<?php if($bestellung->getAbgeschlossen() == 1){echo "Ja";}else{echo "Nein";}?>" name="abgeschlossen" class="form-control" id="abgeschlossen" readonly="">
+                
             </div>
         </div>
         <br>
@@ -266,6 +272,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             </div>
         </div>
         <h3>Artikel der <?php echo $lieferant->getName(); ?>:</h3>
+        <br>
         <?php
         //$v_lieferant = $_POST['lieferant'];
         if(empty($artikel)){
@@ -279,7 +286,7 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         }else{
         //hier eventuell mit else und zusätzlichem button erweitern
         foreach ($artikel as $a) {
-            echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  required='' ></div></div>";
+            echo "<div class='form-group'><label for='artikelname' class='col-sm-2 control-label'>" . $a->getArtikelname() . "</label><div class='col-sm-10'><input type='number' name='" . $a->getArtikelid() . "' class='form-control' id='artikelname'  min='0' title='Bitte wählen Sie eine andere Menge.'></div></div>";
         }
         ?>
 
@@ -341,54 +348,21 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
             $artikelMengeArray);
             //$lastid = getLieferantenbestellungsIdLast() + 1;
             
-            
-//            echo "lieferantenname: " . $_POST['lieferant'];
-//            echo "<br>";
-//            echo "lieferantenid: " . $_POST['lieferantid'];
-//            echo "<br>";
-//            echo "ZMid: " . $_POST['zahlungsbedingungenid'];
-//            echo "<br>";
-//            //echo "ZMid: " . $lastid;
-//            echo "<br>";
-//            echo "jetzt das mengenarray testen:";
-//            echo "<br>";
-//            foreach($artikelMengeArray as $menge){
-//                echo "menge: " . $menge. "<br>";
-//            }
-//            echo "jetzt das artikelarray testen:";
-//            echo "<br>";
-//            foreach($alleArtikel as $a){
-//                echo "artikelid: " . $a->getArtikelId(). "<br>";
-//                echo "artikelid: " . $_POST[$a->getArtikelId()] . "<br>";
-//            }
-//            var_dump($artikelMengeArray);
-//            echo "<br>";
-//            var_dump($alleArtikel);
-
-            
-            
-//            echo "<br>";
-//            echo "";
-//            var_dump($intArrayMenge);
-//            
-//            $artikelid = array();
-//            $cnt=0;
-//            foreach($intArrayMenge as $a){
-//            $artikelid[] = $a;
-//            $cnt++;
-//            }
-//            echo "<br>";
-//            var_dump($artikelid);
-//            echo "<br>anzahl erster artikel: ";
-//            echo $intArrayMenge[0];
-        
-
 
             //array erstellen mit artikelid und der zugehörigen menge, und dieses der funktion übergeben.
-            
+            $angelegtBoolean = FALSE;
             if($anzahlArtikel > 0){
-                $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $intArrayMenge, $_POST['zahlungsbedingungenid']);
+                $angelegtBoolean = $db->lieferantenbestellungErfassen($_POST['lieferantid'], $alleArtikel, $intArrayMenge, $_POST['zahlungsbedingungenid']);
+                //echo '<div class="alert alert-success" role="alert">Lieferantenbestellung angelegt!</div>';
+                
             }
+            
+            if($angelegtBoolean == TRUE){
+                echo '<div class="alert alert-success" role="alert">Lieferantenbestellung angelegt!</div>';
+            }else{
+                echo '<div class="alert alert-danger" role="alert">Lieferantenbestellung wurde nicht angelegt!</div>';
+            }
+            
             
             
             
@@ -397,12 +371,20 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
 
     ?>
     
-    <div class="alert alert-success" role="alert">Bestellung angelegt!</div>
+    
+    <?php
+    echo "<br>";
+            echo "<div class='col-sm-offset-2 col-sm-10'>
+                    <a href='index.php?neueBestellung=TRUE' class='btn btn-default'>zurück</a>
+                  </div>";
+            
+    ?>
 <!--    hier vielleicht noch abfragen ob die anzahl der artikel der lieferanten kleiner 1 sind, dann ein rotes aler mit nicht angelegt.-->
     <?php
     }else if (isset($_GET['LBaendern'])) {
         $db = new DB();
         $LBbestellung = $db->getLieferantenbestellung($_GET['LBaendern']);
+        $zahlungsmethoden = $db->getZahlungsmethode();
         
     if($LBbestellung->getAbgeschlossen() == 1){
         echo "<br>";
@@ -415,50 +397,129 @@ if (!isset($_GET['detail']) && !isset($_GET['LBaendern']) && !isset($_GET['neueB
         ?>
         <h3>Lieferantenbestellung <?php echo $_GET['LBaendern']?> bearbeiten</h3>
         <br>
-
-            <h4>Lieferantenartikel zu dieser Bestellung</h4>
+        <form class="form-horizontal" method="POST" action="index.php?LBbestellungGeaendert=TRUE">
+            <br>
+                <div class="form-group">
+                    <label for="lieferantenbestellungsid" class="col-sm-3 control-label">LieferantenBestelungsID</label>
+                    <div class="col-sm-7">
+                        <input type="text" value="<?php echo $LBbestellung->getLieferantenbestellungsId(); ?>" name="lieferantenbestellungsid" class="form-control" id="lieferantenbestellungsid" readonly="">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lieferantname" class="col-sm-3 control-label">Name</label>
+                    <div class="col-sm-7">
+                        <input type="text" value="<?php echo $LBbestellung->getLieferantName(); ?>" name="lieferantname" class="form-control" id="lieferantname" readonly="">
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                <label for="zahlungsmethode" class="col-sm-3 control-label">Zahlungsmethode</label>
+                <div class="col-sm-7">
+                    <select name="zahlungsmethodeNeu" class="form-control" id="zahlungsmethode">
+                        <?php
+                        //echo "<option value=" . 0 . " disabled>Bitte Lieferant wählen</option>";
+                        foreach ($zahlungsmethoden as $zahlungsmethode) {
+                            echo "<option value=" . $zahlungsmethode->getZahlungsmethodeid() . ">" . $zahlungsmethode->getZahlungsmethodename() . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                </div>
+            
+            <h4>Artikel</h4>
+            <br>
             <?php
             $lieferantenartikel = $db->getLieferantenartikel($LBbestellung->getLieferantenbestellungsId());
-                foreach ($lieferantenartikel as $value) {
+            $Bestellung = $db->getLieferantenbestellung($_GET['LBaendern']);
+            $Artikel = $db->getArtikelByLieferant($Bestellung->getLieferantId());
+            
+            
+                foreach ($Artikel as $value) {
                     ?>
                     <div class="form-group">
                         <label for="artikelid" class="col-sm-3 control-label">ArtikelId</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="artikelid" class="form-control" id="artikelid" placeholder="<?php echo $value->getArtikelId() ?>">
+                            <input type="text" value="<?php echo $value->getArtikelId() ?>" name="<?php echo $value->getArtikelId() ?>" class="form-control" id="artikelid" placeholder="" readonly="">
                         </div>
                     </div>
             
-            <br>
+            
                     <div class="form-group">
                         <label for="artikelname" class="col-sm-3 control-label">Artikelname</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="artikelname" class="form-control" id="artikelname" placeholder="<?php echo $value->getArtikelname() ?>">
+                            <input type="text" value="<?php echo $value->getArtikelname() ?>" name="artikelname" class="form-control" id="artikelname" placeholder="" readonly="">
                         </div>
                     </div>
             
-            <br>
+            
                     <div class="form-group">
                         <label for="anzahl" class="col-sm-3 control-label">Anzahl</label>
                         <div class="col-sm-7">
-                            <input type="text" value="" name="anzahl" class="form-control" id="anzahl" placeholder="<?php echo $value->getAnzahl() ?>">
+                            <input type="text" value="" name="<?php echo $value->getArtikelId() ?>" class="form-control" id="anzahl" value="" required="" pattern="^[0-9][0-9]?$|^100$" title="Bitte wählen Sie eine andere Menge.">
                         </div>
                     </div>
-            
             <br>
+            <?php
+                }
+            ?>
+            <br>
+            
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-default" name="LBbestellungGeaendert">Lieferantenbestellung ändern</button>
                         </div>
                     </div>
-                    <br>
+                    
                     
                     <?php
-                }
+                //}
     }
         ?>
 
 
     </form>
     <?php
+}else if(isset($_GET['LBbestellungGeaendert'])){
+    $db = new DB();
+    $lieferantenBestellungsId = $db->getLieferantenbestellung($_POST['lieferantenbestellungsid']);
+    $LieferantID = $lieferantenBestellungsId->getLieferantId();
+    $alleArtikel = $db->getArtikelByLieferant($LieferantID);//alle artikelIDs einer lieferantenbestellung
+    
+    
+    $MengenArray = array();
+            
+            $anzahlArtikel = 0;
+            foreach($alleArtikel as $arti){
+                
+                $MengenArray[] = $_POST[$alleArtikel[$anzahlArtikel]->getArtikelId()];//die anzahl wird aus dem formular in ein array gespeichert.
+                $anzahlArtikel ++;
+            }
+            
+            $intMengenArray = array_map(
+            function($value) { return (int)$value; },
+            $MengenArray);
+            
+    $angelegtBoolean = $db->updateLieferantenbestellung($_POST['zahlungsmethodeNeu'], $_POST['lieferantenbestellungsid'], $alleArtikel, $intMengenArray);
+            
+            
+//    echo "neue anzahl: ".$_POST['anzahlNeu'];
+//    echo "<br>";
+//    echo "die neue zahlungsmethode: ".$_POST['zahlungsmethodeNeu'];
+//    echo "<br>";
+    
+    if($angelegtBoolean == TRUE){
+        echo "<div class='alert alert-success' role='alert'>Lieferantenbestellung ". $_POST['lieferantenbestellungsid']." bearbeitet!</div>";
+        echo "<br>";
+        echo "<div class='col-sm-offset-2 col-sm-10'>
+              <a href='index.php?menu=bestellungen' class='btn btn-default'>zurück</a>
+              </div>";
+    }else{
+        echo "<div class='alert alert-info' role='alert'>Lieferantenbestellung ". $_POST['lieferantenbestellungsid']." wurde gelöscht!</div>";
+        echo "<br>";
+        echo "<div class='col-sm-offset-2 col-sm-10'>
+              <a href='index.php?menu=bestellungen' class='btn btn-default'>zurück</a>
+              </div>";
+    }
 }
 ?>

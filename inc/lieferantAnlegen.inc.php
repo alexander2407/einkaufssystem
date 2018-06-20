@@ -1,7 +1,7 @@
 <?php
 $db = new DB();
 
-if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] == 1) {
+if (isset($_GET['neuerLieferant'])) {
     ?>
     <h3>Neuen Lieferanten anlegen</h3>
     <br>
@@ -81,7 +81,7 @@ if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] == 1) {
         <div class="form-group">
             <label for="hausnummer" class="col-sm-2 control-label">Hausnummer</label>
             <div class="col-sm-10">
-                <input type="number"  name="hausnummer" class="form-control" id="hausnummer"  required="">
+                <input type="number" min="1" name="hausnummer" class="form-control" id="hausnummer"  required="">
             </div>
         </div>
         <div class="form-group">
@@ -150,6 +150,5 @@ if (isset($_GET['neuerLieferant']) || $_SESSION['errno'] == 1) {
     </form>
     <?php
 } 
-$_SESSION['errno'] = 0;
 ?>
 

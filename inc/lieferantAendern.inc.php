@@ -2,7 +2,7 @@
 $db = new DB();
 $lieferantDetail = $db->getLieferant($_GET['aendern']);
 
-if (isset($_GET['aendern']) || $_SESSION['errno'] == 1) {
+if (isset($_GET['aendern'])) {
     ?>
     <h3>Lieferanten bearbeiten</h3>
     <br>
@@ -88,7 +88,7 @@ if (isset($_GET['aendern']) || $_SESSION['errno'] == 1) {
         <div class="form-group">
             <label for="hausnummer" class="col-sm-2 control-label">Hausnummer</label>
             <div class="col-sm-10">
-                <input type="number"  name="hausnummer" value="<?php echo $lieferantDetail->getHausnummer(); ?>" class="form-control" id="hausnummer"  required="">
+                <input type="number" min="1" name="hausnummer" value="<?php echo $lieferantDetail->getHausnummer(); ?>" class="form-control" id="hausnummer"  required="">
             </div>
         </div>
         <div class="form-group">
@@ -175,6 +175,5 @@ if (isset($_GET['aendern']) || $_SESSION['errno'] == 1) {
     </form>
     <?php
 }
-$_SESSION['errno'] = 0;
 ?>
 
