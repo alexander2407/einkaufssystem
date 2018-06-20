@@ -1,14 +1,14 @@
 <h3>Neuen Artikel anlegen</h3>
 <?php
-if (!empty($_GET['lieferantid']) && !empty($_GET['artikelid'])) {
-    $db = new DB();
-    if($db->lieferant_liefert_artikel()){
-        echo"Artikel zu Lieferant erfolgreich zugeordnet";
-    }else{
-        echo"Error";
-    }
-    $_SESSION['neuerArtikel'] = FALSE;
-}
+//if (!empty($_GET['lieferantid']) && !empty($_GET['artikelid'])) {
+ //   $db = new DB();
+ //   if($db->lieferant_liefert_artikel()){
+   //     echo"Artikel zu Lieferant erfolgreich zugeordnet";
+  //  }else{
+  //      echo"Error";
+ //   }
+ //   $_SESSION['neuerArtikel'] = FALSE;
+//}
 
 if (!empty($_GET['artikelname'])) {
     $db = new DB();
