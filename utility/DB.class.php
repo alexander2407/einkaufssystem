@@ -491,8 +491,8 @@ class DB {
 
 
         echo "<br>";
-        echo "Artikel erfolgreich angelegt";
-
+        //echo "Artikel erfolgreich angelegt";
+        echo "<div class='alert alert-success' role='alert'>Artikel wurde erfolgreich angelegt.</div>";
         $this->conn->close();
     }
 
