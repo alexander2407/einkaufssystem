@@ -270,6 +270,7 @@ class DB {
 }   
 
     function deleteBestellung($id) {
+        echo 'test';
         $this->doConnect();
         $query = "DELETE FROM lieferantenbestellung WHERE lieferantenbestellungsid=?;";
         $stmt = $this->conn->prepare($query);
