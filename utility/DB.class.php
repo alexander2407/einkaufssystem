@@ -270,18 +270,18 @@ class DB {
 }   
 
     function deleteBestellung($id) {
-        echo 'test';
         $this->doConnect();
-        $query = "DELETE FROM lieferantenbestellung WHERE lieferantenbestellungsid=?;";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-
+       
         $query = "DELETE FROM lieferantenartikel WHERE lieferantenbestellungsid=?;";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-
+        
+        $query = "DELETE FROM lieferantenbestellung WHERE lieferantenbestellungsid=?;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        
         $this->conn->close();
         if ($stmt) {
             return true;
